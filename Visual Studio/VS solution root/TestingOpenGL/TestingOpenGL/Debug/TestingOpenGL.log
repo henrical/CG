@@ -1,13 +1,13 @@
-﻿Build started 18-09-2015 21:07:34.
-     1>Project "C:\Codigo\Visual Studio\VS solution root\TestingOpenGL\TestingOpenGL\TestingOpenGL.vcxproj" on node 2 (Build target(s)).
+﻿Build started 19-09-2015 12:20:34.
+     1>Project "C:\Codigo\GitHub\CG\Visual Studio\VS solution root\TestingOpenGL\TestingOpenGL\TestingOpenGL.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\VisualStudioUltimate2013Update2\VC\bin\CL.exe /c /I"C:\Codigo\Visual Studio\glut" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
-         Source.cpp
+         C:\Program Files (x86)\VisualStudioUltimate2013Update2\VC\bin\CL.exe /c /I"C:\Codigo\GitHub\CG\Visual Studio\glut\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
        Link:
-         C:\Program Files (x86)\VisualStudioUltimate2013Update2\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Codigo\Visual Studio\VS solution root\TestingOpenGL\Debug\TestingOpenGL.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Codigo\Visual Studio\glut\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Codigo\Visual Studio\VS solution root\TestingOpenGL\Debug\TestingOpenGL.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Codigo\Visual Studio\VS solution root\TestingOpenGL\Debug\TestingOpenGL.lib" /MACHINE:X86 Debug\Source.obj
-         TestingOpenGL.vcxproj -> C:\Codigo\Visual Studio\VS solution root\TestingOpenGL\Debug\TestingOpenGL.exe
-     1>Done Building Project "C:\Codigo\Visual Studio\VS solution root\TestingOpenGL\TestingOpenGL\TestingOpenGL.vcxproj" (Build target(s)).
+         C:\Program Files (x86)\VisualStudioUltimate2013Update2\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Codigo\GitHub\CG\Visual Studio\VS solution root\TestingOpenGL\Debug\TestingOpenGL.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Codigo\GitHub\CG\Visual Studio\glut\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Codigo\GitHub\CG\Visual Studio\VS solution root\TestingOpenGL\Debug\TestingOpenGL.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Codigo\GitHub\CG\Visual Studio\VS solution root\TestingOpenGL\Debug\TestingOpenGL.lib" /MACHINE:X86 Debug\main.obj
+         TestingOpenGL.vcxproj -> C:\Codigo\GitHub\CG\Visual Studio\VS solution root\TestingOpenGL\Debug\TestingOpenGL.exe
+     1>Done Building Project "C:\Codigo\GitHub\CG\Visual Studio\VS solution root\TestingOpenGL\TestingOpenGL\TestingOpenGL.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:15.50
+Time Elapsed 00:00:09.45

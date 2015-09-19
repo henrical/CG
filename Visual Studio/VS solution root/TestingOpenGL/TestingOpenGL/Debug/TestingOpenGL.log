@@ -1,4 +1,4 @@
-﻿Build started 19-09-2015 12:20:34.
+﻿Build started 19-09-2015 14:43:28.
      1>Project "C:\Codigo\GitHub\CG\Visual Studio\VS solution root\TestingOpenGL\TestingOpenGL\TestingOpenGL.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\VisualStudioUltimate2013Update2\VC\bin\CL.exe /c /I"C:\Codigo\GitHub\CG\Visual Studio\glut\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
@@ -10,4 +10,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:09.45
+Time Elapsed 00:00:06.45

@@ -9,6 +9,20 @@ void display()
 
 	//Clear screen.
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	//Set Color. 1 = 255. 
+	//(1,1,1) = white.
+	glColor3f(1.0f, 1.0f, 1.0f);
+
+	//Draw a square.
+	glBegin(GL_POLYGON);
+	glVertex3f(-1.0f, -1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, 1.0f, 0.0f);
+	glEnd();
+
+	glFlush();
 }
 
 void reshape(int h, int w)
@@ -18,7 +32,7 @@ void reshape(int h, int w)
 	bottom = left = GLdouble(2.0f);
 	near_val = GLdouble(-2.0f), far_val = GLdouble(2.0f);
 
-	glViewport(10, 10, 290, 290);
+	glViewport(10, 10, h, w);
 
 	//Pushes Projection matrix to top of the stack.
 	//Loads identity matrix.
@@ -53,7 +67,7 @@ int main(int argc, char** argv)
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 
-	//glutMainLoop();
+	glutMainLoop();
 
 	//GLbyte* c = new GLbyte();
 
@@ -63,7 +77,7 @@ int main(int argc, char** argv)
 
 	//std::cerr << c << std::endl;
 
-	std::getchar();
+	//std::getchar();
 
 	return 0;
 

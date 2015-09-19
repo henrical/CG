@@ -2,6 +2,40 @@
 #include <GL/glut.h>
 #include <Windows.h>
 
+/* ALTERNATIVA*/
+//void display()
+//{
+//	//Set clearing value.
+//	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+//
+//	//Clear screen.
+//	glClear(GL_COLOR_BUFFER_BIT);
+//
+//	//Set Color. 1 = 255. 
+//	glColor3f(1.0f, 0.0f, 0.0f);
+//
+//	//Draw a square.
+//	glBegin(GL_POLYGON);
+//	glVertex3f(0.0f, 1.0f, 0.0f);
+//	glVertex3f(-1.0f, 1.0f, 0.0f);
+//	glVertex3f(-1.0f, -1.0f, 0.0f);
+//	glVertex3f(0.0f, -1.0f, 0.0f);
+//
+//
+//	glColor3f(0.0f, 1.0f, 0.0f);
+//
+//	glVertex3f(0.0f, -1.0f, 0.0f);
+//	glVertex3f(1.0f, -1.0f, 0.0f);
+//	glVertex3f(1.0f, 1.0f, 0.0f);
+//	glVertex3f(0.0f, 1.0f, 0.0f);
+//
+//
+//	glEnd();
+//
+//	glFlush();
+//}
+
+
 void display()
 {
 	//Set clearing value.
@@ -11,15 +45,25 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//Set Color. 1 = 255. 
-	//(1,1,1) = white.
-	glColor3f(1.0f, 1.0f, 1.0f);
+	//RED.
+	glColor3f(1.0f, 0.0f, 0.0f);
 
 	//Draw a square.
 	glBegin(GL_POLYGON);
+	glVertex3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, 1.0f, 0.0f);
 	glVertex3f(-1.0f, -1.0f, 0.0f);
+	glVertex3f(0.0f, -1.0f, 0.0f);
+	glEnd();
+
+	//GREEN
+	glColor3f(0.0f, 1.0f, 0.0f);
+
+	glBegin(GL_POLYGON);
+	glVertex3f(0.0f, -1.0f, 0.0f);
 	glVertex3f(1.0f, -1.0f, 0.0f);
 	glVertex3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, 1.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);
 	glEnd();
 
 	glFlush();
@@ -40,7 +84,7 @@ void reshape(int h, int w)
 	glLoadIdentity();
 	//Define projection.
 	glOrtho(left, right, bottom, top, near_val, far_val);
-
+	
 	//Pushes Model-View matrix to top of the stack.
 	//Loads identity matrix.
 	glMatrixMode(GL_MODELVIEW);
@@ -58,7 +102,7 @@ int main(int argc, char** argv)
 
 	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE);
 
-	glutInitWindowSize(300, 300);
+	glutInitWindowSize(600, 600);
 
 	glutInitWindowPosition(0, 0);
 

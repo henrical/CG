@@ -36,6 +36,12 @@
 //}
 
 
+void printWindowAspect(float aspect, float delta)
+{
+	std::cerr << "Aspect: " << aspect << std::endl << "Delta: " << delta << std::endl;
+	std::cerr << "================================" << std::endl;
+}
+
 void display()
 {
 	//Set clearing value.
@@ -66,29 +72,64 @@ void display()
 	glVertex3f(0.0f, 1.0f, 0.0f);
 	glEnd();
 
+
 	glFlush();
 }
 
+ /** 
+ **	 'h' and 'w' is the height and width 
+ **  of the openGL window.
+ **  They are updated everytime the window
+ **  is resized. 
+ */
 void reshape(int h, int w)
 {
-	GLdouble top, right, bottom, left, near_val, far_val;
-	top = right = GLdouble(-2.0f);
-	bottom = left = GLdouble(2.0f);
-	near_val = GLdouble(-2.0f), far_val = GLdouble(2.0f);
+	float top, right, bottom, left ;
+	float delta;
 
-	glViewport(10, 10, h, w);
+	left = 2., right = -2., bottom = 2., top = -2.;
+
+	// Width Height Ratio
+	float wh_ratio = (right-left) - (top-bottom); // ratio = 0
+	
+	// Aspect ratio of the window
+	float aspect = (float)w / h;
+	
+	//std::cerr << aspect << std::endl;
+
+	// Set Viewport: start at (0,0)
+	// and size of the whole window
+	glViewport(0, 0, w, h);
 
 	//Pushes Projection matrix to top of the stack.
 	//Loads identity matrix.
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//Define projection.
-	glOrtho(left, right, bottom, top, near_val, far_val);
 
 	//Pushes Model-View matrix to top of the stack.
 	//Loads identity matrix.
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	// Define  ortho projection.
+	// Allow window resizing.
+	if (aspect > wh_ratio)
+	{
+		delta = ((top - bottom) * aspect - (right - left)) / 2;
+		printWindowAspect(aspect, delta);
+
+		gluOrtho2D(left - delta, right + delta, bottom, top);
+
+	} else {
+
+		delta = ((top - bottom) / aspect - (right - left)) / 2;
+		printWindowAspect(aspect, delta);
+
+		gluOrtho2D(left, right , bottom - delta, top + delta);
+	}
+
+
+	gluOrtho2D(left, right, bottom, top);
 
 }
 

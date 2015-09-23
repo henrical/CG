@@ -1,32 +1,52 @@
 #include <iostream>
 
 #include "List.h"
+#include "ListElement.h"
 
 template <typename T>
-ListElement<T>::ListElement()
+List<T>::List()
 {
-	next = nullptr;
-	content = 0;
+	first = nullptr;
 }
 
 template <typename T>
-ListElement<T>::ListElement(T first)
+List<T>::List(T content)
 {
-	next = nullptr;
-	content = first;
+	first = new ListElement<T>(content);
+
 }
 
 template <typename T>
-int ListElement<T>::add(T content)
+int List<T>::add(T content)
 {
+	ListElement<T> *newEle;
 
-	ListElement::length += 1;
+	if(first == nullptr)
+	{
+		first = new ListElement<T>(content);
+
+		ListElement::length += 1;
+		
+		std::cout << "Added element [" << first.toString() << "] at starting position" << std::endl;
+	}
+	else {
+		newEle = new ListElement<T>(content);
+
+		newEle.setNext(first);
+
+		first = newEle;
+
+		List::length += 1;
+
+		/*std::cout*/
+	}
+
 }
 
 
 
 int main()
 {
-	ListElement<int>* list = new ListElement<int>();
+	List<int> lst = List<int>();
 	std::cout << "fag";
 }

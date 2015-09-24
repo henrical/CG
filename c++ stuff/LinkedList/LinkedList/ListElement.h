@@ -17,7 +17,7 @@ class ListElement{
 
 		std::string toString();
 
-		int setNext(ListElement ele);
+		int setNext(ListElement *ele);
 };
 
 #endif

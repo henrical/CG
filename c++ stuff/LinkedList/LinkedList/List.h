@@ -11,9 +11,14 @@ class List{
 		ListElement<T> *first;
 
 	private:
-		const static int length = 0;
+		static int length;
 
 	public:
+		static int getLength()
+		{
+			return length;
+		}
+
 		List();
 		List(T first);
 		int add(T ele);

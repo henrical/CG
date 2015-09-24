@@ -23,7 +23,7 @@ std::string ListElement<T>::toString()
 }
 
 template <typename T>
-int ListElement<T>::setNext(ListElement ele)
+int ListElement<T>::setNext(ListElement *ele)
 {
 	if (ele == nullptr) return -1;
 

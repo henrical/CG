@@ -1,7 +1,9 @@
 #include <iostream>
+#include <string>
 
 #include "List.h"
 #include "ListElement.h"
+
 
 template <typename T>
 List<T>::List()
@@ -25,22 +27,23 @@ int List<T>::add(T content)
 	{
 		first = new ListElement<T>(content);
 
-		ListElement::length += 1;
+		List::length = 1;
 		
-		std::cout << "Added element [" << first.toString() << "] at starting position" << std::endl;
+		std::cout << "Added element [" << first->toString() << "] at starting position" << std::endl;
 	}
 	else {
 		newEle = new ListElement<T>(content);
 
-		newEle.setNext(first);
+		newEle->setNext(first);
 
 		first = newEle;
 
 		List::length += 1;
 
-		/*std::cout*/
+		std::cout << "Added element [" << first->toString() << "] at position " << List::getLength() - 1 << "." << std::endl;
 	}
 
+	return 1;
 }
 
 
@@ -48,5 +51,6 @@ int List<T>::add(T content)
 int main()
 {
 	List<int> lst = List<int>();
-	std::cout << "fag";
+	lst.add(3);
+
 }

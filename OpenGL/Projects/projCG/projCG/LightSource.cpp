@@ -2,17 +2,35 @@
 
 #include "LightSource.h"
 
+LightSource::LightSource(){
+
+}
+
+LightSource::LightSource(int n){
+
+}
+
 bool LightSource::getState()
 {
-	return _state;
+	return this->_state;
 }
 
 bool LightSource::setState(bool new_state)
 {
-	return _state = new_state;
+	return this->_state = new_state;
 }
 
 GLenum LightSource::getNum()
 {
 	return _num;
+}
+
+void LightSource::setCutOff(double cut_off)
+{
+	this->_cutOff = cut_off;
+}
+
+void LightSource::setExponent(double exponent)
+{
+	this->_exponent = exponent;
 }

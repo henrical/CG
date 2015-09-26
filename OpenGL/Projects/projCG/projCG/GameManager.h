@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "GL/glut.h"
+#include "LightSource.h"
 
 /**
  * Singleton GameManager class.
@@ -8,7 +9,7 @@
  * 
  * How to use:
  * 
- * GameManager::instance()->class_method();
+ * GameManager::instance()->instance_method();
  *
  **/
 class GameManager {
@@ -17,7 +18,7 @@ class GameManager {
 	private:
 		static GameManager* _instance;
 		int _gameObjects;
-		int _lightSources;
+		LightSource _lightSources[10];
 		int _cameras;
 
 	//Private Methods
@@ -36,7 +37,6 @@ class GameManager {
 			return _instance;
 		}
 
-		//Placeholders
 		void addObject(); //TODO
 		int getObjects(); //TODO
 
@@ -45,6 +45,7 @@ class GameManager {
 		int idle(); //TODO
 		int update(); //TODO
 		int init(); //TODO
+
 
 		// #####################################//
 		// Display and Reshape callback functions.

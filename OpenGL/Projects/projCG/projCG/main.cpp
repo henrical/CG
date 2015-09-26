@@ -3,6 +3,7 @@
 #include "GL/glut.h"
 
 #include "GameManager.h"
+#include "LightSource.h"
 
 int main(int argc, char** argv)
 {
@@ -24,6 +25,7 @@ int main(int argc, char** argv)
 	//#####################################
 
 	GameManager::instance();
+	LightSource *light = new LightSource(3);
 
 
 	//#####################################

@@ -17,15 +17,20 @@ class LightSource {
 		bool _state;
 
 	public:
-		LightSource(int mode); //Mode tem de estar no enum "_num"
-		~LightSource();
+		LightSource();
+		LightSource(int mode); //Mode tem de estar no enum "_num", acho
+		~LightSource(){}
 
 		bool getState();
 		bool setState(bool new_state);
 		GLenum getNum();
-		void setPosition(/*Vector4 &vector*/); //TODO: define Vector4
-
-		//POR ACABAR
-};		
-
+		void setPosition(/*const Vector4 &vector*/); //TODO: define Vector4
+		void setDirection(/*const Vector3 &vector*/); //TODO: define Vector3
+		void setCutOff(double cut_off);
+		void setExponent(double exponent);
+		void setAmbient(/*const Vector4 &vector*/); //TODO
+		void setDiffuse(/*const Vector4 &vector*/); //TODO
+		void setSpecular(/*const Vector4 &vector*/); //TODO
+		void draw(); //TODO
+};
 #endif

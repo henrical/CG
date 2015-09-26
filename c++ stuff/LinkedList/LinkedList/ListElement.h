@@ -2,6 +2,7 @@
 #define _LIST_ELEMENT_H_
 
 #include <iostream>
+#include <string>
 
 
 template <typename T>
@@ -12,12 +13,26 @@ class ListElement{
 		T content;
 
 	public:
-		ListElement();
-		ListElement(T content);
+		ListElement() {
+			next = nullptr;
+			this.content = T();
+		}
 
-		std::string toString();
+		ListElement(T content){
+			next = nullptr;
+			this->content = content;
+		}
 
-		int setNext(ListElement *ele);
+		/*std::string toString(){
+			return content->toString<T>();
+		}*/
+
+		int setNext(ListElement *ele){
+			if (ele == nullptr) return -1;
+
+			this->next = ele;
+			return 1;
+		}
 };
 
 #endif

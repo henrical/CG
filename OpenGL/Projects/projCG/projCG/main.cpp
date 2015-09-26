@@ -18,18 +18,17 @@ int main(int argc, char** argv)
 
 	window = glutCreateWindow("Teste");
 
-	/*glutDisplayFunc(display);
-	glutReshapeFunc(reshape);*/
+	glutDisplayFunc(GameManager::display);
+	glutReshapeFunc(GameManager::reshape);
 
 	//#####################################
 
 	GameManager::instance();
-	GameManager::instance()->addObject();
-	std::cout << GameManager::instance()->getObjects() << std::endl;
+
 
 	//#####################################
 
-	//glutMainLoop();
+	glutMainLoop();
 
 	getchar();
 

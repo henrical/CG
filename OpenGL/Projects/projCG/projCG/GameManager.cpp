@@ -2,6 +2,8 @@
 
 #include "GameManager.h"
 
+GameManager* GameManager::_instance = nullptr;
+
 GameManager::GameManager()
 {
 	_gameObjects = 0 ;
@@ -16,3 +18,4 @@ int GameManager::getObjects()
 {
 	return _gameObjects;
 }
+

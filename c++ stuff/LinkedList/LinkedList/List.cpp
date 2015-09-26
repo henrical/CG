@@ -4,6 +4,11 @@
 #include "List.h"
 #include "ListElement.h"
 
+//template <typename T>
+//ListElement* List<T>::first = nullptr;
+
+template <typename T>
+int List<T>::length = 0;
 
 template <typename T>
 List<T>::List()
@@ -29,7 +34,7 @@ int List<T>::add(T content)
 
 		List::length = 1;
 		
-		std::cout << "Added element [" << first->toString() << "] at starting position" << std::endl;
+		
 	}
 	else {
 		newEle = new ListElement<T>(content);
@@ -40,7 +45,6 @@ int List<T>::add(T content)
 
 		List::length += 1;
 
-		std::cout << "Added element [" << first->toString() << "] at position " << List::getLength() - 1 << "." << std::endl;
 	}
 
 	return 1;

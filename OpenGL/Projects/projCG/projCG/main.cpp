@@ -4,6 +4,7 @@
 
 #include "GameManager.h"
 #include "LightSource.h"
+#include "Vector3.h"
 
 int main(int argc, char** argv)
 {
@@ -26,7 +27,7 @@ int main(int argc, char** argv)
 
 	GameManager::instance();
 	LightSource *light = new LightSource(3);
-
+	Vector3 *vector = new Vector3(1, 2, 3);
 
 	//#####################################
 

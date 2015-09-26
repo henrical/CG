@@ -18,7 +18,7 @@ class GameManager {
 	private:
 		static GameManager* _instance;
 		int _gameObjects;
-		LightSource _lightSources[10];
+		LightSource _lightSources[10]; 
 		int _cameras;
 
 	//Private Methods

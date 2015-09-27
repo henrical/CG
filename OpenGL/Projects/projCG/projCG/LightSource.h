@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "GL/glut.h"
+#include "Vector3.h"
 
 class LightSource {
 
@@ -15,6 +16,8 @@ class LightSource {
 		double _exponent;
 		GLenum _num;
 		bool _state;
+		Vector3 _direction;
+		Vector3 _position;
 
 	public:
 		LightSource();
@@ -25,7 +28,7 @@ class LightSource {
 		bool setState(bool new_state);
 		GLenum getNum();
 		void setPosition(/*const Vector4 &vector*/); //TODO: define Vector4
-		void setDirection(/*const Vector3 &vector*/); //TODO: define Vector3
+		void setDirection(const Vector3 &vector); //TODO
 		void setCutOff(double cut_off);
 		void setExponent(double exponent);
 		void setAmbient(/*const Vector4 &vector*/); //TODO

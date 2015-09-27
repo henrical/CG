@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 #include "Vector3.h"
 
@@ -30,4 +31,14 @@ void Vector3::set(double x, double y, double z){
 	this->_x = x;
 	this->_y = y;
 	this->_z = z;
+}
+
+std::string Vector3::toString(){
+	std::ostringstream convert;
+
+	convert << "(" << this->getX();
+	convert << ", " << this->getY();
+	convert << ", " << this->getZ() << ")." << std::endl;
+
+	return convert.str();
 }

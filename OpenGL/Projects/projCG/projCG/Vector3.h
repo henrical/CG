@@ -40,5 +40,8 @@ class Vector3 {
 		Vector3 operator-(const Vector3 &vector){
 			return Vector3(this->_x - vector.getX(), this->_y - vector.getY(), this->_z - vector.getZ());
 		}
+
+		//Optional
+		std::string toString();
 };
 #endif

@@ -51,6 +51,7 @@ class GameManager {
 		// Display and Reshape callback functions.
 		static void display()
 		{
+			std::cout << "---> Display" << std::endl;
 			//Set clearing value.
 			glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -64,6 +65,7 @@ class GameManager {
 
 		static void reshape(int h, int w)
 		{
+			std::cout << "->Reshape" << std::endl;
 			float top, right, bottom, left, near, far;
 			float delta;
 

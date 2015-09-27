@@ -1,12 +1,13 @@
 #include <iostream>
 
 #include "LightSource.h"
+#include "Vector3.h"
 
 LightSource::LightSource(){
 
 }
 
-LightSource::LightSource(int n){
+LightSource::LightSource(int mode){
 
 }
 
@@ -33,4 +34,8 @@ void LightSource::setCutOff(double cut_off)
 void LightSource::setExponent(double exponent)
 {
 	this->_exponent = exponent;
+}
+
+void LightSource::setDirection(const Vector3 &vector){
+	_direction = vector;
 }

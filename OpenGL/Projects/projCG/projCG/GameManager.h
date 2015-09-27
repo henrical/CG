@@ -58,6 +58,17 @@ class GameManager {
 			//Clear screen.
 			glClear(GL_COLOR_BUFFER_BIT);
 			
+			/*glColor3f(0.968627451f, 1.0f, 0.3921568627f);
+			glutSolidCube(3);
+
+			glTranslatef(0.8, 0.4, 0);
+			glColor3f(0.0f, 0.0f, 1.0f);
+			glutSolidCube(0.2);
+			
+			glColor3f(0.19215686f, 0.19215686f, 0.2901960784f);
+			glTranslatef(0, -0.17, 0);
+			glutSolidCube(0.15);*/
+
 			//TODO
 
 			glFlush();
@@ -72,7 +83,7 @@ class GameManager {
 			left = 2., right = -2., bottom = 2., top = -2., near =-2., far= 2.;
 
 			// Width Height Ratio
-			float wh_ratio = (right - left) - (top - bottom); // ratio = 0
+			float wh_ratio = (right - left) - (top - bottom); 
 
 			// Aspect ratio of the window
 			float aspect = (float)w / h;

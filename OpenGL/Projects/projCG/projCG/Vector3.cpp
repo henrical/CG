@@ -7,9 +7,13 @@ Vector3::Vector3(double x, double y, double z){
 	this->_x = x;
 	this->_y = y;
 	this->_z = z;
+
+	this->isNull = false;
 }
 
 Vector3::Vector3(){
+	this->isNull = true;
+
 }
 
 Vector3::~Vector3(){
@@ -31,6 +35,8 @@ void Vector3::set(double x, double y, double z){
 	this->_x = x;
 	this->_y = y;
 	this->_z = z;
+
+	this->isNull = false;
 }
 
 std::string Vector3::toString(){
@@ -41,4 +47,8 @@ std::string Vector3::toString(){
 	convert << ", " << this->getZ() << ")." << std::endl;
 
 	return convert.str();
+}
+
+bool Vector3::nullp(){
+	return isNull;
 }

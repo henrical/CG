@@ -9,6 +9,9 @@ class Vector3 {
 		double _y;
 		double _z;
 
+		//vector is null initially
+		bool isNull = true;
+
 	public:
 		Vector3();
 		Vector3(double x, double y, double z);
@@ -43,5 +46,6 @@ class Vector3 {
 
 		//Optional
 		std::string toString();
+		bool nullp();
 };
 #endif

@@ -2,6 +2,7 @@
 
 #include "GL/glut.h"
 #include "LightSource.h"
+#include "Car.h"
 
 /**
  * Singleton GameManager class.
@@ -51,17 +52,21 @@ class GameManager {
 		// Display and Reshape callback functions.
 		static void display()
 		{
+			Car* c = new Car();
 			std::cout << "---> Display" << std::endl;
+			
 			//Set clearing value.
 			glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 			//Clear screen.
 			glClear(GL_COLOR_BUFFER_BIT);
 			
-			/*glColor3f(0.968627451f, 1.0f, 0.3921568627f);
-			glutSolidCube(3);
+			glColor3f(0.968627451f, 1.0f, 0.3921568627f);
+			glutSolidCube(2.8);
 
-			glTranslatef(0.8, 0.4, 0);
+
+			c->draw();
+			/*glTranslatef(0.8, 0.4, 0);
 			glColor3f(0.0f, 0.0f, 1.0f);
 			glutSolidCube(0.2);
 			
@@ -76,6 +81,9 @@ class GameManager {
 
 		static void reshape(int h, int w)
 		{
+			//alterar angulo da camara
+			//gluPerspective();
+
 			std::cout << "->Reshape" << std::endl;
 			float top, right, bottom, left, near, far;
 			float delta;

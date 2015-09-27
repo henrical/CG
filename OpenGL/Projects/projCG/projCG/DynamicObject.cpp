@@ -7,6 +7,9 @@ void DynamicObject::update(double delta_t)
 
 }
 
+void DynamicObject::draw(){
+
+}
 
 void DynamicObject::setSpeed(const Vector3 &vector)
 {

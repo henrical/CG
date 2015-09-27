@@ -15,9 +15,10 @@ class Entity {
 		}
 		~Entity(){}
 
-		Vector3* getPosition();
-		Vector3* setPosition(double x, double y, double z);
-		Vector3* setPosition(const Vector3 &vector);
+		//Cannot be overriden/redefined
+		virtual Vector3* getPosition() final;
+		virtual Vector3* setPosition(double x, double y, double z) final;
+		virtual Vector3* setPosition(const Vector3 &vector) final;
 
 		//Optional
 		std::string toString();

@@ -8,6 +8,7 @@
 #include "LightSource.h"
 #include "Vector3.h"
 #include "Entity.h"
+#include "GameObject.h"
 
 int main(int argc, char** argv)
 {
@@ -21,7 +22,7 @@ int main(int argc, char** argv)
 
 	glutInitWindowPosition(0, 0);
 
-	window = glutCreateWindow("Teste");
+	window = glutCreateWindow("Main");
 
 	glutDisplayFunc(GameManager::display);
 	glutReshapeFunc(GameManager::reshape);
@@ -32,11 +33,13 @@ int main(int argc, char** argv)
 	LightSource *light = new LightSource(3);
 	Vector3 *vector = new Vector3(1, 2, 3);
 	Entity *entity = new Entity();
-	
-	/*entity->setPosition(3,4,5);
-	std::cout << entity->toString();
-	entity->setPosition(*vector);
-	std::cout << entity->toString();*/
+	GameObject *obj = new GameObject();
+
+
+	obj->setPosition(3,4,5);
+	std::cout << obj->toString();
+	obj->setPosition(*vector);
+	std::cout << obj->toString();
 
 
 

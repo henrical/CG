@@ -9,7 +9,7 @@
  * 
  * How to use:
  * 
- * GameManager::instance()->instance_method();
+ * GameManager::instance()->key_pressed();
  *
  **/
 class GameManager {

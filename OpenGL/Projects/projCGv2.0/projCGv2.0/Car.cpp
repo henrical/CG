@@ -8,8 +8,8 @@
 void Car::draw()
 {	
 	glPushMatrix();
-	glTranslatef(0, 0, 0);
-	glRotatef(0, 0, 0, 0);
+	glTranslatef(-1.1, 0, 0);
+	glRotatef(-90, 0, 0, 1);
 	glScalef(0.1, 0.1, 0.1);
 
 	//frente

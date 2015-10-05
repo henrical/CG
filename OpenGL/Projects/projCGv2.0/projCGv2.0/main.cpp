@@ -42,7 +42,7 @@ int main(int argc, char** argv)
 
 	glutInitWindowPosition(WINDOW_POS_X, WINDOW_POS_Y);
 
-	window = glutCreateWindow("MicroMachine alpha 0.001");
+	window = glutCreateWindow("MicroMachines alpha v0.1");
 
 	glutDisplayFunc(myDisplay);
 	glutReshapeFunc(myReshape);

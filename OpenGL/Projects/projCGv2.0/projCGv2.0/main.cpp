@@ -47,23 +47,10 @@ int main(int argc, char** argv)
 	glutDisplayFunc(myDisplay);
 	glutReshapeFunc(myReshape);
 	glutKeyboardFunc(myKeyPress);
-	//#####################################
-	/*
-	GameManager::instance();
-	LightSource *light = new LightSource(3);
-	Vector3 *vector = new Vector3(1, 2, 3);
-	Entity *entity = new Entity();
-	DynamicObject *obj = new Car();
 
 
-	obj->setPosition(3,4,5);
-	std::cout << obj->toString();
-	obj->setPosition(*vector);
-	std::cout << obj->toString();
-
-	std::cout << changeScale(212) << std::endl;
-	*/
-	//#####################################
+	
+	
 
 	glutMainLoop();
 

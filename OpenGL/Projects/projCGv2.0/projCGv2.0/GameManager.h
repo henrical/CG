@@ -57,18 +57,22 @@ class GameManager {
 		void addObject(); //TODO
 		int getObjects(); //TODO
 
-		int keyPressed(unsigned char key); //novo##########
-		int onTimer(); //TODO
+		
 		int idle(); //TODO
-		int update(); //TODO
-		int init(); //TODO
+		int init();
 
 
 		// #####################################//
-		// Display and Reshape callback functions.
+		// Callback functions.
 		void display();
 
 		void reshape(int h, int w);
+
+		int keyPressed(unsigned char key); 
+
+		int onTimer(); //TODO
+
+		int update(); //TODO
 		
 		
 

@@ -20,8 +20,6 @@ extern "C" const float CHEERIO_BROWN[] = { 0.7607843137, 0.537254902, 0.17647058
 
 GameManager::GameManager()
 {
-
-	//memset(_lightSources, 0, sizeof _lightSources);
 	_gameObjects = 0 ;
 	camera = 1;
 }
@@ -45,6 +43,22 @@ void GameManager::drawTable(const float color[]){
 	glTranslatef(0.0, 0.0, -1.5);
 	glutSolidCube(3);
 	glPopMatrix();
+}
+
+int GameManager::init(){
+	std::cout << "---> Initializing game objects." << std::endl;
+	
+	drawTable(LIGHT_BLUE);
+
+	Car* car = new Car();
+	car->draw();
+	/*delete c;*/
+
+	Roadside *road = new Roadside();
+	road->draw(CHEERIO_BROWN);
+
+	return 0;
+
 }
 
 void GameManager::display(){
@@ -92,14 +106,7 @@ void GameManager::display(){
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	drawTable(LIGHT_BLUE);
-
-	Car* car = new Car();
-	car->draw();
-	/*delete c;*/
-
-	Roadside *road = new Roadside();
-	road->draw(CHEERIO_BROWN);
+	GameManager::instance()->init();
 
 	glFlush();
 }
@@ -118,10 +125,9 @@ int GameManager::keyPressed(unsigned char key){
 }
 
 void GameManager::reshape(int h, int w){
-	//alterar angulo da camara
-	//gluPerspective();
 
-	std::cout << "->Reshape" << std::endl;
+	std::cout << "--->Reshape" << std::endl;
+
 	float top, right, bottom, left, near, far;
 	float delta;
 

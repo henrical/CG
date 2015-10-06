@@ -45,14 +45,14 @@ void printWindowAspect(float aspect, float delta)
 void display()
 {
 	//Set clearing value.
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 
 	//Clear screen.
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//Set Color. 1 = 255. 
 	//RED.
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor3f(0.0f, 0.0f, 0.0f);
 
 	//Draw a square.
 	glBegin(GL_POLYGON);
@@ -63,14 +63,14 @@ void display()
 	glEnd();
 
 	//GREEN
-	glColor3f(0.0f, 1.0f, 0.0f);
+	/*glColor3f(0.0f, 1.0f, 0.0f);*/
 
-	glBegin(GL_POLYGON);
+	/*glBegin(GL_POLYGON);
 	glVertex3f(0.0f, -1.0f, 0.0f);
 	glVertex3f(1.0f, -1.0f, 0.0f);
 	glVertex3f(1.0f, 1.0f, 0.0f);
 	glVertex3f(0.0f, 1.0f, 0.0f);
-	glEnd();
+	glEnd();*/
 
 
 	glFlush();

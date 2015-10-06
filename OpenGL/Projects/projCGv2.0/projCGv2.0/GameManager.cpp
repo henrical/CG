@@ -11,7 +11,7 @@ GameManager* GameManager::_instance = nullptr;
 // Passar isto a funçoes que pedem um "const float color[]"
 // por exemplo: 
 //	"road->draw(CHEERIO_BROWN);" desenha a estrada da cor dos cheerios
-extern "C" const float WHITE[] = { 0, 0, 0 };
+extern "C" const float WHITE[] = { 1, 1, 1 };
 extern "C" const float LIGHT_BLUE[] = { 0.81960784, 0.8, 1 };
 extern "C" const float LIGHT_GREY[] = { 0.89019607, 0.89019607, 0.89019607};
 extern "C" const float LIGHT_ORANGE[] = { 1, 0.94509803, 0.72156862 };

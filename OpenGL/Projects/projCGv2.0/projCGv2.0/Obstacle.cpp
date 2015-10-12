@@ -9,3 +9,7 @@ Obstacle::Obstacle(){
 Obstacle::~Obstacle(){
 
 }
+
+void Obstacle::draw(){
+
+}

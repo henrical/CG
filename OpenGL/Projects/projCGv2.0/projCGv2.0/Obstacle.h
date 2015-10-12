@@ -8,6 +8,9 @@ class Obstacle : public DynamicObject
 	public: 
 		Obstacle();
 		~Obstacle();
+
+		virtual void draw();
+
 };
 
 #endif

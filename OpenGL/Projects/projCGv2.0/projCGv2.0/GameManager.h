@@ -16,6 +16,7 @@ extern "C" {
 	extern const float LIGHT_ORANGE[];
 	extern const float ORANGE[];
 	extern const float CHEERIO_BROWN[];
+	extern const float YELLOW[];
 }
 
 /**

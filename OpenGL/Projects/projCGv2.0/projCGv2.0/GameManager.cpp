@@ -5,6 +5,7 @@
 #include "Roadside.h"
 #include "generic.h"
 #include "Orange.h"
+#include "Butter.h"
 
 GameManager* GameManager::_instance = nullptr;
 
@@ -17,7 +18,9 @@ extern "C" const float LIGHT_BLUE[] = { 0.81960784, 0.8, 1 };
 extern "C" const float LIGHT_GREY[] = { 0.89019607, 0.89019607, 0.89019607};
 extern "C" const float LIGHT_ORANGE[] = { 1, 0.94509803, 0.72156862 };
 extern "C" const float ORANGE[] = { 1, 0.61568627, 0};
-extern "C" const float CHEERIO_BROWN[] = { 0.7607843137, 0.537254902, 0.1764705882 };
+extern "C" const float CHEERIO_BROWN[] = { 0.6392156863, 0.2980392157, 0 };
+extern "C" const float YELLOW[] = { 0.9647058824, 1, 0.2705882353 };
+
 
 GameManager::GameManager()
 {
@@ -47,20 +50,31 @@ void GameManager::drawTable(const float color[]){
 }
 
 int GameManager::drawGameObjects(){
-	std::cout << "---> Drawing game objects." << std::endl;
-	
+	std::cout << "-----> Drawing game objects." << std::endl;
+
+	int i = 0;
+
 	drawTable(LIGHT_BLUE);
 
 	Car* car = new Car();
 	car->draw();
-	/*delete c;*/
 
 	Roadside *road = new Roadside();
 	road->draw(CHEERIO_BROWN);
 
-	Orange* orange = new Orange(&Vector3(0,0,0));
+	Obstacle* obstacles[10];
+	memset(obstacles, 0, sizeof(obstacles)); //inicializa todo o array a zero
 
-	orange->draw();
+	obstacles[0] = new Orange(&Vector3(0, 1.25, 0));
+	obstacles[1] = new Orange(&Vector3(-0.9, -0.5, 0));
+	obstacles[2] = new Orange(&Vector3(0.9, -0.9, 0));
+	obstacles[3] = new Butter(&Vector3(-0.79,0.85,0), 40.0);
+	obstacles[4] = new Butter(&Vector3(1.25, 0.3, 0), 20.0);
+	obstacles[5] = new Butter(&Vector3(0, -1.2, 0), -25.0);
+
+	for (i; obstacles[i] != 0; i++)
+		obstacles[i]->draw();
+
 
 	return 0;
 

@@ -6,7 +6,7 @@
 #include "Vector3.h"
 
 class Entity {
-	private:
+	protected:
 		Vector3* _position;
 
 	public:

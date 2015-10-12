@@ -4,6 +4,7 @@
 #include "LightSource.h"
 #include "Roadside.h"
 #include "generic.h"
+#include "Orange.h"
 
 GameManager* GameManager::_instance = nullptr;
 
@@ -45,8 +46,8 @@ void GameManager::drawTable(const float color[]){
 	glPopMatrix();
 }
 
-int GameManager::init(){
-	std::cout << "---> Initializing game objects." << std::endl;
+int GameManager::drawGameObjects(){
+	std::cout << "---> Drawing game objects." << std::endl;
 	
 	drawTable(LIGHT_BLUE);
 
@@ -56,6 +57,10 @@ int GameManager::init(){
 
 	Roadside *road = new Roadside();
 	road->draw(CHEERIO_BROWN);
+
+	Orange* orange = new Orange(&Vector3(0,0,0));
+
+	orange->draw();
 
 	return 0;
 
@@ -106,17 +111,20 @@ void GameManager::display(){
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	GameManager::instance()->init();
+	//draw initial scene
+	GameManager::instance()->drawGameObjects();
+	
+	gameHasStarted = true;
 
 	glFlush();
 }
 
 int GameManager::keyPressed(unsigned char key){
-	if (key == '2'){
-		camera = 2;
-	}
-	else if (key == '1'){
+	if (key == '1'){
 		camera = 1;
+	}
+	else if (key == '2'){
+		camera = 2;
 	}
 	else if (key == '3'){
 		camera = 3;

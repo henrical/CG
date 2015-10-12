@@ -48,7 +48,6 @@ int main(int argc, char** argv)
 	glutReshapeFunc(myReshape);
 	glutKeyboardFunc(myKeyPress);
 
-
 	
 	
 

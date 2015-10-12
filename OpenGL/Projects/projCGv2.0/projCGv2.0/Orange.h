@@ -6,7 +6,7 @@
 class Orange : public Obstacle
 {
 	public:
-		Orange();
+		Orange(Vector3 *pos);
 		~Orange();
 
 		void draw();

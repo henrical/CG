@@ -35,6 +35,7 @@ class GameManager {
 		int _gameObjects;
 		LightSource _lightSources[10]; 
 		int _cameras, camera;
+		bool gameHasStarted = false;
 
 	//Private Methods
 	private:
@@ -59,8 +60,9 @@ class GameManager {
 
 		
 		int idle(); //TODO
+		
 		int init();
-
+		int drawGameObjects();
 
 		// #####################################//
 		// Callback functions.

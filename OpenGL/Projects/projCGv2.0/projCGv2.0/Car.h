@@ -14,7 +14,7 @@ class Car : public DynamicObject
 		Vector3* speed;
 		Vector3* acc;
 		double angle;
-		Vector3* direccao;
+		Vector3* direction;
 	public:
 		Car();
 		~Car(){}
@@ -27,7 +27,10 @@ class Car : public DynamicObject
 		void update(int dt);
 		void rodaDireita();
 		void rodaEsquerda();
-		void setDireccao();
+		void setDirection();
+
+		/*void slowDownAcceleration(double acceleration);
+		void slowDownSpeed(double speed);*/
 };
 
 #endif

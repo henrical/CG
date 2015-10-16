@@ -2,9 +2,11 @@
 
 #include "GL/glut.h"
 #include "Roadside.h"
+#include "Cheerio.h"
+#include "GameManager.h"
 
 Roadside::Roadside() {
-
+	game_has_started = false;
 }
 
 Roadside::~Roadside(){
@@ -36,6 +38,8 @@ void Roadside::draw(){
 
 	this->drawRoadsideMargin(color, Vector3(-1.3, -1, 0), 5, SOUTHEAST);
 
+	game_has_started = true;
+
 }
 
 void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num_torus, int direction, int curve){
@@ -43,8 +47,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 	double pos_x = initial.getX(), pos_y = initial.getY(), pos_z = initial.getZ();
 
-	//debug
-	//std::cout << "-----> Drawing road segment in " << pos_x << pos_y << pos_z << std::endl;
+	Cheerio* cheerio;
 
 	//posição da outra margem da estrada
 	float margin_position;
@@ -59,8 +62,12 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 		case OUTSIDE_CURVE:
 
 			glPushMatrix();
-			glTranslatef(pos_x, pos_y, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+			cheerio->draw();
+			
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+			
 			glPopMatrix();
 
 			pos_x += ROAD_PADDING;
@@ -68,15 +75,23 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			for (i = 0; i < num_cheerios; i++)
 			{
 				glPushMatrix();
-				glTranslatef(pos_x, pos_y, pos_z);
-				glutSolidTorus(0.01, 0.02, 50, 50);
+				cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+				cheerio->draw();
+				
+				if (!game_has_started)
+					GameManager::instance()->addObstacle(cheerio);
+				
 				glPopMatrix();
 
 				margin_position = pos_y + ROAD_WIDTH;
 
 				glPushMatrix();
-				glTranslatef(pos_x, margin_position, pos_z);
-				glutSolidTorus(0.01, 0.02, 50, 50);
+				cheerio = new Cheerio(&Vector3(pos_x, margin_position, pos_z));
+				cheerio->draw();
+
+				if (!game_has_started)
+					GameManager::instance()->addObstacle(cheerio);
+				
 				glPopMatrix();
 
 				pos_x += ROAD_PADDING; //ROAD_PADDING is defined in "Roadside.h"
@@ -84,14 +99,22 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			}
 
 			glPushMatrix();
-			glTranslatef(pos_x, pos_y, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+			cheerio->draw();
+
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+
 			glPopMatrix();
 		break;
 		case INSIDE_CURVE:
 			glPushMatrix();
-			glTranslatef(pos_x, pos_y + ROAD_WIDTH, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x, pos_y + ROAD_WIDTH , pos_z));
+			cheerio->draw();
+
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+
 			glPopMatrix();
 
 			pos_x += ROAD_PADDING;
@@ -99,15 +122,23 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			for (i = 0; i < num_cheerios; i++)
 			{
 				glPushMatrix();
-				glTranslatef(pos_x, pos_y, pos_z);
-				glutSolidTorus(0.01, 0.02, 50, 50);
+				cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+				cheerio->draw();
+
+				if (!game_has_started)
+					GameManager::instance()->addObstacle(cheerio);
+
 				glPopMatrix();
 
 				margin_position = pos_y + ROAD_WIDTH;
 
 				glPushMatrix();
-				glTranslatef(pos_x, margin_position, pos_z);
-				glutSolidTorus(0.01, 0.02, 50, 50);
+				cheerio = new Cheerio(&Vector3(pos_x, margin_position, pos_z));
+				cheerio->draw();
+
+				if (!game_has_started)
+					GameManager::instance()->addObstacle(cheerio);
+
 				glPopMatrix();
 
 				pos_x += ROAD_PADDING; //ROAD_PADDING is defined in "Roadside.h"
@@ -115,8 +146,12 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			}
 
 			glPushMatrix();
-			glTranslatef(pos_x, pos_y + ROAD_WIDTH, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x, pos_y + ROAD_WIDTH, pos_z));
+			cheerio->draw();
+
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+
 			glPopMatrix();
 		break;
 		}
@@ -126,8 +161,12 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 		{
 		case INSIDE_CURVE:
 			glPushMatrix();
-			glTranslatef(pos_x, pos_y, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+			cheerio->draw();
+
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+
 			glPopMatrix();
 
 			pos_y += ROAD_PADDING;
@@ -135,15 +174,23 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			for (i = 0; i < num_cheerios; i++)
 			{
 				glPushMatrix();
-				glTranslatef(pos_x, pos_y, pos_z);
-				glutSolidTorus(0.01, 0.02, 50, 50);
+				cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+				cheerio->draw();
+
+				if (!game_has_started)
+					GameManager::instance()->addObstacle(cheerio);
+
 				glPopMatrix();
 
 				margin_position = pos_x + ROAD_WIDTH;
 
 				glPushMatrix();
-				glTranslatef(margin_position, pos_y, pos_z);
-				glutSolidTorus(0.01, 0.02, 50, 50);
+				cheerio = new Cheerio(&Vector3(margin_position, pos_y, pos_z));
+				cheerio->draw();
+
+				if (!game_has_started)
+					GameManager::instance()->addObstacle(cheerio);
+
 				glPopMatrix();
 
 				pos_y += ROAD_PADDING; //ROAD_PADDING is defined in "Roadside.h"
@@ -151,14 +198,22 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			}
 
 			glPushMatrix();
-			glTranslatef(pos_x, pos_y, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+			cheerio->draw();
+
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+
 			glPopMatrix();
 		break;
 		case OUTSIDE_CURVE:
 			glPushMatrix();
-			glTranslatef(pos_x + ROAD_WIDTH, pos_y, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x + ROAD_WIDTH, pos_y, pos_z));
+			cheerio->draw();
+
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+
 			glPopMatrix();
 
 			pos_y += ROAD_PADDING;
@@ -166,15 +221,23 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			for (i = 0; i < num_cheerios; i++)
 			{
 				glPushMatrix();
-				glTranslatef(pos_x, pos_y, pos_z);
-				glutSolidTorus(0.01, 0.02, 50, 50);
+				cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+				cheerio->draw();
+
+				if (!game_has_started)
+					GameManager::instance()->addObstacle(cheerio);
+
 				glPopMatrix();
 
 				margin_position = pos_x + ROAD_WIDTH;
 
 				glPushMatrix();
-				glTranslatef(margin_position, pos_y, pos_z);
-				glutSolidTorus(0.01, 0.02, 50, 50);
+				cheerio = new Cheerio(&Vector3(margin_position, pos_y, pos_z));
+				cheerio->draw();
+
+				if (!game_has_started)
+					GameManager::instance()->addObstacle(cheerio);
+
 				glPopMatrix();
 
 				pos_y += ROAD_PADDING; //ROAD_PADDING is defined in "Roadside.h"
@@ -182,8 +245,12 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			}
 
 			glPushMatrix();
-			glTranslatef(pos_x + ROAD_WIDTH, pos_y, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x + ROAD_WIDTH, pos_y, pos_z));
+			cheerio->draw();
+
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+
 			glPopMatrix();
 		break;
 		}
@@ -193,6 +260,8 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 void Roadside::drawRoadsideMargin(const float color[], Vector3 initial, int num_torus, int direction){
 	int i, num_cheerios = num_torus;
+
+	Cheerio* cheerio;
 
 	double pos_x = initial.getX(), pos_y = initial.getY(), pos_z = initial.getZ();
 
@@ -204,8 +273,12 @@ void Roadside::drawRoadsideMargin(const float color[], Vector3 initial, int num_
 		for (i = 0; i < num_cheerios; i++)
 		{
 			glPushMatrix();
-			glTranslatef(pos_x, pos_y, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+			cheerio->draw();
+
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+			
 			glPopMatrix();
 
 			pos_x += ANGLED_ROAD_PADDING; 
@@ -216,8 +289,12 @@ void Roadside::drawRoadsideMargin(const float color[], Vector3 initial, int num_
 		for (i = 0; i < num_cheerios; i++)
 		{
 			glPushMatrix();
-			glTranslatef(pos_x, pos_y, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+			cheerio->draw();
+			
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+
 			glPopMatrix();
 
 			pos_x += ANGLED_ROAD_PADDING;
@@ -228,8 +305,12 @@ void Roadside::drawRoadsideMargin(const float color[], Vector3 initial, int num_
 		for (i = 0; i < num_cheerios; i++)
 		{
 			glPushMatrix();
-			glTranslatef(pos_x, pos_y, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+			cheerio->draw();
+			
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+
 			glPopMatrix();
 
 			pos_x = pos_x - ANGLED_ROAD_PADDING;
@@ -240,8 +321,12 @@ void Roadside::drawRoadsideMargin(const float color[], Vector3 initial, int num_
 		for (i = 0; i < num_cheerios; i++)
 		{
 			glPushMatrix();
-			glTranslatef(pos_x, pos_y, pos_z);
-			glutSolidTorus(0.01, 0.02, 50, 50);
+			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
+			cheerio->draw();
+			
+			if (!game_has_started)
+				GameManager::instance()->addObstacle(cheerio);
+
 			glPopMatrix();
 
 			pos_x = pos_x - ANGLED_ROAD_PADDING;

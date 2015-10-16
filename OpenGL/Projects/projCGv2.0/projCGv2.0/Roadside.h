@@ -24,6 +24,9 @@
 #define ROAD_WIDTH 0.4
 
 class Roadside : public StaticObject {
+private:
+	bool game_has_started;
+
 public:
 	Roadside();
 	~Roadside();

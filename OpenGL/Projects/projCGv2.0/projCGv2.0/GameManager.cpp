@@ -7,6 +7,7 @@
 #include "Orange.h"
 #include "Butter.h"
 #include "Table.h"
+#include "Cheerio.h"
 
 GameManager* GameManager::_instance = nullptr;
 
@@ -27,16 +28,23 @@ GameManager::GameManager()
 {
 	currtime = 0;
 	prevtime = 0;
-	numGameObjects = 3;
-	numObstaculos = 6;
+	numGameObjects = 0;
+	numObstaculos = 0;
 	camera = 1;
-	arames = false;
+	wireframe = false;
 	init();
 }
 
-void GameManager::addObject()
+void GameManager::addObject(GameObject *obj)
 {
+	_gameObjects[numGameObjects] = obj;
 	numGameObjects += 1;
+}
+
+void GameManager::addObstacle(Obstacle *obs){
+	obstacles[numObstaculos] = obs;
+	numObstaculos += 1;
+	std::cout << "##### Obstacles[] contains " << numObstaculos << "elements" << std::endl;
 }
 
 int GameManager::getObjects()
@@ -56,20 +64,24 @@ int GameManager::getObjects()
 }*/
 
 int GameManager::init(){
-	_gameObjects[0] = (Car*) new Car();
-	_gameObjects[1] = new Table();
-	_gameObjects[2] = (Roadside*) new Roadside();
-	numGameObjects = 3;
 
-	obstacles[0] = new Orange(&Vector3(0, 1.25, 0));
-	obstacles[1] = new Orange(&Vector3(-0.9, -0.5, 0));
-	obstacles[2] = new Orange(&Vector3(0.9, -0.9, 0));
-	obstacles[3] = new Butter(&Vector3(-0.79, 0.85, 0), 40.0);
-	obstacles[4] = new Butter(&Vector3(1.25, 0.3, 0), 20.0);
-	obstacles[5] = new Butter(&Vector3(0, -1.2, 0), -25.0);
-	obstacles[6] = new Butter(&Vector3(1, 1.2, 0), 55.0);
-	obstacles[7] = new Butter(&Vector3(-1.2, -1, 0), - 30);
-	numObstaculos = 8;
+	addObject(new Car());
+	addObject(new Table());
+	addObject(new Roadside());
+	
+
+	std::cout << "Number of game objects:" << numGameObjects << std::endl;
+
+	addObstacle(new Orange(&Vector3(0, 1.25, 0)));
+	addObstacle(new Orange(&Vector3(-0.9, -0.5, 0)));
+	addObstacle(new Orange(&Vector3(0.9, -0.9, 0)));
+	addObstacle(new Butter(&Vector3(-0.79, 0.85, 0), 40.0));
+	addObstacle(new Butter(&Vector3(1.25, 0.3, 0), 20.0));
+	addObstacle(new Butter(&Vector3(0, -1.2, 0), -25.0));
+	addObstacle(new Butter(&Vector3(1, 1.2, 0), 55.0));
+	addObstacle(new Butter(&Vector3(-1.2, -1, 0), -30));
+	/*addObstacle(new Cheerio(&Vector3(0, 0, 0)));*/
+
 	return 0;
 }
 
@@ -79,14 +91,10 @@ int GameManager::drawGameObjects(){
 	int i;
 	
 	//draw game objects
-	/*for (i = 0; i < numGameObjects; i++){
+	for (i = 0; i < numGameObjects; i++){
 		_gameObjects[i]->draw();
-	}*/
-	_gameObjects[0]->draw();
-	_gameObjects[1]->draw();
-	_gameObjects[2]->draw();
+	}
 	
-
 
 	//desenhar obstaculos
 	for (i = 0; i < numObstaculos; i++)
@@ -144,6 +152,7 @@ void GameManager::display(){
 
 	//draw initial scene
 	drawGameObjects();
+
 	/*0int i;
 	for (i = 0; i < numGameObjects; i++){
 		_gameObjects[i]->draw();
@@ -169,12 +178,12 @@ void GameManager::keyPressed(unsigned char key){
 		camera = 3;
 		break;
 	case 'a':
-		if (arames) {
-			arames = false;
+		if (wireframe) {
+			wireframe = false;
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		}
 		else{
-			arames = true;
+			wireframe = true;
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 		break;
@@ -182,16 +191,17 @@ void GameManager::keyPressed(unsigned char key){
 }
 
 void GameManager::specialPress(int key){
-	Car* carro = new Car();
+	Car* carro;
 	carro = (Car*)_gameObjects[0];
+
 	switch (key){
 	case GLUT_KEY_UP:
 		//carro->setAcc(carro->getAcc()->getX(), 0.000005, carro->getAcc()->getZ());
-		carro->setAcc(0.000005, 0.000005, 0);
+		carro->setAcc(ACCELERATION, ACCELERATION, 0);
 		break;
 	case GLUT_KEY_DOWN:
 		//carro->setAcc(carro->getAcc()->getX(),- 0.000005, carro->getAcc()->getZ());
-		carro->setAcc(-0.000005, -0.000005, 0);
+		carro->setAcc(-ACCELERATION, -ACCELERATION, 0);
 		break;
 	case GLUT_KEY_RIGHT:
 		//carro->setAcc( 0.00001, carro->getAcc()->getY(), carro->getAcc()->getZ());
@@ -202,16 +212,13 @@ void GameManager::specialPress(int key){
 		carro->rodaEsquerda();
 		break;
 	}
-	_gameObjects[0] = carro;
 }
 void GameManager::specialUp(){
-	Car* carro = new Car();
+	Car* carro;
 	carro = (Car*)_gameObjects[0];
 	
 	carro->setAcc(0, 0, 0);
 	carro->setSpeed(0, 0, 0);
-		
-	_gameObjects[0] = carro;
 }
 
 void GameManager::reshape(int h, int w){
@@ -264,14 +271,16 @@ void GameManager::reshape(int h, int w){
 }
 
 void GameManager::update(){
-	Car* carro = new Car();
+	Car* carro;
 	carro = (Car*)_gameObjects[0];
 
 	//std::cout << "-----> Update " << prevtime << std::endl;
 	currtime = glutGet(GLUT_ELAPSED_TIME);
+	
 	//_gameObjects[0]->update(currtime - prevtime);
+	
 	carro->update(currtime - prevtime);
 	prevtime = currtime;
-	_gameObjects[0] = carro;
+	
 	glutPostRedisplay();
 }

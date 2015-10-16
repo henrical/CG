@@ -12,7 +12,7 @@ Car::Car(){
 	acc = new Vector3();
 	acc->set(0, 0, 0);
 	angle = -90;
-	direccao = new Vector3(0, 1, 0);
+	direction = new Vector3(0, 1, 0);
 }
 
 void Car::draw()
@@ -85,6 +85,18 @@ void Car::setAcc(double x, double y, double z){
 	acc->set(x, y, z);
 }
 
+//void Car::slowDownAcceleration(double acceleration){
+//	
+//	if (getSpeed()->getX() > 0 && getSpeed()->getY() > 0)
+//		acc->set(getAcc()->getX() - acceleration, getAcc()->getY() - acceleration, getAcc()->getZ() - acceleration);
+//}
+//
+//void Car::slowDownSpeed(double speed){
+//	
+//	if (getSpeed()->getX() > 0 && getSpeed()->getY() > 0)
+//		this->speed->set(getSpeed()->getX() - speed, getSpeed()->getY() - speed, getSpeed()->getZ() - speed);
+//}
+
 Vector3* Car::getSpeed(){
 	return speed;
 }
@@ -93,23 +105,23 @@ Vector3* Car::getAcc(){
 	return acc;
 }
 
-void Car::setDireccao(){
+void Car::setDirection(){
 	double y;
 	double x;
-	y = direccao->getY()*sin(angle * 3.14159 / 180);
-	x = direccao->getY()*cos(angle * 3.14159 / 180);
+	y = direction->getY()*sin(angle * 3.14159 / 180);
+	x = direction->getY()*cos(angle * 3.14159 / 180);
 	//normalizar
-	direccao->set(x/sqrt(x*x + y*y), y/sqrt(x*x + y*y), 0);
+	direction->set(x/sqrt(x*x + y*y), y/sqrt(x*x + y*y), 0);
 }
 
 void Car::rodaDireita(){
 	angle -= 10;
-	setDireccao();
+	setDirection();
 }
 
 void Car::rodaEsquerda(){
 	angle += 10;
-	setDireccao();
+	setDirection();
 }
 
 void Car::update(int dt){
@@ -127,8 +139,8 @@ void Car::update(int dt){
 	else if (getSpeed()->getY() > -(MAXSPEED) && getSpeed()->getY() <= 0)
 		setSpeed(getSpeed()->getX(), getSpeed()->getY() + getAcc()->getY()*dt, getSpeed()->getZ());*/
 	speed->set(speed->getX() + getAcc()->getX() * dt, speed->getY() + getAcc()->getY() * dt, 0);
-	_position->set(_position->getX() + getSpeed()->getX() * dt * direccao->getX(), _position->getY() + getSpeed()->getY() * dt * direccao->getY(), _position->getZ());
+	_position->set(_position->getX() + getSpeed()->getX() * dt * direction->getX(), _position->getY() + getSpeed()->getY() * dt * direction->getY(), _position->getZ());
 	
 	
-	std::cout << "----->carro speed x=" << speed->getX() << " y=" << speed->getY() << " dir x=" << direccao->getX() << " y="<< direccao->getY() << std::endl;
+	//std::cout << "----->carro speed x=" << speed->getX() << " y=" << speed->getY() << " dir x=" << direction->getX() << " y="<< direction->getY() << std::endl;
 }

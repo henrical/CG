@@ -3,9 +3,6 @@
 
 #include "Obstacle.h"
 
-// Representa o raio da laranja.
-
-
 class Table : public Obstacle
 {
 public:

@@ -6,6 +6,8 @@
 #include "GameObject.h"
 #include "Obstacle.h"
 
+#define ACCELERATION 0.0000005
+
 
 //Constant arrays with the color codes.
 // F.E.: LIGHT_BLUE = {209,204,255}
@@ -36,11 +38,11 @@ class GameManager {
 	private:
 		static GameManager* _instance;
 		LightSource _lightSources[10];
-		GameObject* _gameObjects[3];
-		Obstacle* obstacles[8];
+		GameObject* _gameObjects[10];
+		Obstacle* obstacles[200];
 		int _cameras, camera, numObstaculos, numGameObjects, prevtime, currtime;
 		bool gameHasStarted = false;
-		bool arames;
+		bool wireframe;
 
 	//Private Methods
 	private:
@@ -60,7 +62,9 @@ class GameManager {
 			return _instance;
 		}
 
-		void addObject(); //TODO
+		void addObject(GameObject *obj);
+		void addObstacle(Obstacle *obs);
+
 		int getObjects(); //TODO
 
 		

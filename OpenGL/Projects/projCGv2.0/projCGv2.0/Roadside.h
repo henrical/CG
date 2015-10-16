@@ -27,7 +27,7 @@ class Roadside : public StaticObject {
 public:
 	Roadside();
 	~Roadside();
-	void draw(const float color[]);
+	void draw();
 	void drawRoadsideSegment(const float color[], Vector3 initial, int num_torus, int direction, int curve);
 	void drawRoadsideMargin(const float color[], Vector3 initial, int num_torus, int direction);
 };

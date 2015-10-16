@@ -6,7 +6,7 @@
 
 Butter::Butter(Vector3 *pos, float angle)
 {
-	_position = pos;
+	_position->set(pos->getX(), pos->getY(), pos->getZ());
 	this->_angle = angle;
 }
 
@@ -22,7 +22,7 @@ void Butter::draw()
 
 	glPushMatrix();
 
-	glTranslated(_position->getX(), _position->getY(), _position->getZ());
+	glTranslated(_position->getX(), _position->getY(), 0.085);
 	glScalef(SIDES_RATIO, 1, 1);
 	
 	if (_angle != 0)

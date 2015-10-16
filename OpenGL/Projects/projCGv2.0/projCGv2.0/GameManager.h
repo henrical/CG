@@ -3,6 +3,8 @@
 #include "GL/glut.h"
 #include "LightSource.h"
 #include "Car.h"
+#include "GameObject.h"
+#include "Obstacle.h"
 
 
 //Constant arrays with the color codes.
@@ -33,10 +35,12 @@ class GameManager {
 	//Private Variables
 	private:
 		static GameManager* _instance;
-		int _gameObjects;
-		LightSource _lightSources[10]; 
-		int _cameras, camera;
+		LightSource _lightSources[10];
+		GameObject* _gameObjects[3];
+		Obstacle* obstacles[8];
+		int _cameras, camera, numObstaculos, numGameObjects, prevtime, currtime;
 		bool gameHasStarted = false;
+		bool arames;
 
 	//Private Methods
 	private:
@@ -71,11 +75,14 @@ class GameManager {
 
 		void reshape(int h, int w);
 
-		int keyPressed(unsigned char key); 
+		void keyPressed(unsigned char key); 
+
+		void specialPress(int key);
+		void specialUp();
 
 		int onTimer(); //TODO
 
-		int update(); //TODO
+		void update(); //TODO
 		
 		
 

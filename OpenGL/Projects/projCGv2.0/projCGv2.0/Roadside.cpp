@@ -12,7 +12,11 @@ Roadside::~Roadside(){
 }
 
 
-void Roadside::draw(const float color[]){
+void Roadside::draw(){
+	const float color[] = { 0.6392156863, 0.2980392157, 0 };
+
+	//std::cout << "-----> Drawing road"<< std::endl;
+
 	this->drawRoadsideSegment(color, Vector3( -1.3, -0.9, 0), 16, VERTICAL, INSIDE_CURVE);
 
 	this->drawRoadsideMargin(color, Vector3(-0.85, 0.79, 0), 2, NORTHEAST);
@@ -38,6 +42,9 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 	int i, num_cheerios = num_torus;
 
 	double pos_x = initial.getX(), pos_y = initial.getY(), pos_z = initial.getZ();
+
+	//debug
+	//std::cout << "-----> Drawing road segment in " << pos_x << pos_y << pos_z << std::endl;
 
 	//posição da outra margem da estrada
 	float margin_position;

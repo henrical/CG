@@ -25,10 +25,21 @@ void myReshape(int w, int h){
 
 void myKeyPress(unsigned char key, int x, int y){
 	GameManager::instance()->keyPressed(key);
-	GameManager::instance()->display(); //tirar este display quando o ciclo estiver a funcionar
+	//GameManager::instance()->display(); //tirar este display quando o ciclo estiver a funcionar
 }
 
+void mySpecialPress(int key, int x, int y){
+	GameManager::instance()->specialPress(key);
+}
 
+void myUpdate(int x){
+	GameManager::instance()->update();
+	glutTimerFunc(30, myUpdate, 0);
+}
+
+void mySpecialUp(int key, int x, int y){
+	GameManager::instance()->specialUp();
+}
 
 int main(int argc, char** argv)
 {
@@ -47,9 +58,11 @@ int main(int argc, char** argv)
 	glutDisplayFunc(myDisplay);
 	glutReshapeFunc(myReshape);
 	glutKeyboardFunc(myKeyPress);
-
+	glutSpecialFunc(mySpecialPress);
+	glutSpecialUpFunc(mySpecialUp);
+	glutIgnoreKeyRepeat(false);
 	
-	
+	glutTimerFunc(30, myUpdate, 0);
 
 	glutMainLoop();
 

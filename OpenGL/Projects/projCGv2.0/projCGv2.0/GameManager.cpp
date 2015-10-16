@@ -6,6 +6,7 @@
 #include "generic.h"
 #include "Orange.h"
 #include "Butter.h"
+#include "Table.h"
 
 GameManager* GameManager::_instance = nullptr;
 
@@ -24,55 +25,71 @@ extern "C" const float YELLOW[] = { 0.9647058824, 1, 0.2705882353 };
 
 GameManager::GameManager()
 {
-	_gameObjects = 0 ;
+	currtime = 0;
+	prevtime = 0;
+	numGameObjects = 3;
+	numObstaculos = 6;
 	camera = 1;
+	arames = false;
+	init();
 }
 
 void GameManager::addObject()
 {
-	_gameObjects += 1;
+	numGameObjects += 1;
 }
 
 int GameManager::getObjects()
 {
-	return _gameObjects;
+	return numGameObjects;
 }
 
 // Pass color as parameter
 // i.e. LIGHT_BLUE, WHITE, LIGHT_GREY
-void GameManager::drawTable(const float color[]){
+/*void GameManager::drawTable(const float color[]){
 	glColor3f(color[0], color[1], color[2]);
 	glScalef(1.5, 1.5, 1.5);
 	glPushMatrix();
 	glTranslatef(0.0, 0.0, -1.5);
 	glutSolidCube(3);
 	glPopMatrix();
-}
+}*/
 
-int GameManager::drawGameObjects(){
-	std::cout << "-----> Drawing game objects." << std::endl;
-
-	int i = 0;
-
-	drawTable(LIGHT_BLUE);
-
-	Car* car = new Car();
-	car->draw();
-
-	Roadside *road = new Roadside();
-	road->draw(CHEERIO_BROWN);
-
-	Obstacle* obstacles[10];
-	memset(obstacles, 0, sizeof(obstacles)); //inicializa todo o array a zero
+int GameManager::init(){
+	_gameObjects[0] = (Car*) new Car();
+	_gameObjects[1] = new Table();
+	_gameObjects[2] = (Roadside*) new Roadside();
+	numGameObjects = 3;
 
 	obstacles[0] = new Orange(&Vector3(0, 1.25, 0));
 	obstacles[1] = new Orange(&Vector3(-0.9, -0.5, 0));
 	obstacles[2] = new Orange(&Vector3(0.9, -0.9, 0));
-	obstacles[3] = new Butter(&Vector3(-0.79,0.85,0), 40.0);
+	obstacles[3] = new Butter(&Vector3(-0.79, 0.85, 0), 40.0);
 	obstacles[4] = new Butter(&Vector3(1.25, 0.3, 0), 20.0);
 	obstacles[5] = new Butter(&Vector3(0, -1.2, 0), -25.0);
+	obstacles[6] = new Butter(&Vector3(1, 1.2, 0), 55.0);
+	obstacles[7] = new Butter(&Vector3(-1.2, -1, 0), - 30);
+	numObstaculos = 8;
+	return 0;
+}
 
-	for (i; obstacles[i] != 0; i++)
+int GameManager::drawGameObjects(){
+	//std::cout << "-----> Drawing game objects." << std::endl;
+
+	int i;
+	
+	//draw game objects
+	/*for (i = 0; i < numGameObjects; i++){
+		_gameObjects[i]->draw();
+	}*/
+	_gameObjects[0]->draw();
+	_gameObjects[1]->draw();
+	_gameObjects[2]->draw();
+	
+
+
+	//desenhar obstaculos
+	for (i = 0; i < numObstaculos; i++)
 		obstacles[i]->draw();
 
 
@@ -81,7 +98,7 @@ int GameManager::drawGameObjects(){
 }
 
 void GameManager::display(){
-	std::cout << "---> Display." << std::endl;
+	//std::cout << "---> Display." << std::endl;
 
 	glClearDepth(1.0);
 	glEnable(GL_DEPTH_TEST);
@@ -126,29 +143,80 @@ void GameManager::display(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//draw initial scene
-	GameManager::instance()->drawGameObjects();
+	drawGameObjects();
+	/*0int i;
+	for (i = 0; i < numGameObjects; i++){
+		_gameObjects[i]->draw();
+	}
+	for (i = 0; i < numObstaculos; i++){
+		obstacles[i]->draw();
+	}*/
 	
 	gameHasStarted = true;
 
 	glFlush();
 }
 
-int GameManager::keyPressed(unsigned char key){
-	if (key == '1'){
+void GameManager::keyPressed(unsigned char key){
+	switch (key){
+	case '1':
 		camera = 1;
-	}
-	else if (key == '2'){
+		break;
+	case '2':
 		camera = 2;
-	}
-	else if (key == '3'){
+		break;
+	case '3':
 		camera = 3;
+		break;
+	case 'a':
+		if (arames) {
+			arames = false;
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else{
+			arames = true;
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+		break;
 	}
-	return 0;
+}
+
+void GameManager::specialPress(int key){
+	Car* carro = new Car();
+	carro = (Car*)_gameObjects[0];
+	switch (key){
+	case GLUT_KEY_UP:
+		//carro->setAcc(carro->getAcc()->getX(), 0.000005, carro->getAcc()->getZ());
+		carro->setAcc(0.000005, 0.000005, 0);
+		break;
+	case GLUT_KEY_DOWN:
+		//carro->setAcc(carro->getAcc()->getX(),- 0.000005, carro->getAcc()->getZ());
+		carro->setAcc(-0.000005, -0.000005, 0);
+		break;
+	case GLUT_KEY_RIGHT:
+		//carro->setAcc( 0.00001, carro->getAcc()->getY(), carro->getAcc()->getZ());
+		carro->rodaDireita();
+		break;
+	case GLUT_KEY_LEFT:
+		//carro->setAcc( - 0.00001, carro->getAcc()->getY(), carro->getAcc()->getZ());
+		carro->rodaEsquerda();
+		break;
+	}
+	_gameObjects[0] = carro;
+}
+void GameManager::specialUp(){
+	Car* carro = new Car();
+	carro = (Car*)_gameObjects[0];
+	
+	carro->setAcc(0, 0, 0);
+	carro->setSpeed(0, 0, 0);
+		
+	_gameObjects[0] = carro;
 }
 
 void GameManager::reshape(int h, int w){
 
-	std::cout << "--->Reshape" << std::endl;
+	//std::cout << "--->Reshape" << std::endl;
 
 	float top, right, bottom, left, near, far;
 	float delta;
@@ -192,4 +260,18 @@ void GameManager::reshape(int h, int w){
 
 		glOrtho(left, right, bottom - delta, top + delta, near, far);
 	}
+
+}
+
+void GameManager::update(){
+	Car* carro = new Car();
+	carro = (Car*)_gameObjects[0];
+
+	//std::cout << "-----> Update " << prevtime << std::endl;
+	currtime = glutGet(GLUT_ELAPSED_TIME);
+	//_gameObjects[0]->update(currtime - prevtime);
+	carro->update(currtime - prevtime);
+	prevtime = currtime;
+	_gameObjects[0] = carro;
+	glutPostRedisplay();
 }

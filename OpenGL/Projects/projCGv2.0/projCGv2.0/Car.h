@@ -9,6 +9,9 @@
 
 #define CAR_SIZE 0.1
 
+//bounding box side length
+#define CAR_BBOX_LENGTH  2*CAR_SIZE 
+
 #define MAXSPEED 0.001
 
 #define INIT_POS_X -1.1

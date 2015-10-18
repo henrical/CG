@@ -15,16 +15,18 @@ Car::Car(){
 	angle = -90;
 	direction = new Vector3(0, 1, 0);
 
-	float bbox_length = 2 * CAR_SIZE;
-
-	bbox = CollisionBox(INIT_POS_X, INIT_POS_Y, INIT_POS_X + bbox_length, INIT_POS_Y + bbox_length);
+	bbox = CollisionBox(INIT_POS_X, INIT_POS_Y, INIT_POS_X + CAR_BBOX_LENGTH, INIT_POS_Y + CAR_BBOX_LENGTH);
 
 }
 
 void Car::draw()
 {	
+	float xPos, yPos;
+	xPos = _position->getX();
+	yPos = _position->getY();
+
 	glPushMatrix();
-	glTranslatef(_position->getX(), _position->getY(), _position->getZ());
+	glTranslatef(xPos, yPos, 0);
 	glRotatef(angle, 0, 0, 1);
 	glScalef(CAR_SIZE, CAR_SIZE, CAR_SIZE);
 
@@ -81,6 +83,8 @@ void Car::draw()
 	glPopMatrix();
 
 	glPopMatrix();
+
+	bbox.setCordinates(xPos, yPos, xPos +CAR_BBOX_LENGTH, yPos + CAR_BBOX_LENGTH);
 
 	if (GameManager::viewCollisionBoxes() == 1)
 		bbox.draw();

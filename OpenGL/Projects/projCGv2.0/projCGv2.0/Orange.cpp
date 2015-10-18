@@ -3,10 +3,13 @@
 
 #include "Orange.h"
 #include "GL\glut.h"
+#include "GameManager.h"
 
 Orange::Orange(Vector3 *pos)
 {
 	_position->set(pos->getX(), pos->getY(), pos->getZ());
+
+	bbox = CollisionBox(_position->getX(), _position->getY(), _position->getX() + ORANGE_BBOX_LENGTH, _position->getY() + ORANGE_BBOX_LENGTH);
 }
 
 Orange::~Orange()
@@ -16,9 +19,7 @@ Orange::~Orange()
 
 void Orange::draw()
 {
-	//std::cout << "-----> Drawing orange in " << _position->getX() << _position->getY() << _position->getZ() << std::endl;
 	glPushMatrix();
-	/*std::cout << this->toString();*/
 	glColor3f(OR_COLOR_R, OR_COLOR_G, OR_COLOR_B);
 
 	GLUquadric *quad = gluNewQuadric();
@@ -32,4 +33,7 @@ void Orange::draw()
 
 	glPopMatrix();
 	glPopMatrix();
+
+	if (GameManager::viewCollisionBoxes() == 1)
+		bbox.draw();
 }

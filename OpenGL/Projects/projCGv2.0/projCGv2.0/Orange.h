@@ -15,8 +15,7 @@
 
 class Orange : public Obstacle
 {
-	private:
-		CollisionBox bbox;
+	
 
 	public:
 		Orange(Vector3 *pos);

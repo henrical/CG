@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 #include "Orange.h"
 #include "GL\glut.h"
@@ -10,6 +11,8 @@ Orange::Orange(Vector3 *pos)
 	_position->set(pos->getX(), pos->getY(), pos->getZ());
 
 	bbox = CollisionBox(_position->getX(), _position->getY(), _position->getX() + ORANGE_BBOX_LENGTH, _position->getY() + ORANGE_BBOX_LENGTH);
+
+
 }
 
 Orange::~Orange()
@@ -36,4 +39,6 @@ void Orange::draw()
 
 	if (GameManager::viewCollisionBoxes() == 1)
 		bbox.draw();
+
+	
 }

@@ -13,3 +13,7 @@ Obstacle::~Obstacle(){
 void Obstacle::draw(){
 
 }
+
+CollisionBox* Obstacle::getBbox(){
+	return &bbox;
+}

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 
 #include "GameManager.h"
 #include "LightSource.h"
@@ -13,9 +14,6 @@
 GameManager* GameManager::_instance = nullptr;
 
 // Constant arrays with color RBG(0-1 scale) codes.
-// Passar isto a funçoes que pedem um "const float color[]"
-// por exemplo: 
-//	"road->draw(CHEERIO_BROWN);" desenha a estrada da cor dos cheerios
 extern "C" const float WHITE[] = { 1, 1, 1 };
 extern "C" const float LIGHT_BLUE[] = { 0.81960784, 0.8, 1 };
 extern "C" const float LIGHT_GREY[] = { 0.89019607, 0.89019607, 0.89019607};
@@ -161,14 +159,6 @@ void GameManager::display(){
 
 	//draw initial scene
 	drawGameObjects();
-
-	/*0int i;
-	for (i = 0; i < numGameObjects; i++){
-		_gameObjects[i]->draw();
-	}
-	for (i = 0; i < numObstaculos; i++){
-		obstacles[i]->draw();
-	}*/
 	
 	gameHasStarted = true;
 
@@ -280,10 +270,38 @@ void GameManager::reshape(int h, int w){
 }
 
 void GameManager::update(){
+	int i = 0;
+	
 	Car* carro;
 	carro = (Car*)getObject(CAR);
 
-	//std::cout << "-----> Update " << prevtime << std::endl;
+	Obstacle* obs;
+	float* obstacle_cordinates;
+
+	float* car_cordinates = carro->getBbox()->getCordinates();
+
+	for (i; i < numObstaculos; i++){
+		obs = obstacles[i];
+
+		obstacle_cordinates = obs->getBbox()->getCordinates();
+
+		if (car_cordinates[2] > obstacle_cordinates[0] )
+		{
+			if (car_cordinates[0] < obstacle_cordinates[2])
+			{
+				if (car_cordinates[3] > obstacle_cordinates[1])
+				{
+					if (car_cordinates[1] < obstacle_cordinates[3])
+					{
+						std::cout << "=== OBSTACLE HIT! ===" << std::endl;
+						std::cout << "===== " << i << " ===" << std::endl;
+					}
+
+				}	
+			}
+		}
+	}
+
 	currtime = glutGet(GLUT_ELAPSED_TIME);
 	
 	//_gameObjects[0]->update(currtime - prevtime);

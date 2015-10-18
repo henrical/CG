@@ -20,7 +20,7 @@ class Butter : public Obstacle
 private:
 	float _angle;
 
-	CollisionBox bbox;
+	
 
 public:
 	Butter(Vector3 *pos, float angle);

@@ -1,10 +1,12 @@
 #include <iostream>
+#include <iomanip>
 
 #include "GL/glut.h"
 #include "generic.h"
 #include "CollisionBox.h"
 #include "Car.h"
 #include "GameManager.h"
+
 
 Car::Car(){
 	speed = new Vector3();
@@ -84,10 +86,13 @@ void Car::draw()
 
 	glPopMatrix();
 
-	bbox.setCordinates(xPos, yPos, xPos +CAR_BBOX_LENGTH, yPos + CAR_BBOX_LENGTH);
+	bbox.setCordinates(xPos, yPos, xPos + CAR_BBOX_LENGTH, yPos + CAR_BBOX_LENGTH);
 
 	if (GameManager::viewCollisionBoxes() == 1)
 		bbox.draw();
+
+	/*float* cordinates = bbox.getCordinates();
+	std::cout << std::setprecision(3)  << "CAR: Bounding box from [" << cordinates[0] << ", " << cordinates[1] << "] to [" << cordinates[2] << ", " << cordinates[3] << "];" << std::endl;*/
 }
 
 void Car::setSpeed(double x, double y, double z){
@@ -112,6 +117,10 @@ void Car::setAcc(double x, double y, double z){
 
 Vector3* Car::getSpeed(){
 	return speed;
+}
+
+CollisionBox* Car::getBbox(){
+	return &bbox;
 }
 
 Vector3* Car::getAcc(){

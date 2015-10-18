@@ -21,8 +21,8 @@ void CollisionBox::setCordinates(float xm, float ym, float xM, float yM){
 	yMax = yM;
 }
 
-int* CollisionBox::getCordinates(){
-	int* result = (int*)malloc(4*sizeof(int));
+float* CollisionBox::getCordinates(){
+	float* result = (float*)malloc(4*sizeof(float));
 
 	result[0] = xMin;
 	result[1] = yMin;

@@ -20,7 +20,7 @@ private:
 	bool has_collision;
 	bool game_has_started;
 
-	CollisionBox bbox;
+	
 
 public:
 	Cheerio(Vector3 *pos);

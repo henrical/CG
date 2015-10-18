@@ -17,9 +17,6 @@
 
 
 //Constant arrays with the color codes.
-// F.E.: LIGHT_BLUE = {209,204,255}
-// Pass these as parameters to certain functions
-// to specify color of objects.
 extern "C" {
 	extern const float WHITE[];
 	extern const float LIGHT_BLUE[];

@@ -43,6 +43,8 @@ class Car : public DynamicObject
 		void rodaEsquerda();
 		void setDirection();
 
+		CollisionBox* getBbox();
+
 		/*void slowDownAcceleration(double acceleration);
 		void slowDownSpeed(double speed);*/
 };

@@ -2,17 +2,23 @@
 
 #include "GL/glut.h"
 #include "generic.h"
-
+#include "CollisionBox.h"
 #include "Car.h"
+#include "GameManager.h"
 
 Car::Car(){
 	speed = new Vector3();
-	_position->set(-1.1, 0, 0);
+	_position->set(INIT_POS_X, INIT_POS_Y, INIT_POS_Z);
 	speed->set(0, 0, 0);
 	acc = new Vector3();
 	acc->set(0, 0, 0);
 	angle = -90;
 	direction = new Vector3(0, 1, 0);
+
+	float bbox_length = 2 * CAR_SIZE;
+
+	bbox = CollisionBox(INIT_POS_X, INIT_POS_Y, INIT_POS_X + bbox_length, INIT_POS_Y + bbox_length);
+
 }
 
 void Car::draw()
@@ -20,7 +26,7 @@ void Car::draw()
 	glPushMatrix();
 	glTranslatef(_position->getX(), _position->getY(), _position->getZ());
 	glRotatef(angle, 0, 0, 1);
-	glScalef(0.1, 0.1, 0.1);
+	glScalef(CAR_SIZE, CAR_SIZE, CAR_SIZE);
 
 	//frente
 	glColor3f(0.5, 0.5, 0.5);
@@ -75,6 +81,9 @@ void Car::draw()
 	glPopMatrix();
 
 	glPopMatrix();
+
+	if (GameManager::viewCollisionBoxes() == 1)
+		bbox.draw();
 }
 
 void Car::setSpeed(double x, double y, double z){

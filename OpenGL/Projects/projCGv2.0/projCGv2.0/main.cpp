@@ -64,6 +64,9 @@ int main(int argc, char** argv)
 	
 	glutTimerFunc(30, myUpdate, 0);
 
+	GameManager::instance()->init();
+
+
 	glutMainLoop();
 
 	return 0;

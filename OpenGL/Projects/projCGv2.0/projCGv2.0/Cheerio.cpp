@@ -19,14 +19,15 @@ Cheerio::~Cheerio()
 
 void Cheerio::draw()
 {
-	if (game_has_started)
+	/*if (game_has_started)
 	{
-		if (!has_collision){
+		if (!this->has_collision){
 			return;
 		}
 			
-	}
+	}*/
 
+	//std::cout << "---> Drawing CHEERIO;" << std::endl;
 
 	glColor3d(C_COLOR_R, C_COLOR_G, C_COLOR_B);
 

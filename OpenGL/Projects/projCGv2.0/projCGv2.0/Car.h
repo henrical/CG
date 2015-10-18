@@ -3,18 +3,29 @@
 
 #include <iostream>
 #include <math.h>
+#include "CollisionBox.h"
 
 #include "DynamicObject.h"
 
+#define CAR_SIZE 0.1
+
 #define MAXSPEED 0.001
+
+#define INIT_POS_X -1.1
+#define INIT_POS_Y 0 
+#define INIT_POS_Z 0
+
 
 class Car : public DynamicObject
 {
-	protected:
+	private:
 		Vector3* speed;
 		Vector3* acc;
 		double angle;
 		Vector3* direction;
+
+		CollisionBox bbox;
+
 	public:
 		Car();
 		~Car(){}

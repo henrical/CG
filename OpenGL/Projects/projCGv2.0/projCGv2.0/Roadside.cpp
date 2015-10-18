@@ -63,7 +63,6 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-			cheerio->draw();
 			
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -76,7 +75,6 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			{
 				glPushMatrix();
 				cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-				cheerio->draw();
 				
 				if (!game_has_started)
 					GameManager::instance()->addObstacle(cheerio);
@@ -87,7 +85,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 				glPushMatrix();
 				cheerio = new Cheerio(&Vector3(pos_x, margin_position, pos_z));
-				cheerio->draw();
+				
 
 				if (!game_has_started)
 					GameManager::instance()->addObstacle(cheerio);
@@ -100,7 +98,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-			cheerio->draw();
+			
 
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -110,7 +108,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 		case INSIDE_CURVE:
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x, pos_y + ROAD_WIDTH , pos_z));
-			cheerio->draw();
+			
 
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -123,7 +121,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			{
 				glPushMatrix();
 				cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-				cheerio->draw();
+				
 
 				if (!game_has_started)
 					GameManager::instance()->addObstacle(cheerio);
@@ -134,7 +132,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 				glPushMatrix();
 				cheerio = new Cheerio(&Vector3(pos_x, margin_position, pos_z));
-				cheerio->draw();
+				
 
 				if (!game_has_started)
 					GameManager::instance()->addObstacle(cheerio);
@@ -147,7 +145,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x, pos_y + ROAD_WIDTH, pos_z));
-			cheerio->draw();
+			
 
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -162,7 +160,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 		case INSIDE_CURVE:
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-			cheerio->draw();
+			
 
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -175,7 +173,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			{
 				glPushMatrix();
 				cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-				cheerio->draw();
+				
 
 				if (!game_has_started)
 					GameManager::instance()->addObstacle(cheerio);
@@ -186,7 +184,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 				glPushMatrix();
 				cheerio = new Cheerio(&Vector3(margin_position, pos_y, pos_z));
-				cheerio->draw();
+				
 
 				if (!game_has_started)
 					GameManager::instance()->addObstacle(cheerio);
@@ -199,7 +197,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-			cheerio->draw();
+			
 
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -209,7 +207,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 		case OUTSIDE_CURVE:
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x + ROAD_WIDTH, pos_y, pos_z));
-			cheerio->draw();
+			 
 
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -222,7 +220,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 			{
 				glPushMatrix();
 				cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-				cheerio->draw();
+				 
 
 				if (!game_has_started)
 					GameManager::instance()->addObstacle(cheerio);
@@ -233,7 +231,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 				glPushMatrix();
 				cheerio = new Cheerio(&Vector3(margin_position, pos_y, pos_z));
-				cheerio->draw();
+				 
 
 				if (!game_has_started)
 					GameManager::instance()->addObstacle(cheerio);
@@ -246,7 +244,7 @@ void Roadside::drawRoadsideSegment(const float color[], Vector3 initial, int num
 
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x + ROAD_WIDTH, pos_y, pos_z));
-			cheerio->draw();
+			 
 
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -274,7 +272,7 @@ void Roadside::drawRoadsideMargin(const float color[], Vector3 initial, int num_
 		{
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-			cheerio->draw();
+			
 
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -290,7 +288,7 @@ void Roadside::drawRoadsideMargin(const float color[], Vector3 initial, int num_
 		{
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-			cheerio->draw();
+			
 			
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -306,7 +304,6 @@ void Roadside::drawRoadsideMargin(const float color[], Vector3 initial, int num_
 		{
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-			cheerio->draw();
 			
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);
@@ -322,7 +319,6 @@ void Roadside::drawRoadsideMargin(const float color[], Vector3 initial, int num_
 		{
 			glPushMatrix();
 			cheerio = new Cheerio(&Vector3(pos_x, pos_y, pos_z));
-			cheerio->draw();
 			
 			if (!game_has_started)
 				GameManager::instance()->addObstacle(cheerio);

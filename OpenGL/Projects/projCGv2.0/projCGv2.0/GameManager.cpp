@@ -8,6 +8,7 @@
 #include "Butter.h"
 #include "Table.h"
 #include "Cheerio.h"
+#include "CollisionBox.h"
 
 GameManager* GameManager::_instance = nullptr;
 
@@ -32,7 +33,6 @@ GameManager::GameManager()
 	numObstaculos = 0;
 	camera = 1;
 	wireframe = false;
-	init();
 }
 
 void GameManager::addObject(GameObject *obj)
@@ -44,12 +44,11 @@ void GameManager::addObject(GameObject *obj)
 void GameManager::addObstacle(Obstacle *obs){
 	obstacles[numObstaculos] = obs;
 	numObstaculos += 1;
-	std::cout << "##### Obstacles[] contains " << numObstaculos << "elements" << std::endl;
 }
 
-int GameManager::getObjects()
-{
-	return numGameObjects;
+GameObject* GameManager::getObject(int object_index)
+{	
+	return _gameObjects[object_index];
 }
 
 // Pass color as parameter
@@ -65,12 +64,13 @@ int GameManager::getObjects()
 
 int GameManager::init(){
 
+	addObject(new Roadside());
 	addObject(new Car());
 	addObject(new Table());
-	addObject(new Roadside());
-	
 
-	std::cout << "Number of game objects:" << numGameObjects << std::endl;
+	Roadside *road = (Roadside*)getObject(ROADSIDE);
+	road->draw();
+
 
 	addObstacle(new Orange(&Vector3(0, 1.25, 0)));
 	addObstacle(new Orange(&Vector3(-0.9, -0.5, 0)));
@@ -81,25 +81,34 @@ int GameManager::init(){
 	addObstacle(new Butter(&Vector3(1, 1.2, 0), 55.0));
 	addObstacle(new Butter(&Vector3(-1.2, -1, 0), -30));
 	/*addObstacle(new Cheerio(&Vector3(0, 0, 0)));*/
+	
+	
+
+	std::cout << "Number of obstacles:" << numObstaculos << std::endl;
+	std::cout << "Number of game objects:" << numGameObjects << std::endl;
 
 	return 0;
 }
 
 int GameManager::drawGameObjects(){
-	//std::cout << "-----> Drawing game objects." << std::endl;
-
 	int i;
 	
+	
+
 	//draw game objects
-	for (i = 0; i < numGameObjects; i++){
+	for (i = 1; i < numGameObjects; i++){
 		_gameObjects[i]->draw();
+		//std::cout << "### Drawing game object " << i << ";" << std::endl;
 	}
 	
 
 	//desenhar obstaculos
-	for (i = 0; i < numObstaculos; i++)
+	for (i = 0; i < numObstaculos; i++){
 		obstacles[i]->draw();
+		//std::cout << "=== Drawing obstacle " << i << ";" << std::endl;
+	}
 
+	
 
 	return 0;
 
@@ -192,16 +201,16 @@ void GameManager::keyPressed(unsigned char key){
 
 void GameManager::specialPress(int key){
 	Car* carro;
-	carro = (Car*)_gameObjects[0];
+	carro = (Car*)getObject(CAR);
 
 	switch (key){
 	case GLUT_KEY_UP:
 		//carro->setAcc(carro->getAcc()->getX(), 0.000005, carro->getAcc()->getZ());
-		carro->setAcc(ACCELERATION, ACCELERATION, 0);
+		carro->setAcc(CAR_ACCELERATION, CAR_ACCELERATION, 0);
 		break;
 	case GLUT_KEY_DOWN:
 		//carro->setAcc(carro->getAcc()->getX(),- 0.000005, carro->getAcc()->getZ());
-		carro->setAcc(-ACCELERATION, -ACCELERATION, 0);
+		carro->setAcc(-CAR_ACCELERATION, -CAR_ACCELERATION, 0);
 		break;
 	case GLUT_KEY_RIGHT:
 		//carro->setAcc( 0.00001, carro->getAcc()->getY(), carro->getAcc()->getZ());
@@ -215,7 +224,7 @@ void GameManager::specialPress(int key){
 }
 void GameManager::specialUp(){
 	Car* carro;
-	carro = (Car*)_gameObjects[0];
+	carro = (Car*)getObject(CAR);
 	
 	carro->setAcc(0, 0, 0);
 	carro->setSpeed(0, 0, 0);
@@ -272,7 +281,7 @@ void GameManager::reshape(int h, int w){
 
 void GameManager::update(){
 	Car* carro;
-	carro = (Car*)_gameObjects[0];
+	carro = (Car*)getObject(CAR);
 
 	//std::cout << "-----> Update " << prevtime << std::endl;
 	currtime = glutGet(GLUT_ELAPSED_TIME);

@@ -6,7 +6,14 @@
 #include "GameObject.h"
 #include "Obstacle.h"
 
-#define ACCELERATION 0.0000005
+#define VIEW_COLLISION_BOXES 1		//0 para não ver as boxes, 1 para ver
+
+#define CAR_ACCELERATION 0.0000005
+
+#define ROADSIDE 0
+#define CAR 1 
+#define TABLE 2
+
 
 
 //Constant arrays with the color codes.
@@ -37,6 +44,7 @@ class GameManager {
 	//Private Variables
 	private:
 		static GameManager* _instance;
+
 		LightSource _lightSources[10];
 		GameObject* _gameObjects[10];
 		Obstacle* obstacles[200];
@@ -62,10 +70,14 @@ class GameManager {
 			return _instance;
 		}
 
+		static int viewCollisionBoxes(){
+			return VIEW_COLLISION_BOXES;
+		}
+
 		void addObject(GameObject *obj);
 		void addObstacle(Obstacle *obs);
 
-		int getObjects(); //TODO
+		GameObject* getObject(int object);
 
 		
 		int idle(); //TODO

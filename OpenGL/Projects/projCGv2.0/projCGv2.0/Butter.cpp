@@ -3,11 +3,14 @@
 
 #include "Butter.h"
 #include "GL\glut.h"
+#include "GameManager.h"
 
 Butter::Butter(Vector3 *pos, float angle)
 {
 	_position->set(pos->getX(), pos->getY(), pos->getZ());
 	this->_angle = angle;
+
+	bbox = CollisionBox(_position->getX(), _position->getY(), _position->getX() + SIDES_RATIO*BUTTER_SIZE, _position->getY() + BUTTER_SIZE);
 }
 
 Butter::~Butter()
@@ -31,4 +34,7 @@ void Butter::draw()
 	glutSolidCube(BUTTER_SIZE);
 
 	glPopMatrix();
+
+	if (GameManager::viewCollisionBoxes() == 1)
+		bbox.draw();
 }

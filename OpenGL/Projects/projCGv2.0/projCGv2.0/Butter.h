@@ -2,6 +2,7 @@
 #define _BUTTER_H_
 
 #include "Obstacle.h"
+#include "CollisionBox.h"
 
 #define B_COLOR_R 0.9647058824
 #define B_COLOR_G 1
@@ -18,6 +19,8 @@ class Butter : public Obstacle
 {	
 private:
 	float _angle;
+
+	CollisionBox bbox;
 
 public:
 	Butter(Vector3 *pos, float angle);

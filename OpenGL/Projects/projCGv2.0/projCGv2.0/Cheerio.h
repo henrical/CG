@@ -12,7 +12,7 @@
 #define TORUS_INNER_RADIUS 0.01
 #define TORUS_OUTER_RADIUS 0.02
 
-#define CHEERIO_BBOX_LENGTH 2*TORUS_OUTER_RADIUS
+#define CHEERIO_BBOX_LENGTH 2*TORUS_OUTER_RADIUS //might not be the best function, is smaller than Cheerio.
 
 class Cheerio : public Obstacle
 {

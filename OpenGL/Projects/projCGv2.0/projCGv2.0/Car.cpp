@@ -17,7 +17,7 @@ Car::Car(){
 	angle = -90;
 	direction = new Vector3(0, 1, 0);
 
-	bbox = CollisionBox(INIT_POS_X, INIT_POS_Y, INIT_POS_X + CAR_BBOX_LENGTH, INIT_POS_Y + CAR_BBOX_LENGTH);
+	bbox = CollisionBox(INIT_POS_X - 0.09 , INIT_POS_Y - 0.09, INIT_POS_X + 0.45*CAR_BBOX_LENGTH, INIT_POS_Y + 0.45*CAR_BBOX_LENGTH);
 
 }
 
@@ -86,7 +86,7 @@ void Car::draw()
 
 	glPopMatrix();
 
-	bbox.setCordinates(xPos, yPos, xPos + CAR_BBOX_LENGTH, yPos + CAR_BBOX_LENGTH);
+	bbox.setCordinates(xPos - 0.09, yPos - 0.09, xPos + 0.45*CAR_BBOX_LENGTH, yPos + 0.45*CAR_BBOX_LENGTH);
 
 	if (GameManager::viewCollisionBoxes() == 1)
 		bbox.draw();

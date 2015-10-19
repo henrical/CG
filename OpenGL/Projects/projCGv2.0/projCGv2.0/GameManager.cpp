@@ -295,6 +295,10 @@ void GameManager::update(){
 					{
 						std::cout << "=== OBSTACLE HIT! ===" << std::endl;
 						std::cout << "===== " << i << " ===" << std::endl;
+
+						/*carro->setAcc(0, 0, 0);
+						carro->setSpeed(0, 0, 0);*/
+
 					}
 
 				}	

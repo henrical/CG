@@ -48,10 +48,10 @@ void CollisionBox::draw()
 	//glutSolidCube(width);
 
 	glBegin(GL_POLYGON);
-	glVertex3f(xMin,yMin,0.01);
-	glVertex3f(xMax, yMin, 0.01);
-	glVertex3f(xMax, yMax, 0.01);
-	glVertex3f(xMin, yMax, 0.01);
+	glVertex3f(xMin,yMin,0);
+	glVertex3f(xMax, yMin, 0);
+	glVertex3f(xMax, yMax, 0);
+	glVertex3f(xMin, yMax, 0);
 	glEnd();
 
 	glPopMatrix();

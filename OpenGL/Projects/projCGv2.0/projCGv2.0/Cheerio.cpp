@@ -12,7 +12,7 @@ Cheerio::Cheerio(Vector3 *pos)
 	has_collision = false;
 	game_has_started = false;
 
-	bbox = CollisionBox(_position->getX(), _position->getY(), _position->getX() + CHEERIO_BBOX_LENGTH, _position->getY() + CHEERIO_BBOX_LENGTH);
+	bbox = CollisionBox(_position->getX() - CHEERIO_BBOX_LENGTH, _position->getY() - CHEERIO_BBOX_LENGTH, _position->getX() + CHEERIO_BBOX_LENGTH, _position->getY() + CHEERIO_BBOX_LENGTH);
 }
 
 Cheerio::~Cheerio()

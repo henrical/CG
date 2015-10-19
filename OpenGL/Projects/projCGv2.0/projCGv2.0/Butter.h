@@ -13,7 +13,10 @@
 
 // Representa a divisao entre o comprimento do
 // lado mais comprido e o mais curto.
-#define SIDES_RATIO 1.3 
+#define SIDES_RATIO 1.3
+
+#define BBOX_POS_Y	BUTTER_SIZE/2
+#define BBOX_POS_X	BUTTER_SIZE*SIDES_RATIO/2
 
 class Butter : public Obstacle
 {	

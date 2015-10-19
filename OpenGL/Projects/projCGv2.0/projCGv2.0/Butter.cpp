@@ -10,7 +10,7 @@ Butter::Butter(Vector3 *pos, float angle)
 	_position->set(pos->getX(), pos->getY(), pos->getZ());
 	this->_angle = angle;
 
-	bbox = CollisionBox(_position->getX(), _position->getY(), _position->getX() + SIDES_RATIO*BUTTER_SIZE, _position->getY() + BUTTER_SIZE);
+	bbox = CollisionBox(_position->getX() - BBOX_POS_X, _position->getY() - BBOX_POS_Y, _position->getX() + BBOX_POS_X , _position->getY() + BBOX_POS_Y);
 }
 
 Butter::~Butter()
@@ -34,6 +34,8 @@ void Butter::draw()
 	glutSolidCube(BUTTER_SIZE);
 
 	glPopMatrix();
+
+	bbox.setCordinates(_position->getX() - BBOX_POS_X, _position->getY() - BBOX_POS_Y, _position->getX() + BBOX_POS_X, _position->getY() + BBOX_POS_Y);
 
 	if (GameManager::viewCollisionBoxes() == 1)
 		bbox.draw();

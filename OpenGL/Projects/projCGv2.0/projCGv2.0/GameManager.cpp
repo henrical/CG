@@ -73,11 +73,11 @@ int GameManager::init(){
 	addObstacle(new Orange(&Vector3(0, 1.25, 0)));
 	addObstacle(new Orange(&Vector3(-0.9, -0.5, 0)));
 	addObstacle(new Orange(&Vector3(0.9, -0.9, 0)));
-	addObstacle(new Butter(&Vector3(-0.79, 0.85, 0), 40.0));
-	addObstacle(new Butter(&Vector3(1.25, 0.3, 0), 20.0));
-	addObstacle(new Butter(&Vector3(0, -1.2, 0), -25.0));
-	addObstacle(new Butter(&Vector3(1, 1.2, 0), 55.0));
-	addObstacle(new Butter(&Vector3(-1.2, -1, 0), -30));
+	addObstacle(new Butter(&Vector3(-0.79, 0.85, 0), 0));
+	addObstacle(new Butter(&Vector3(1.25, 0.3, 0), 0));
+	addObstacle(new Butter(&Vector3(0, -1.2, 0), 0));
+	addObstacle(new Butter(&Vector3(1, 1.2, 0), 0));
+	addObstacle(new Butter(&Vector3(-1.2, -1, 0), 0));
 	/*addObstacle(new Cheerio(&Vector3(0, 0, 0)));*/
 	
 	

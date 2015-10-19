@@ -10,7 +10,7 @@ Orange::Orange(Vector3 *pos)
 {
 	_position->set(pos->getX(), pos->getY(), pos->getZ());
 
-	bbox = CollisionBox(_position->getX(), _position->getY(), _position->getX() + ORANGE_BBOX_LENGTH, _position->getY() + ORANGE_BBOX_LENGTH);
+	bbox = CollisionBox(_position->getX() - ORANGE_RADIUS, _position->getY() - ORANGE_RADIUS, _position->getX() + ORANGE_RADIUS, _position->getY() + ORANGE_RADIUS);
 
 
 }
@@ -33,9 +33,10 @@ void Orange::draw()
 
 	gluSphere(quad,ORANGE_RADIUS,50,50);
 
+	glPopMatrix();
+	glPopMatrix();
 
-	glPopMatrix();
-	glPopMatrix();
+	bbox.setCordinates(_position->getX() - ORANGE_RADIUS, _position->getY() - ORANGE_RADIUS, _position->getX() + ORANGE_RADIUS, _position->getY() + ORANGE_RADIUS);
 
 	if (GameManager::viewCollisionBoxes() == 1)
 		bbox.draw();

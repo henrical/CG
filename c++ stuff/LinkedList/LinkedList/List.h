@@ -11,17 +11,48 @@ class List{
 		ListElement<T> *first;
 
 	private:
-		static int length;
+		int length;
 
 	public:
-		static int getLength()
+
+
+		int getLength()
 		{
 			return length;
 		}
 
-		List();
-		List(T first);
-		int add(T ele);
+		List(){
+			first = nullptr;
+		}
+
+		List(T first){
+			first = new ListElement<T>(content);
+
+		}
+
+		void add(T elem)
+		{
+			ListElement<T> *newEle;
+
+			if (first == nullptr)
+			{
+				first = new ListElement<T>(elem);
+
+				List::length = 1;
+
+
+			}
+			else {
+				newEle = new ListElement<T>(elem);
+
+				newEle->setNext(first);
+
+				first = newEle;
+
+				List::length += 1;
+
+			}
+		}
 
 };
 

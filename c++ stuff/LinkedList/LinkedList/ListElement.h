@@ -15,7 +15,7 @@ class ListElement{
 	public:
 		ListElement() {
 			next = nullptr;
-			this.content = T();
+			this->content = T();
 		}
 
 		ListElement(T content){

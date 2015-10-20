@@ -9,12 +9,12 @@
 
 
 Car::Car(){
-	_speed = new Vector3();
+	speed = new Vector3();
 	_position->set(INIT_POS_X, INIT_POS_Y, INIT_POS_Z);
-	_speed->set(0, 0, 0);
+	speed->set(0, 0, 0);
 	acc = new Vector3();
 	acc->set(0, 0, 0);
-	angle = -90;
+	angle = 0;
 	direction = new Vector3(0, 1, 0);
 
 	bbox = CollisionBox(INIT_POS_X - 0.09 , INIT_POS_Y - 0.09, INIT_POS_X + 0.45*CAR_BBOX_LENGTH, INIT_POS_Y + 0.45*CAR_BBOX_LENGTH);
@@ -29,7 +29,7 @@ void Car::draw()
 
 	glPushMatrix();
 	glTranslatef(xPos, yPos, 0);
-	glRotatef((angle * 180 / 3.14159) - 90, 0, 0, 1);
+	glRotatef((angle * 180 / 3.14159) -90, 0, 0, 1);
 	glScalef(CAR_SIZE, CAR_SIZE, CAR_SIZE);
 
 	//frente
@@ -96,11 +96,11 @@ void Car::draw()
 }
 
 void Car::setSpeed(double x, double y, double z){
-	_speed->set(x, y, z);
+	speed->set(x, y, z);
 }
 
-void Car::invertSpeed(){
-	_speed->set(-0.5*_speed->getX(), -0.5*_speed->getY(), 0);
+void Car::setAcc(double x, double y, double z){
+	acc->set(x, y, z);
 }
 
 //void Car::slowDownAcceleration(double acceleration){
@@ -116,22 +116,26 @@ void Car::invertSpeed(){
 //}
 
 Vector3* Car::getSpeed(){
-	return _speed;
+	return speed;
 }
 
 CollisionBox* Car::getBbox(){
 	return &bbox;
 }
 
-
+Vector3* Car::getAcc(){
+	return acc;
+}
 
 void Car::setDirection(){
 	double y;
 	double x;
 	double angulo = angle - (3.14159 / 2);
+	
+	//std::cout << "----->carro angulo setDirection=" << angulo << std::endl;
 
-	y = direction->getY()*sin(angulo/* * 3.14159 / 180*/);
-	x = direction->getY()*cos(angulo/* * 3.14159 / 180*/);
+	y =  direction->getY()*sin(angulo/* * 3.14159 / 180*/);
+	x =  direction->getY()*cos(angulo/* * 3.14159 / 180*/);
 	//normalizar
 	direction->set(x/sqrt(x*x + y*y), y/sqrt(x*x + y*y), 0);
 }
@@ -142,7 +146,7 @@ void Car::rodaDireita(){
 }
 
 void Car::rodaEsquerda(){
-	angle +=0.10;
+	angle += 0.10;
 	setDirection();
 }
 
@@ -150,20 +154,20 @@ void Car::update(int dt){
 	// speed = speed + acc*dt
 	//pos = pos + speed*dt
 	/*if (getSpeed()->getX() < MAXSPEED && getSpeed()->getX() >= 0){
-	setSpeed(getSpeed()->getX() + getAcc()->getX()*dt, getSpeed()->getY(), getSpeed()->getZ());
+		setSpeed(getSpeed()->getX() + getAcc()->getX()*dt, getSpeed()->getY(), getSpeed()->getZ());
 	}
 	else if (getSpeed()->getX() > -(MAXSPEED) && getSpeed()->getX() <= 0){
-	setSpeed(getSpeed()->getX() + getAcc()->getX()*dt, getSpeed()->getY(), getSpeed()->getZ());
+		setSpeed(getSpeed()->getX() + getAcc()->getX()*dt, getSpeed()->getY(), getSpeed()->getZ());
 	}
 	if (getSpeed()->getY() < MAXSPEED && getSpeed()->getY() >= 0){
-	setSpeed(getSpeed()->getX(), getSpeed()->getY() + getAcc()->getY()*dt, getSpeed()->getZ());
+		setSpeed(getSpeed()->getX(), getSpeed()->getY() + getAcc()->getY()*dt, getSpeed()->getZ());
 	}
 	else if (getSpeed()->getY() > -(MAXSPEED) && getSpeed()->getY() <= 0)
-	setSpeed(getSpeed()->getX(), getSpeed()->getY() + getAcc()->getY()*dt, getSpeed()->getZ());*/
-	_speed->set(_speed->getX() + getAcc()->getX() * dt, _speed->getY() + getAcc()->getY() * dt, 0);
+		setSpeed(getSpeed()->getX(), getSpeed()->getY() + getAcc()->getY()*dt, getSpeed()->getZ());*/
+	speed->set(speed->getX() + getAcc()->getX() * dt, speed->getY() + getAcc()->getY() * dt, 0);
 	_position->set(_position->getX() + getSpeed()->getX() * dt * direction->getX(), _position->getY() + getSpeed()->getY() * dt * direction->getY(), _position->getZ());
-
-
+	
+	
 	//std::cout << "----->carro speed x=" << speed->getX() << " y=" << speed->getY() << " dir x=" << direction->getX() << " y="<< direction->getY() << std::endl;
-	/*std::cout << "----->carro angle=" << angle * 180 / 3.14159 << " dir x=" << direction->getX() << " y=" << direction->getY() << std::endl;*/
+	std::cout << "----->carro angle=" << angle *180/3.14159 << " dir x=" << direction->getX() << " y=" << direction->getY() << std::endl;
 }

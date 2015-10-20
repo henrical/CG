@@ -47,7 +47,7 @@ int main(int argc, char** argv)
 
 	glutInit(&argc, argv);
 
-	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE );
 
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -61,7 +61,7 @@ int main(int argc, char** argv)
 	glutSpecialFunc(mySpecialPress);
 	glutSpecialUpFunc(mySpecialUp);
 	glutIgnoreKeyRepeat(true);
-
+	
 	glutTimerFunc(30, myUpdate, 0);
 
 	GameManager::instance()->init();

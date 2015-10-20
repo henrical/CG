@@ -18,13 +18,14 @@
 #define INIT_POS_Y 0 
 #define INIT_POS_Z 0
 
- 
-
 
 class Car : public DynamicObject
 {
 	private:
+		Vector3* speed;
+		Vector3* acc;
 		double angle;
+		Vector3* direction;
 
 		CollisionBox bbox;
 
@@ -33,12 +34,10 @@ class Car : public DynamicObject
 		~Car(){}
 
 		void draw();
-
 		void setSpeed(double x, double y, double z);
-		void invertSpeed();
-		
+		void setAcc(double x, double y, double z);
 		Vector3* getSpeed();
-		
+		Vector3* getAcc();
 		void update(int dt);
 		void rodaDireita();
 		void rodaEsquerda();

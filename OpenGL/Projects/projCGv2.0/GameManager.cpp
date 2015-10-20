@@ -13,6 +13,16 @@
 
 GameManager* GameManager::_instance = nullptr;
 
+// Constant arrays with color RBG(0-1 scale) codes.
+extern "C" const float WHITE[] = { 1, 1, 1 };
+extern "C" const float LIGHT_BLUE[] = { 0.81960784, 0.8, 1 };
+extern "C" const float LIGHT_GREY[] = { 0.89019607, 0.89019607, 0.89019607};
+extern "C" const float LIGHT_ORANGE[] = { 1, 0.94509803, 0.72156862 };
+extern "C" const float ORANGE[] = { 1, 0.61568627, 0};
+extern "C" const float CHEERIO_BROWN[] = { 0.6392156863, 0.2980392157, 0 };
+extern "C" const float YELLOW[] = { 0.9647058824, 1, 0.2705882353 };
+
+
 GameManager::GameManager()
 {
 	currtime = 0;
@@ -150,7 +160,7 @@ void GameManager::display(){
 
 	//draw initial scene
 	drawGameObjects();
-
+	
 	gameHasStarted = true;
 
 	glFlush();
@@ -241,7 +251,7 @@ void GameManager::specialUp(int key){
 			seta_esquerda = true;
 		break;
 	}
-
+	
 	//carro->setAcc(0, 0, 0);
 	//carro->setSpeed(0, 0, 0);
 }
@@ -302,6 +312,35 @@ void GameManager::update(){
 	carro = (Car*)getObject(CAR);
 
 	Obstacle* obs;
+	float* obstacle_cordinates;
+
+	float* car_cordinates = carro->getBbox()->getCordinates();
+
+	for (i; i < numObstaculos; i++){
+		obs = obstacles[i];
+
+		obstacle_cordinates = obs->getBbox()->getCordinates();
+
+		if (car_cordinates[2] > obstacle_cordinates[0] )
+		{
+			if (car_cordinates[0] < obstacle_cordinates[2])
+			{
+				if (car_cordinates[3] > obstacle_cordinates[1])
+				{
+					if (car_cordinates[1] < obstacle_cordinates[3])
+					{
+						std::cout << "=== OBSTACLE HIT! ===" << std::endl;
+						std::cout << "===== " << i << " ===" << std::endl;
+
+						/*carro->setAcc(0, 0, 0);
+						carro->setSpeed(0, 0, 0);*/
+
+					}
+
+				}	
+			}
+		}
+	}
 
 	if (seta_cima)
 		carro->setAcc(CAR_ACCELERATION, CAR_ACCELERATION, 0);
@@ -316,38 +355,12 @@ void GameManager::update(){
 	else if (seta_esquerda)
 		carro->rodaEsquerda();
 
-	for (i; i < numObstaculos; i++){
-		obs = obstacles[i];
-
-		if (carro->getBbox()->getXMax() > obs->getBbox()->getXMin())
-		{
-			if (carro->getBbox()->getXMin() < obs->getBbox()->getXMax())
-			{
-				if (carro->getBbox()->getYMax() > obs->getBbox()->getYMin())
-				{
-					if (carro->getBbox()->getYMin() < obs->getBbox()->getYMax())
-					{
-						std::cout << "=== OBSTACLE HIT! ===" << std::endl;
-						std::cout << "===== " << i << " ===" << std::endl;
-
-						//carro->setAcc(0, 0, 0);
-						carro->invertSpeed();
-
-					}
-
-				}	
-			}
-		}
-	}
-
-	
-
 	currtime = glutGet(GLUT_ELAPSED_TIME);
-
+	
 	//_gameObjects[0]->update(currtime - prevtime);
-
+	
 	carro->update(currtime - prevtime);
 	prevtime = currtime;
-
+	
 	glutPostRedisplay();
 }

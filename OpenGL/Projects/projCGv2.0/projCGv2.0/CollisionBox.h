@@ -16,7 +16,11 @@ class CollisionBox{
 		~CollisionBox();
 
 		void setCordinates(float xm, float ym, float xM, float yM);
-		float* getCordinates();
+
+		float getXMin();
+		float getYMin();
+		float getXMax();
+		float getYMax();
 
 		//Boxes will appear ingame if GameManager::VIEW_COLLISION_BOXES is set to 1.
 		void draw();

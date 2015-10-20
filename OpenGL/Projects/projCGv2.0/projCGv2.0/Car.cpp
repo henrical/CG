@@ -9,9 +9,9 @@
 
 
 Car::Car(){
-	speed = new Vector3();
+	_speed = new Vector3();
 	_position->set(INIT_POS_X, INIT_POS_Y, INIT_POS_Z);
-	speed->set(0, 0, 0);
+	_speed->set(0, 0, 0);
 	acc = new Vector3();
 	acc->set(0, 0, 0);
 	angle = -90;
@@ -96,11 +96,11 @@ void Car::draw()
 }
 
 void Car::setSpeed(double x, double y, double z){
-	speed->set(x, y, z);
+	_speed->set(x, y, z);
 }
 
-void Car::setAcc(double x, double y, double z){
-	acc->set(x, y, z);
+void Car::invertSpeed(){
+	//TODO
 }
 
 //void Car::slowDownAcceleration(double acceleration){
@@ -116,16 +116,14 @@ void Car::setAcc(double x, double y, double z){
 //}
 
 Vector3* Car::getSpeed(){
-	return speed;
+	return _speed;
 }
 
 CollisionBox* Car::getBbox(){
 	return &bbox;
 }
 
-Vector3* Car::getAcc(){
-	return acc;
-}
+
 
 void Car::setDirection(){
 	double y;
@@ -160,7 +158,7 @@ void Car::update(int dt){
 	}
 	else if (getSpeed()->getY() > -(MAXSPEED) && getSpeed()->getY() <= 0)
 		setSpeed(getSpeed()->getX(), getSpeed()->getY() + getAcc()->getY()*dt, getSpeed()->getZ());*/
-	speed->set(speed->getX() + getAcc()->getX() * dt, speed->getY() + getAcc()->getY() * dt, 0);
+	_speed->set(_speed->getX() + getAcc()->getX() * dt, _speed->getY() + getAcc()->getY() * dt, 0);
 	_position->set(_position->getX() + getSpeed()->getX() * dt * direction->getX(), _position->getY() + getSpeed()->getY() * dt * direction->getY(), _position->getZ());
 	
 	

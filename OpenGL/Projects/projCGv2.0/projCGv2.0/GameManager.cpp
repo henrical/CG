@@ -276,28 +276,23 @@ void GameManager::update(){
 	carro = (Car*)getObject(CAR);
 
 	Obstacle* obs;
-	float* obstacle_cordinates;
-
-	float* car_cordinates = carro->getBbox()->getCordinates();
 
 	for (i; i < numObstaculos; i++){
 		obs = obstacles[i];
 
-		obstacle_cordinates = obs->getBbox()->getCordinates();
-
-		if (car_cordinates[2] > obstacle_cordinates[0] )
+		if (carro->getBbox()->getXMax() > obs->getBbox()->getXMin())
 		{
-			if (car_cordinates[0] < obstacle_cordinates[2])
+			if (carro->getBbox()->getXMin() < obs->getBbox()->getXMax())
 			{
-				if (car_cordinates[3] > obstacle_cordinates[1])
+				if (carro->getBbox()->getYMax() > obs->getBbox()->getYMin())
 				{
-					if (car_cordinates[1] < obstacle_cordinates[3])
+					if (carro->getBbox()->getYMin() < obs->getBbox()->getYMax())
 					{
 						std::cout << "=== OBSTACLE HIT! ===" << std::endl;
 						std::cout << "===== " << i << " ===" << std::endl;
 
-						/*carro->setAcc(0, 0, 0);
-						carro->setSpeed(0, 0, 0);*/
+						carro->setAcc(0, 0, 0);
+						carro->setSpeed(0, 0, 0);
 
 					}
 

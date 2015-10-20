@@ -8,8 +8,10 @@
 
 class DynamicObject : public GameObject
 {
-	private:
-		Vector3 _speed;
+	protected:
+		Vector3* _speed;
+		Vector3* acc;
+		Vector3* direction;
 
 	public:
 		DynamicObject(){}
@@ -18,9 +20,12 @@ class DynamicObject : public GameObject
 		void update(double delta_t);
 		virtual void draw();
 
-		void setSpeed(const Vector3 &vector);
+		Vector3* getAcc();
+		void setAcc(double x, double y, double z);
+
+		void setSpeed(Vector3 *vector);
 		void setSpeed(double x, double y, double z);
-		Vector3 getSpeed();
+		Vector3* getSpeed();
 
 };
 

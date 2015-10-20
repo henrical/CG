@@ -100,7 +100,7 @@ void Car::setSpeed(double x, double y, double z){
 }
 
 void Car::invertSpeed(){
-	//TODO
+	_speed->set(-0.5*_speed->getX(), -0.5*_speed->getY(), 0);
 }
 
 //void Car::slowDownAcceleration(double acceleration){

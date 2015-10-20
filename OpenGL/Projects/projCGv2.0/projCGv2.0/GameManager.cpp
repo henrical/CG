@@ -13,16 +13,6 @@
 
 GameManager* GameManager::_instance = nullptr;
 
-// Constant arrays with color RBG(0-1 scale) codes.
-extern "C" const float WHITE[] = { 1, 1, 1 };
-extern "C" const float LIGHT_BLUE[] = { 0.81960784, 0.8, 1 };
-extern "C" const float LIGHT_GREY[] = { 0.89019607, 0.89019607, 0.89019607};
-extern "C" const float LIGHT_ORANGE[] = { 1, 0.94509803, 0.72156862 };
-extern "C" const float ORANGE[] = { 1, 0.61568627, 0};
-extern "C" const float CHEERIO_BROWN[] = { 0.6392156863, 0.2980392157, 0 };
-extern "C" const float YELLOW[] = { 0.9647058824, 1, 0.2705882353 };
-
-
 GameManager::GameManager()
 {
 	currtime = 0;
@@ -292,7 +282,7 @@ void GameManager::update(){
 						std::cout << "===== " << i << " ===" << std::endl;
 
 						carro->setAcc(0, 0, 0);
-						carro->setSpeed(0, 0, 0);
+						carro->invertSpeed();
 
 					}
 

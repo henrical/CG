@@ -316,30 +316,31 @@ void GameManager::update(){
 	else if (seta_esquerda)
 		carro->rodaEsquerda();
 
-	//for (i; i < numObstaculos; i++){
-	//	obs = obstacles[i];
+	for (i; i < numObstaculos; i++){
+		obs = obstacles[i];
 
-	//	if (carro->getBbox()->getXMax() > obs->getBbox()->getXMin())
-	//	{
-	//		if (carro->getBbox()->getXMin() < obs->getBbox()->getXMax())
-	//		{
-	//			if (carro->getBbox()->getYMax() > obs->getBbox()->getYMin())
-	//			{
-	//				if (carro->getBbox()->getYMin() < obs->getBbox()->getYMax())
-	//				{
-	//					/*std::cout << "=== OBSTACLE HIT! ===" << std::endl;
-	//					std::cout << "===== " << i << " ===" << std::endl;*/
+		if (carro->getBbox()->getXMax() > obs->getBbox()->getXMin())
+		{
+			if (carro->getBbox()->getXMin() < obs->getBbox()->getXMax())
+			{
+				if (carro->getBbox()->getYMax() > obs->getBbox()->getYMin())
+				{
+					if (carro->getBbox()->getYMin() < obs->getBbox()->getYMax())
+					{
+						/*std::cout << "=== OBSTACLE HIT! ===" << std::endl;
+						std::cout << "===== " << i << " ===" << std::endl;*/
 
-	//					//carro->setAcc(0, 0, 0);
-	//					/*std::cout << "Speed before collision: [" << carro->getSpeed()->getX() << ", " << carro->getSpeed()->getY() << "]." << std::endl;*/
-	//					carro->invertSpeed();
-	//					/*std::cout << "Speed before collision: [" << carro->getSpeed()->getX() << ", " << carro->getSpeed()->getY() << "]." << std::endl;*/
-	//				}
+						//carro->setAcc(0, 0, 0);
+						/*std::cout << "Speed before collision: [" << carro->getSpeed()->getX() << ", " << carro->getSpeed()->getY() << "]." << std::endl;*/
+						carro->triggerCollision();
+						//carro->invertSpeed();
+						/*std::cout << "Speed before collision: [" << carro->getSpeed()->getX() << ", " << carro->getSpeed()->getY() << "]." << std::endl;*/
+					}
 
-	//			}	
-	//		}
-	//	}
-	//}
+				}	
+			}
+		}
+	}
 
 	
 

@@ -16,8 +16,14 @@ Car::Car(){
 	acc->set(0, 0, 0);
 	angle = -90;
 	direction = new Vector3(0, 1, 0);
+	hasCollision = false;
 
 	bbox = CollisionBox(INIT_POS_X - 0.09 , INIT_POS_Y - 0.09, INIT_POS_X + 0.45*CAR_BBOX_LENGTH, INIT_POS_Y + 0.45*CAR_BBOX_LENGTH);
+
+}
+
+void Car::triggerCollision(){
+	hasCollision = true;
 
 }
 
@@ -166,4 +172,16 @@ void Car::update(int dt){
 
 	//std::cout << "----->carro speed x=" << speed->getX() << " y=" << speed->getY() << " dir x=" << direction->getX() << " y="<< direction->getY() << std::endl;
 	/*std::cout << "----->carro angle=" << angle * 180 / 3.14159 << " dir x=" << direction->getX() << " y=" << direction->getY() << std::endl;*/
+
+	if (hasCollision)
+	{
+		moveBack(dt);
+	}
+
+	hasCollision = false;
+}
+
+void Car::moveBack(int dt){
+	this->_position->set(_position->getX() - 2 *  dt * getSpeed()->getX() * direction->getX(), _position->getY() - 2 * dt * getSpeed()->getY() * direction->getY(), _position->getZ());
+	_speed->set(0, 0, 0);
 }

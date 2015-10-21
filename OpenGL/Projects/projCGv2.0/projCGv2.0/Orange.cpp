@@ -11,7 +11,7 @@ Orange::Orange(Vector3 *pos)
 	_position->set(pos->getX(), pos->getY(), pos->getZ());
 
 	bbox = CollisionBox(_position->getX() - ORANGE_RADIUS, _position->getY() - ORANGE_RADIUS, _position->getX() + ORANGE_RADIUS, _position->getY() + ORANGE_RADIUS);
-
+	hasCollision = false;
 
 }
 

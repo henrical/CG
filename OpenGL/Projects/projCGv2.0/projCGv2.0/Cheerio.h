@@ -16,11 +16,7 @@
 
 class Cheerio : public Obstacle
 {
-private:
-	bool has_collision;
-	bool game_has_started;
-
-	
+private:	
 
 public:
 	Cheerio(Vector3 *pos);

@@ -13,6 +13,8 @@ class DynamicObject : public GameObject
 		Vector3* acc;
 		Vector3* direction;
 
+		bool hasCollision;
+
 	public:
 		DynamicObject(){}
 		~DynamicObject(){}

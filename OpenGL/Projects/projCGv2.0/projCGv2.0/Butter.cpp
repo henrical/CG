@@ -10,6 +10,8 @@ Butter::Butter(Vector3 *pos, float angle)
 	_position->set(pos->getX(), pos->getY(), pos->getZ());
 	this->_angle = angle;
 
+	hasCollision = false;
+
 	bbox = CollisionBox(_position->getX() - BBOX_POS_X, _position->getY() - BBOX_POS_Y, _position->getX() + BBOX_POS_X , _position->getY() + BBOX_POS_Y);
 }
 

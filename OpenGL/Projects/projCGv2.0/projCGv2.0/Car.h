@@ -36,13 +36,17 @@ class Car : public DynamicObject
 
 		void setSpeed(double x, double y, double z);
 		void invertSpeed();
+		void moveBack(int dt);
 		
 		Vector3* getSpeed();
+
+		void triggerCollision();
 		
 		void update(int dt);
 		void rodaDireita();
 		void rodaEsquerda();
 		void setDirection();
+		
 
 		CollisionBox* getBbox();
 

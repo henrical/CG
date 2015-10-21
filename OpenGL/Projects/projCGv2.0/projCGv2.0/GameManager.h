@@ -6,7 +6,7 @@
 #include "GameObject.h"
 #include "Obstacle.h"
 
-#define VIEW_COLLISION_BOXES 0		//0 para não ver as boxes, 1 para ver
+#define VIEW_COLLISION_BOXES 1		//0 para não ver as boxes, 1 para ver
 
 #define CAR_ACCELERATION 0.0000005
 

@@ -23,6 +23,7 @@ public:
 	~Cheerio();
 
 	void draw();
+	void update(int delta_t, Vector3 hit_direction);
 
 };
 

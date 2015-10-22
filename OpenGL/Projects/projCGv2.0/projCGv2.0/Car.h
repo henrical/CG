@@ -7,7 +7,7 @@
 
 #include "DynamicObject.h"
 
-#define CAR_SIZE 0.1
+#define CAR_SIZE 0.07
 
 //bounding box side length
 #define CAR_BBOX_LENGTH  2*CAR_SIZE 
@@ -40,12 +40,13 @@ class Car : public DynamicObject
 		
 		Vector3* getSpeed();
 
-		void triggerCollision();
 		
 		void update(int dt);
 		void rodaDireita();
 		void rodaEsquerda();
 		void setDirection();
+
+		
 		
 
 		CollisionBox* getBbox();

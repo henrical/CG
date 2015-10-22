@@ -18,13 +18,8 @@ Car::Car(){
 	direction = new Vector3(0, 1, 0);
 	hasCollision = false;
 
-	bbox = CollisionBox(INIT_POS_X - 0.09 , INIT_POS_Y - 0.09, INIT_POS_X + 0.45*CAR_BBOX_LENGTH, INIT_POS_Y + 0.45*CAR_BBOX_LENGTH);
-
-}
-
-void Car::triggerCollision(){
-	hasCollision = true;
-
+	bbox = CollisionBox(INIT_POS_X - 0.06 , INIT_POS_Y - 0.06, INIT_POS_X + 0.45*CAR_BBOX_LENGTH, INIT_POS_Y + 0.45*CAR_BBOX_LENGTH);
+	justCollided = false;
 }
 
 void Car::draw()
@@ -92,7 +87,7 @@ void Car::draw()
 
 	glPopMatrix();
 
-	bbox.setCordinates(xPos - 0.09, yPos - 0.09, xPos + 0.45*CAR_BBOX_LENGTH, yPos + 0.45*CAR_BBOX_LENGTH);
+	bbox.setCordinates(xPos - 0.06, yPos - 0.06, xPos + 0.45*CAR_BBOX_LENGTH, yPos + 0.45*CAR_BBOX_LENGTH);
 
 	if (GameManager::viewCollisionBoxes() == 1)
 		bbox.draw();
@@ -143,12 +138,12 @@ void Car::setDirection(){
 }
 
 void Car::rodaDireita(){
-	angle -= 0.10;
+	angle -= 0.25;
 	setDirection();
 }
 
 void Car::rodaEsquerda(){
-	angle +=0.10;
+	angle +=0.25;
 	setDirection();
 }
 
@@ -166,18 +161,20 @@ void Car::update(int dt){
 	}
 	else if (getSpeed()->getY() > -(MAXSPEED) && getSpeed()->getY() <= 0)
 	setSpeed(getSpeed()->getX(), getSpeed()->getY() + getAcc()->getY()*dt, getSpeed()->getZ());*/
+	if (hasCollision)
+	{
+
+		moveBack(dt);
+		hasCollision = false;
+		return;
+	}
+
 	_speed->set(_speed->getX() + getAcc()->getX() * dt, _speed->getY() + getAcc()->getY() * dt, 0);
 	_position->set(_position->getX() + getSpeed()->getX() * dt * direction->getX(), _position->getY() + getSpeed()->getY() * dt * direction->getY(), _position->getZ());
 
 
 	//std::cout << "----->carro speed x=" << speed->getX() << " y=" << speed->getY() << " dir x=" << direction->getX() << " y="<< direction->getY() << std::endl;
-	/*std::cout << "----->carro angle=" << angle * 180 / 3.14159 << " dir x=" << direction->getX() << " y=" << direction->getY() << std::endl;*/
-
-	if (hasCollision)
-	{
-		moveBack(dt);
-	}
-
+	/*std::cout << "----->carro angle=" << angle * 180 / 3.14159 << " dir x=" << direction->getX() << " y=" << direction->getY() << std::endl*/
 	hasCollision = false;
 }
 

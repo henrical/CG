@@ -14,15 +14,23 @@ class DynamicObject : public GameObject
 		Vector3* direction;
 
 		bool hasCollision;
+		bool justCollided;
 
 	public:
 		DynamicObject(){}
 		~DynamicObject(){}
 
+		bool hasCollisionp();
+		bool hasJustCollidedp();
+
+		void triggerCollision();
+
 		void update(double delta_t);
 		virtual void draw();
 
 		Vector3* getAcc();
+		Vector3 getDirection();
+
 		void setAcc(double x, double y, double z);
 
 		void setSpeed(Vector3 *vector);

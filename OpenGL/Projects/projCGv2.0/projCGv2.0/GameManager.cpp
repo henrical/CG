@@ -327,14 +327,14 @@ void GameManager::update(){
 				{
 					if (carro->getBbox()->getYMin() < obs->getBbox()->getYMax())
 					{
-						/*std::cout << "=== OBSTACLE HIT! ===" << std::endl;
-						std::cout << "===== " << i << " ===" << std::endl;*/
+						
+						obs->triggerCollision();
+						
+						currtime = glutGet(GLUT_ELAPSED_TIME);
+						obs->update(currtime - prevtime, carro->getDirection()); //Tem um problem qualquer de polimorfismo, nao esta a chegar ao update de cheerio.
+						//Fazer uma lista para cada tipo de objecto?
 
-						//carro->setAcc(0, 0, 0);
-						/*std::cout << "Speed before collision: [" << carro->getSpeed()->getX() << ", " << carro->getSpeed()->getY() << "]." << std::endl;*/
 						carro->triggerCollision();
-						//carro->invertSpeed();
-						/*std::cout << "Speed before collision: [" << carro->getSpeed()->getX() << ", " << carro->getSpeed()->getY() << "]." << std::endl;*/
 					}
 
 				}	

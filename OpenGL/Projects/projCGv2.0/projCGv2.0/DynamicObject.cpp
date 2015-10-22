@@ -36,3 +36,19 @@ void DynamicObject::setSpeed(double x, double y, double z)
 {
 	this->_speed = new Vector3(x, y, z);
 }
+
+void DynamicObject::triggerCollision(){
+	hasCollision = true;
+}
+
+bool DynamicObject::hasCollisionp(){
+	return hasCollision;
+}
+
+bool DynamicObject::hasJustCollidedp(){
+	return justCollided;
+}
+
+Vector3 DynamicObject::getDirection(){
+	return *direction;
+}

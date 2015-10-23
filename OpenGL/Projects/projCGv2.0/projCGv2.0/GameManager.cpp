@@ -19,6 +19,9 @@ GameManager::GameManager()
 	prevtime = 0;
 	numGameObjects = 0;
 	numObstaculos = 0;
+	numButters = 0;
+	numOranges;
+
 	camera = 1;
 	wireframe = false;
 	seta_baixo = seta_cima = seta_direita = seta_esquerda = false;
@@ -30,9 +33,14 @@ void GameManager::addObject(GameObject *obj)
 	numGameObjects += 1;
 }
 
-void GameManager::addObstacle(Obstacle *obs){
+void GameManager::addObstacle(Cheerio *obs){
 	obstacles[numObstaculos] = obs;
 	numObstaculos += 1;
+}
+
+void GameManager::addButter(Butter *obs){
+	butters[numButters] = obs;
+	numButters += 1;
 }
 
 GameObject* GameManager::getObject(int object_index)
@@ -60,16 +68,15 @@ int GameManager::init(){
 	Roadside *road = (Roadside*)getObject(ROADSIDE);
 	road->draw();
 
+	addButter(new Butter(&Vector3(1.25, 0.3, 0), 0));
+	addButter(new Butter(&Vector3(-0.79, 0.85, 0), 0));
+	addButter(new Butter(&Vector3(0, -1.2, 0), 0));
+	addButter(new Butter(&Vector3(1, 1.2, 0), 0));
+	addButter(new Butter(&Vector3(-1.2, -1, 0), 0));
 
-	addObstacle(new Orange(&Vector3(0, 1.25, 0)));
+	/*addObstacle(new Orange(&Vector3(0, 1.25, 0)));
 	addObstacle(new Orange(&Vector3(-0.9, -0.5, 0)));
-	addObstacle(new Orange(&Vector3(0.9, -0.9, 0)));
-	addObstacle(new Butter(&Vector3(-0.79, 0.85, 0), 0));
-	addObstacle(new Butter(&Vector3(1.25, 0.3, 0), 0));
-	addObstacle(new Butter(&Vector3(0, -1.2, 0), 0));
-	addObstacle(new Butter(&Vector3(1, 1.2, 0), 0));
-	addObstacle(new Butter(&Vector3(-1.2, -1, 0), 0));
-	/*addObstacle(new Cheerio(&Vector3(0, 0, 0)));*/
+	addObstacle(new Orange(&Vector3(0.9, -0.9, 0)));*/
 	
 	
 
@@ -91,12 +98,17 @@ int GameManager::drawGameObjects(){
 	}
 	
 
-	//desenhar obstaculos
+	//desenhar cheerios
 	for (i = 0; i < numObstaculos; i++){
 		obstacles[i]->draw();
 		//std::cout << "=== Drawing obstacle " << i << ";" << std::endl;
 	}
 
+	//desenhar manteigas
+	for (i = 0; i < numButters; i++){
+		butters[i]->draw();
+		//std::cout << "=== Drawing obstacle " << i << ";" << std::endl;
+	}
 	
 
 	return 0;
@@ -301,7 +313,15 @@ void GameManager::update(){
 	Car* carro;
 	carro = (Car*)getObject(CAR);
 
-	Obstacle* obs;
+	Cheerio* obstacles_hit[100];
+	int number_obstacles_hit = 0;
+
+	Butter* butter_hit[5];
+	int number_butter_hit;
+
+	Cheerio* obs;
+	Butter* butter;
+
 
 	if (seta_cima)
 		carro->setAcc(CAR_ACCELERATION, CAR_ACCELERATION, 0);
@@ -316,6 +336,7 @@ void GameManager::update(){
 	else if (seta_esquerda)
 		carro->rodaEsquerda();
 
+	
 	for (i; i < numObstaculos; i++){
 		obs = obstacles[i];
 
@@ -330,9 +351,11 @@ void GameManager::update(){
 						
 						obs->triggerCollision();
 						
-						currtime = glutGet(GLUT_ELAPSED_TIME);
-						obs->update(currtime - prevtime, carro->getDirection()); //Tem um problem qualquer de polimorfismo, nao esta a chegar ao update de cheerio.
-						//Fazer uma lista para cada tipo de objecto?
+						//currtime = glutGet(20 * GLUT_ELAPSED_TIME); //TEMP
+						//obs->update(currtime - prevtime, carro->getDirection());
+
+						obstacles_hit[number_obstacles_hit] = obs;
+						number_obstacles_hit++;
 
 						carro->triggerCollision();
 					}
@@ -347,6 +370,10 @@ void GameManager::update(){
 	currtime = glutGet(GLUT_ELAPSED_TIME);
 
 	//_gameObjects[0]->update(currtime - prevtime);
+	for (i = 0; i < number_obstacles_hit; i++)
+	{
+		obstacles_hit[i]->update(currtime - prevtime, carro->getDirection(), *carro->getSpeed());
+	}
 
 	carro->update(currtime - prevtime);
 	prevtime = currtime;

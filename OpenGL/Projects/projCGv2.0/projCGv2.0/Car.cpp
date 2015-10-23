@@ -172,6 +172,7 @@ void Car::update(int dt){
 	_speed->set(_speed->getX() + getAcc()->getX() * dt, _speed->getY() + getAcc()->getY() * dt, 0);
 	_position->set(_position->getX() + getSpeed()->getX() * dt * direction->getX(), _position->getY() + getSpeed()->getY() * dt * direction->getY(), _position->getZ());
 
+	glFlush();
 
 	//std::cout << "----->carro speed x=" << speed->getX() << " y=" << speed->getY() << " dir x=" << direction->getX() << " y="<< direction->getY() << std::endl;
 	/*std::cout << "----->carro angle=" << angle * 180 / 3.14159 << " dir x=" << direction->getX() << " y=" << direction->getY() << std::endl*/
@@ -179,6 +180,7 @@ void Car::update(int dt){
 }
 
 void Car::moveBack(int dt){
-	this->_position->set(_position->getX() - 2 *  dt * getSpeed()->getX() * direction->getX(), _position->getY() - 2 * dt * getSpeed()->getY() * direction->getY(), _position->getZ());
+	this->_position->set(_position->getX() -   dt * getSpeed()->getX() * direction->getX(), _position->getY() - dt * getSpeed()->getY() * direction->getY(), _position->getZ());
 	_speed->set(0, 0, 0);
+	acc->set(0, 0, 0);
 }

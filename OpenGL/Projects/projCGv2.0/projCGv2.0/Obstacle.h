@@ -6,7 +6,7 @@
 
 #define CHEERIO_ACCELERATION 0.000001
 
-class Obstacle : public DynamicObject
+ class Obstacle : public DynamicObject
 {
 	protected:
 		CollisionBox bbox;

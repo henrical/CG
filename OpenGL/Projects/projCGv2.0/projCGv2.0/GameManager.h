@@ -5,8 +5,11 @@
 #include "Car.h"
 #include "GameObject.h"
 #include "Obstacle.h"
+#include "Cheerio.h"
+#include "Orange.h"
+#include "Butter.h"
 
-#define VIEW_COLLISION_BOXES 1		//0 para não ver as boxes, 1 para ver
+#define VIEW_COLLISION_BOXES 0		//0 para não ver as boxes, 1 para ver
 
 #define CAR_ACCELERATION 0.0000005
 
@@ -31,9 +34,17 @@ class GameManager {
 
 		LightSource _lightSources[10];
 		GameObject* _gameObjects[10];
-		Obstacle* obstacles[200];
+		
+		Cheerio* obstacles[200];
+		Orange* oranges[50];
+		Butter* butters[10];
 
-		int _cameras, camera, numObstaculos, numGameObjects, prevtime, currtime;
+
+		int _cameras, camera;
+		int numObstaculos;
+		int numOranges;
+		int numButters;
+		int numGameObjects, prevtime, currtime;
 		bool gameHasStarted = false;
 		bool wireframe;
 		bool seta_cima, seta_baixo, seta_esquerda, seta_direita;
@@ -61,7 +72,9 @@ class GameManager {
 		}
 
 		void addObject(GameObject *obj);
-		void addObstacle(Obstacle *obs);
+		void addObstacle(Cheerio *obs);
+		void addButter(Butter *obs);
+		void addOrange(Orange *obs);
 
 		GameObject* getObject(int object);
 

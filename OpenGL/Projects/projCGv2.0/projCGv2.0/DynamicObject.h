@@ -17,7 +17,7 @@ class DynamicObject : public GameObject
 		bool justCollided;
 
 	public:
-		DynamicObject(){}
+		DynamicObject();
 		~DynamicObject(){}
 
 		bool hasCollisionp();

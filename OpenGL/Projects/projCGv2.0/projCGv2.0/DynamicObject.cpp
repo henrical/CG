@@ -2,6 +2,13 @@
 
 #include "DynamicObject.h"
 
+DynamicObject::DynamicObject()
+{
+	direction = new Vector3();
+	_speed = new Vector3();
+	acc = new Vector3();
+}
+
 void DynamicObject::update(double delta_t)
 {
 

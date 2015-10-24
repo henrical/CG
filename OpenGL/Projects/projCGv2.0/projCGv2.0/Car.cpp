@@ -19,7 +19,6 @@ Car::Car(){
 	hasCollision = false;
 
 	bbox = CollisionBox(INIT_POS_X - 0.06 , INIT_POS_Y - 0.06, INIT_POS_X + 0.45*CAR_BBOX_LENGTH, INIT_POS_Y + 0.45*CAR_BBOX_LENGTH);
-	justCollided = false;
 }
 
 void Car::draw()

@@ -24,14 +24,12 @@ private:
 	double _aspect;
 	int _camera_num;
 
-	double _car_pos_x;
-	double _car_pos_y;
 
 public:
-	PerspectiveCamera(double fovy, double aspect, double znear, double zfar, int camera_num, double car_pos_x, double car_pos_y);
+	PerspectiveCamera(double fovy, double aspect, double znear, double zfar, int camera_num);
 	~PerspectiveCamera();
 
-	void update();
+	void update(double car_pos_x, double car_pos_y, double car_dir_x, double car_dir_y);
 
 	void computeProjectionMatrix();
 	void computeVisualizationMatrix();

@@ -119,8 +119,8 @@ void GameManager::display(){
 	glViewport(0, 0, VIEWPORT_X, VIEWPORT_Y);
 
 	OrthogonalCamera *cam1 = new OrthogonalCamera(ASPECT_RATIO*ORTHO_LEFT, ASPECT_RATIO*ORTHO_RIGHT, ORTHO_BOTTOM, ORTHO_TOP, ORTHO_NEAR, ORTHO_FAR);
-	PerspectiveCamera *cam2 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, FIXED_CAM,0,0);
-	PerspectiveCamera *cam3 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, MOBILE_CAM, car->getPosition()->getX(), car->getPosition()->getY());
+	PerspectiveCamera *cam2 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, FIXED_CAM);
+	PerspectiveCamera *cam3 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, MOBILE_CAM);
 
 	//		##########	camaras	################
 	if (camera == 1){
@@ -129,18 +129,18 @@ void GameManager::display(){
 	}
 	else if (camera == 2){
 		
-		cam2->update();
+		cam2->update(0,0,0,0);
 	}
 	else if (camera == 3){
 		
-		/*cam3->update();*/
-		glMatrixMode(GL_PROJECTION);
+		cam3->update(car->getPosition()->getX(), car->getPosition()->getY(), car->getDirection().getX(), car->getDirection().getY());
+		/*glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		float rac = (float)800 / 700;
 		gluPerspective(90, rac, 0, 15);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(0, -2, 1, 0, 0, 0, 0, 1, 0);
+		gluLookAt(-1.1, -1, 1,     -1, 1, 0,     0, 1, 0);*/
 	}
 
 

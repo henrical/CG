@@ -3,15 +3,13 @@
 #include "PerspectiveCamera.h"
 #include "GL\glut.h"
 
-PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double znear, double zfar, int camera_num, double car_pos_x, double car_pos_y)
+PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double znear, double zfar, int camera_num)
 	:Camera(znear, zfar)
 {
 	_fovy = fovy;
 	_aspect = aspect;
 	_camera_num = camera_num;
 
-	_car_pos_x = car_pos_x;
-	_car_pos_y = car_pos_y;
 
 }
 
@@ -19,7 +17,7 @@ PerspectiveCamera::~PerspectiveCamera(){
 
 }
 
-void PerspectiveCamera::update(){
+void PerspectiveCamera::update(double car_pos_x, double car_pos_y, double car_dir_x, double car_dir_y){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(_fovy, _aspect, _near, _far);
@@ -29,8 +27,16 @@ void PerspectiveCamera::update(){
 
 	if (_camera_num == 2)
 		gluLookAt(CAMERA2_EYE_X, CAMERA2_EYE_Y, CAMERA2_EYE_Z, CAMERA2_CENTER_X, CAMERA2_CENTER_Y, CAMERA2_CENTER_Z, CAMERA2_UP_X, CAMERA2_UP_Y, CAMERA2_UP_Z);
-	else if(_camera_num == 3)
-		gluLookAt(0, -2.5, 1.5, _car_pos_x, _car_pos_y, 0, 0, 1, 0);
+	else if (_camera_num == 3){
+		double eyex = car_pos_x;
+		double eyey = -1 + car_pos_y;
+
+		/*std::cout << "[" << car_dir_x << ", " << car_dir_y << "]" << std::endl;*/
+		gluLookAt(car_pos_x, -1 + car_pos_y, 1,      car_dir_x + eyex, car_dir_y + eyey, 0,       0, 1, 0);
+
+
+		/*gluLookAt(car_pos_x, -1 + car_pos_y, 1, car_pos_x, car_pos_y, 0, 0, 1, 0); */
+	}
 }
 
 void PerspectiveCamera::computeProjectionMatrix()

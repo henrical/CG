@@ -11,6 +11,32 @@
 
 #define VIEW_COLLISION_BOXES 0		//0 para não ver as boxes, 1 para ver
 
+#define VIEWPORT_X 800
+#define VIEWPORT_Y 700
+
+#define ASPECT_RATIO (float)VIEWPORT_X/VIEWPORT_Y
+
+#define FIXED_CAM 2
+#define MOBILE_CAM 3
+
+/**
+ * Camara 1 (Ortogonal)
+**/
+#define ORTHO_LEFT -3.0f
+#define ORTHO_RIGHT 3.0f
+#define ORTHO_BOTTOM -3.0f
+#define ORTHO_TOP 3.0f
+#define ORTHO_NEAR -5.0f
+#define ORTHO_FAR 5.0f
+
+/**
+* Camara 2 (Perspectiva fixa)
+**/
+#define FOVY 90
+#define ZNEAR 0
+#define ZFAR 15
+
+
 #define MAX_CHEERIOS 200
 #define MAX_BUTTERS 10
 

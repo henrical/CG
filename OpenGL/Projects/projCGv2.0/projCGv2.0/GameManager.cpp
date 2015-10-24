@@ -10,6 +10,8 @@
 #include "Table.h"
 #include "Cheerio.h"
 #include "CollisionBox.h"
+#include "OrthogonalCamera.h"
+#include "PerspectiveCamera.h"
 
 GameManager* GameManager::_instance = nullptr;
 
@@ -47,17 +49,6 @@ GameObject* GameManager::getObject(int object_index)
 {	
 	return _gameObjects[object_index];
 }
-
-// Pass color as parameter
-// i.e. LIGHT_BLUE, WHITE, LIGHT_GREY
-/*void GameManager::drawTable(const float color[]){
-	glColor3f(color[0], color[1], color[2]);
-	glScalef(1.5, 1.5, 1.5);
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, -1.5);
-	glutSolidCube(3);
-	glPopMatrix();
-}*/
 
 int GameManager::init(){
 
@@ -118,42 +109,38 @@ int GameManager::drawGameObjects(){
 void GameManager::display(){
 	//std::cout << "---> Display." << std::endl;
 
+	Car* car;
+	car = (Car*)getObject(CAR);
+
 	glClearDepth(1.0);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
+	glViewport(0, 0, VIEWPORT_X, VIEWPORT_Y);
+
+	OrthogonalCamera *cam1 = new OrthogonalCamera(ASPECT_RATIO*ORTHO_LEFT, ASPECT_RATIO*ORTHO_RIGHT, ORTHO_BOTTOM, ORTHO_TOP, ORTHO_NEAR, ORTHO_FAR);
+	PerspectiveCamera *cam2 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, FIXED_CAM,0,0);
+	PerspectiveCamera *cam3 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, MOBILE_CAM, car->getPosition()->getX(), car->getPosition()->getY());
 
 	//		##########	camaras	################
 	if (camera == 1){
-		glViewport(0, 0, 800, 700);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		float rac = (float)800 / 700;
-		if (rac > 1)
-			glOrtho(rac*-3.0f, rac*3.0f, -3.0f, 3.0f, -5.0f, 5.0f);
-		else glOrtho(-2.0f, 2.0f, -2.0f / rac, 2.0f / rac, -4.0f, 4.0f);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+
+		cam1->update();
 	}
 	else if (camera == 2){
-		glViewport(0, 0, 800, 700);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		float rac = (float)800 / 700;
-		gluPerspective(90, rac, 0, 15);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt(0, -2, 0.007, 0, 0, 0, 0, 1, 0);
+		
+		cam2->update();
 	}
 	else if (camera == 3){
-		glViewport(0, 0, 800, 700);
+		
+		/*cam3->update();*/
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		float rac = (float)800 / 700;
 		gluPerspective(90, rac, 0, 15);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(0, -2.5, 1.5, 0, 0, 0, 0, 1, 0);
+		gluLookAt(0, -2, 1, 0, 0, 0, 0, 1, 0);
 	}
 
 

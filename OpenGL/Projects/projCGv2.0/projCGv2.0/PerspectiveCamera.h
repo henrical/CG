@@ -3,14 +3,32 @@
 
 #include "Camera.h"
 
+#define CAMERA2_EYE_X 0
+#define CAMERA2_EYE_Y -2.5
+#define CAMERA2_EYE_Z 1.5
+
+#define CAMERA2_CENTER_X 0
+#define CAMERA2_CENTER_Y 0
+#define CAMERA2_CENTER_Z 0
+
+#define CAMERA2_UP_X 0
+#define CAMERA2_UP_Y 1
+#define CAMERA2_UP_Z 0
+
+
+
 class PerspectiveCamera : public Camera
 {
 private:
 	double _fovy;
 	double _aspect;
+	int _camera_num;
+
+	double _car_pos_x;
+	double _car_pos_y;
 
 public:
-	PerspectiveCamera(double fovy, double aspect, double znear, double zfar);
+	PerspectiveCamera(double fovy, double aspect, double znear, double zfar, int camera_num, double car_pos_x, double car_pos_y);
 	~PerspectiveCamera();
 
 	void update();

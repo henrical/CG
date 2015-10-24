@@ -313,11 +313,11 @@ void GameManager::update(){
 	Car* carro;
 	carro = (Car*)getObject(CAR);
 
-	Cheerio* obstacles_hit[100];
+	Cheerio* obstacles_hit[MAX_CHEERIOS];
 	int number_obstacles_hit = 0;
 
-	Butter* butter_hit[5];
-	int number_butter_hit;
+	Butter* butters_hit[MAX_BUTTERS];
+	int number_butters_hit = 0;
 
 	Cheerio* obs;
 	Butter* butter;
@@ -337,6 +337,31 @@ void GameManager::update(){
 		carro->rodaEsquerda();
 
 	
+	for (i; i < numButters; i++){
+		butter = butters[i];
+
+		if (carro->getBbox()->getXMax() > butter->getBbox()->getXMin())
+		{
+			if (carro->getBbox()->getXMin() < butter->getBbox()->getXMax())
+			{
+				if (carro->getBbox()->getYMax() > butter->getBbox()->getYMin())
+				{
+					if (carro->getBbox()->getYMin() < butter->getBbox()->getYMax())
+					{
+
+						butter->triggerCollision();
+
+						butters_hit[number_butters_hit] = butter;
+						number_butters_hit++;
+
+						carro->triggerCollision();
+					}
+
+				}
+			}
+		}
+	}
+
 	for (i; i < numObstaculos; i++){
 		obs = obstacles[i];
 
@@ -350,9 +375,6 @@ void GameManager::update(){
 					{
 						
 						obs->triggerCollision();
-						
-						//currtime = glutGet(20 * GLUT_ELAPSED_TIME); //TEMP
-						//obs->update(currtime - prevtime, carro->getDirection());
 
 						obstacles_hit[number_obstacles_hit] = obs;
 						number_obstacles_hit++;
@@ -369,7 +391,13 @@ void GameManager::update(){
 
 	currtime = glutGet(GLUT_ELAPSED_TIME);
 
-	//_gameObjects[0]->update(currtime - prevtime);
+	for (i = 0; i < number_butters_hit; i++)
+	{
+		butters_hit[i]->update(currtime - prevtime, carro->getDirection(), *carro->getSpeed());
+	}
+
+	currtime = glutGet(GLUT_ELAPSED_TIME);
+
 	for (i = 0; i < number_obstacles_hit; i++)
 	{
 		obstacles_hit[i]->update(currtime - prevtime, carro->getDirection(), *carro->getSpeed());

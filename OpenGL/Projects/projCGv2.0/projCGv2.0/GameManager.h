@@ -11,6 +11,9 @@
 
 #define VIEW_COLLISION_BOXES 0		//0 para não ver as boxes, 1 para ver
 
+#define MAX_CHEERIOS 200
+#define MAX_BUTTERS 10
+
 #define CAR_ACCELERATION 0.0000005
 
 #define ROADSIDE 0
@@ -35,9 +38,9 @@ class GameManager {
 		LightSource _lightSources[10];
 		GameObject* _gameObjects[10];
 		
-		Cheerio* obstacles[200];
+		Cheerio* obstacles[MAX_CHEERIOS];
 		Orange* oranges[50];
-		Butter* butters[10];
+		Butter* butters[MAX_BUTTERS];
 
 
 		int _cameras, camera;

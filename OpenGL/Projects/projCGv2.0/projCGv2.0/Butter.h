@@ -11,6 +11,9 @@
 // Representa o tamanho do lado mais curto.
 #define BUTTER_SIZE 0.17
 
+// Multiplica pela movimentação da manteiga quando recebe colisão.
+#define BUTTER_IMPACT_MOVEMENT_COEFFICIENT 0.5
+
 // Representa a divisao entre o comprimento do
 // lado mais comprido e o mais curto.
 #define SIDES_RATIO 1.3
@@ -30,6 +33,7 @@ public:
 	~Butter();
 
 	void draw();
+	void update(int delta_t, Vector3 &hit_direction, Vector3 &hit_speed);
 
 };
 

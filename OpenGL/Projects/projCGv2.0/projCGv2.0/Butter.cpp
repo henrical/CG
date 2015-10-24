@@ -42,3 +42,18 @@ void Butter::draw()
 	if (GameManager::viewCollisionBoxes() == 1)
 		bbox.draw();
 }
+
+void Butter::update(int delta_t, Vector3 &hit_direction, Vector3 &hit_speed){
+
+	if (hasCollisionp())
+	{
+		if (hit_speed.getX() != 0 || hit_speed.getY() != 0)
+			this->_position->set(_position->getX() + BUTTER_IMPACT_MOVEMENT_COEFFICIENT * delta_t * hit_direction.getX() * hit_speed.getX(), _position->getY() + BUTTER_IMPACT_MOVEMENT_COEFFICIENT * delta_t * hit_direction.getY() * hit_speed.getY(), 0);
+		else
+			this->_position->set(_position->getX() + BUTTER_IMPACT_MOVEMENT_COEFFICIENT * delta_t * hit_direction.getX() * 0.0005, _position->getY() + BUTTER_IMPACT_MOVEMENT_COEFFICIENT * delta_t * hit_direction.getY() * 0.0005, 0);
+	}
+
+	hasCollision = false;
+
+
+}

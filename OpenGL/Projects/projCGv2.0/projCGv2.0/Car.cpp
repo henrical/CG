@@ -125,17 +125,6 @@ CollisionBox* Car::getBbox(){
 
 
 
-void Car::setDirection(){
-	double y;
-	double x;
-	double angulo = angle - (3.14159 / 2);
-
-	y = direction->getY()*sin(angulo/* * 3.14159 / 180*/);
-	x = direction->getY()*cos(angulo/* * 3.14159 / 180*/);
-	//normalizar
-	direction->set(x/sqrt(x*x + y*y), y/sqrt(x*x + y*y), 0);
-}
-
 void Car::rodaDireita(){
 	angle -= 0.25;
 	setDirection();

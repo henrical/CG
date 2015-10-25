@@ -43,3 +43,7 @@ void Orange::draw()
 
 	
 }
+
+void Orange::update(int dt){
+	_position->set(_position->getX() + getSpeed()->getX() * dt * direction->getX(), _position->getY() + getSpeed()->getY() * dt * direction->getY(), 0);
+}

@@ -24,7 +24,6 @@
 class Car : public DynamicObject
 {
 	private:
-		double angle;
 
 		CollisionBox bbox;
 
@@ -44,7 +43,7 @@ class Car : public DynamicObject
 		void update(int dt);
 		void rodaDireita();
 		void rodaEsquerda();
-		void setDirection();
+		
 
 		
 		

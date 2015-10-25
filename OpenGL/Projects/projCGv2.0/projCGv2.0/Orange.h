@@ -23,6 +23,8 @@ class Orange : public Obstacle
 
 		void draw();
 
+		void update(int dt);
+
 };
 
 #endif

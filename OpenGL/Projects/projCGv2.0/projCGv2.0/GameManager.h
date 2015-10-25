@@ -8,6 +8,7 @@
 #include "Cheerio.h"
 #include "Orange.h"
 #include "Butter.h"
+#include "Camera.h"
 
 #define VIEW_COLLISION_BOXES 0		//0 para não ver as boxes, 1 para ver
 
@@ -16,8 +17,9 @@
 
 #define ASPECT_RATIO (float)VIEWPORT_X/VIEWPORT_Y
 
-#define FIXED_CAM 2
-#define MOBILE_CAM 3
+#define ORTHOGONAL_CAM 1
+#define FIXED_PERSPECTIVE_CAM 2
+#define MOBILE_PERSPECTIVE_CAM 3
 
 /**
  * Camara 1 (Ortogonal)
@@ -30,7 +32,7 @@
 #define ORTHO_FAR 5.0f
 
 /**
-* Camara 2 (Perspectiva fixa)
+* Camara 2 e 3 (perspectiva)
 **/
 #define FOVY 90
 #define ZNEAR 0
@@ -39,8 +41,19 @@
 
 #define MAX_CHEERIOS 200
 #define MAX_BUTTERS 10
+#define MAX_ORANGES 80
 
 #define CAR_ACCELERATION 0.0000005
+
+#define INITIAL_ORANGE_SPEED 0.0002
+
+//max time between orange spawns
+#define MAX_ORANGE_DELTA 5000
+
+//min time between orange spawns
+#define MIN_ORANGE_DELTA 1500
+
+
 
 #define ROADSIDE 0
 #define CAR 1 
@@ -65,11 +78,21 @@ class GameManager {
 		GameObject* _gameObjects[10];
 		
 		Cheerio* obstacles[MAX_CHEERIOS];
-		Orange* oranges[50];
+		Orange* oranges[MAX_ORANGES];
 		Butter* butters[MAX_BUTTERS];
 
+		Camera* cameras[3];
 
-		int _cameras, camera;
+		int game_difficulty;
+
+		// Spawn time of last orange
+		int orange_timestamp;
+
+		// Interval between generation of oranges
+		// Randomly generated
+		int orange_gen_delta;
+
+		int  camera;
 		int numObstaculos;
 		int numOranges;
 		int numButters;
@@ -100,6 +123,8 @@ class GameManager {
 			return VIEW_COLLISION_BOXES;
 		}
 
+		void generateOrange();
+
 		void addObject(GameObject *obj);
 		void addObstacle(Cheerio *obs);
 		void addButter(Butter *obs);
@@ -107,6 +132,7 @@ class GameManager {
 
 		GameObject* getObject(int object);
 
+		Camera* getCamera(int camera);
 		
 		int idle(); //TODO
 		

@@ -1,5 +1,7 @@
 #include <iostream>
 #include <iomanip>
+#include <time.h>
+#include <stdlib.h>
 
 #include "GameManager.h"
 #include "LightSource.h"
@@ -13,6 +15,7 @@
 #include "OrthogonalCamera.h"
 #include "PerspectiveCamera.h"
 
+
 GameManager* GameManager::_instance = nullptr;
 
 GameManager::GameManager()
@@ -22,11 +25,126 @@ GameManager::GameManager()
 	numGameObjects = 0;
 	numObstaculos = 0;
 	numButters = 0;
-	numOranges;
+	numOranges = 0;
 
 	camera = 1;
 	wireframe = false;
 	seta_baixo = seta_cima = seta_direita = seta_esquerda = false;
+
+	game_difficulty = 1;
+
+	srand(time(NULL));
+	
+	orange_timestamp = glutGet(GLUT_ELAPSED_TIME);
+
+	orange_gen_delta = rand() % 5000 + 1;
+
+	while (orange_gen_delta < 1500){
+		orange_gen_delta += 250;
+	}
+}
+
+void GameManager::addOrange(Orange* orange){
+	oranges[numOranges] = orange;
+	numOranges += 1;
+}
+
+void GameManager::generateOrange(){
+	
+	if (numOranges >= MAX_ORANGES)
+		return;
+
+	//0 = posiçao positiva do eixo x
+	//1 = posiçao negativa do eixo x
+	int rand_binary_x;
+
+	rand_binary_x = rand() % 2;
+
+	//0 = posiçao positiva do eixo y
+	//1 = posiçao negativa do eixo y
+	int rand_binary_y;
+
+	rand_binary_y = rand() % 2;
+
+	/*std::cout << "GENERATING ORANGE! " << "[" << rand_binary_x << ", " << rand_binary_y << "];" << std::endl;*/
+
+	float init_x;
+	float init_y;
+	float dir_x;
+	float dir_y;
+
+	dir_x = rand() % 2;
+	if (!rand_binary_x)
+		dir_x = dir_x * -1;
+
+	dir_y = rand() % 2;
+	if (!rand_binary_y)
+		dir_y = dir_y * -1;
+
+	while (dir_x == 0 && dir_y == 0)
+	{
+		dir_x = rand() % 2;
+		if (!rand_binary_x)
+			dir_x = dir_x * -1;
+
+		dir_y = rand() % 2;
+		if (!rand_binary_y)
+			dir_y = dir_y * -1;
+	}
+
+	init_x = rand() % 6 + 1;
+	init_x = init_x / 10;
+	if (rand_binary_x)
+		init_x = init_x * -1;
+
+	init_y = rand() % 6 + 1;
+	init_y = init_y / 10;
+	if (rand_binary_y)
+		init_y = init_y * -1;
+
+	while (dir_x == 0 && dir_y == 0)
+
+	std::cout << "GENERATING ORANGE at " << "[" << init_x << ", " << init_y << "];" << std::endl;
+	
+	Orange* orange;
+
+	orange = new Orange(new Vector3(init_x, init_y,0));
+	orange->setDirection(dir_x, dir_y,0);
+	orange->setSpeed(INITIAL_ORANGE_SPEED * game_difficulty, INITIAL_ORANGE_SPEED * game_difficulty, 0);
+
+	addOrange(orange);
+
+	//orange->set
+
+	orange_gen_delta = rand() % MAX_ORANGE_DELTA + 1;
+
+	while (orange_gen_delta < MIN_ORANGE_DELTA){
+		orange_gen_delta += 250;
+	}
+
+	orange_timestamp = glutGet(GLUT_ELAPSED_TIME);
+
+}
+
+Camera* GameManager::getCamera(int camera){
+	
+	switch (camera)
+	{
+	case ORTHOGONAL_CAM:
+		return cameras[0];
+		break;
+	case FIXED_PERSPECTIVE_CAM:
+		return cameras[1];
+		break;
+	case MOBILE_PERSPECTIVE_CAM:
+		return cameras[2];
+		break;
+	default:
+		return nullptr;
+		break;
+	}
+
+	return nullptr;
 }
 
 void GameManager::addObject(GameObject *obj)
@@ -52,6 +170,14 @@ GameObject* GameManager::getObject(int object_index)
 
 int GameManager::init(){
 
+	OrthogonalCamera *cam1 = new OrthogonalCamera(ASPECT_RATIO*ORTHO_LEFT, ASPECT_RATIO*ORTHO_RIGHT, ORTHO_BOTTOM, ORTHO_TOP, ORTHO_NEAR, ORTHO_FAR);
+	PerspectiveCamera *cam2 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, FIXED_PERSPECTIVE_CAM);
+	PerspectiveCamera *cam3 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, MOBILE_PERSPECTIVE_CAM);
+
+	cameras[0] = cam1;
+	cameras[1] = cam2;
+	cameras[2] = cam3;
+
 	addObject(new Roadside());
 	addObject(new Car());
 	addObject(new Table());
@@ -68,8 +194,6 @@ int GameManager::init(){
 	/*addObstacle(new Orange(&Vector3(0, 1.25, 0)));
 	addObstacle(new Orange(&Vector3(-0.9, -0.5, 0)));
 	addObstacle(new Orange(&Vector3(0.9, -0.9, 0)));*/
-	
-	
 
 	std::cout << "Number of obstacles:" << numObstaculos << std::endl;
 	std::cout << "Number of game objects:" << numGameObjects << std::endl;
@@ -100,6 +224,11 @@ int GameManager::drawGameObjects(){
 		butters[i]->draw();
 		//std::cout << "=== Drawing obstacle " << i << ";" << std::endl;
 	}
+
+	for (i = 0; i < numOranges; i++){
+		oranges[i]->draw();
+		//std::cout << "=== Drawing obstacle " << i << ";" << std::endl;
+	}
 	
 
 	return 0;
@@ -107,8 +236,6 @@ int GameManager::drawGameObjects(){
 }
 
 void GameManager::display(){
-	//std::cout << "---> Display." << std::endl;
-
 	Car* car;
 	car = (Car*)getObject(CAR);
 
@@ -118,29 +245,24 @@ void GameManager::display(){
 
 	glViewport(0, 0, VIEWPORT_X, VIEWPORT_Y);
 
-	OrthogonalCamera *cam1 = new OrthogonalCamera(ASPECT_RATIO*ORTHO_LEFT, ASPECT_RATIO*ORTHO_RIGHT, ORTHO_BOTTOM, ORTHO_TOP, ORTHO_NEAR, ORTHO_FAR);
-	PerspectiveCamera *cam2 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, FIXED_CAM);
-	PerspectiveCamera *cam3 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, MOBILE_CAM);
-
-	//		##########	camaras	################
 	if (camera == 1){
 
-		cam1->update();
+		OrthogonalCamera* camera = (OrthogonalCamera*)getCamera(ORTHOGONAL_CAM);
+
+		camera->update();
 	}
 	else if (camera == 2){
 		
-		cam2->update(0,0,0,0);
+		PerspectiveCamera* camera = (PerspectiveCamera*)getCamera(FIXED_PERSPECTIVE_CAM);
+
+		camera->update(0, 0, 0, 0);
 	}
 	else if (camera == 3){
 		
-		cam3->update(car->getPosition()->getX(), car->getPosition()->getY(), car->getDirection().getX(), car->getDirection().getY());
-		/*glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		float rac = (float)800 / 700;
-		gluPerspective(90, rac, 0, 15);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt(-1.1, -1, 1,     -1, 1, 0,     0, 1, 0);*/
+		PerspectiveCamera* camera = (PerspectiveCamera*)getCamera(MOBILE_PERSPECTIVE_CAM);
+		
+		camera->update(car->getPosition()->getX(), car->getPosition()->getY(), car->getDirection().getX(), car->getDirection().getY());
+		
 	}
 
 
@@ -297,6 +419,24 @@ void GameManager::reshape(int h, int w){
 void GameManager::update(){
 	int i = 0;
 	
+	currtime = glutGet(GLUT_ELAPSED_TIME);
+
+	if (currtime > 15000)
+	{
+		game_difficulty = 2;
+
+		if (currtime > 30000)
+		{
+			game_difficulty = 3;
+
+			if (currtime > 45000)
+			{
+				game_difficulty = 4;
+			}
+		}
+	}
+
+
 	Car* carro;
 	carro = (Car*)getObject(CAR);
 
@@ -375,7 +515,7 @@ void GameManager::update(){
 	}
 
 	
-
+	
 	currtime = glutGet(GLUT_ELAPSED_TIME);
 
 	for (i = 0; i < number_butters_hit; i++)
@@ -383,6 +523,8 @@ void GameManager::update(){
 		butters_hit[i]->update(currtime - prevtime, carro->getDirection(), *carro->getSpeed());
 	}
 
+	
+	
 	currtime = glutGet(GLUT_ELAPSED_TIME);
 
 	for (i = 0; i < number_obstacles_hit; i++)
@@ -390,8 +532,32 @@ void GameManager::update(){
 		obstacles_hit[i]->update(currtime - prevtime, carro->getDirection(), *carro->getSpeed());
 	}
 
+	
+
+
+	currtime = glutGet(GLUT_ELAPSED_TIME);
+
+	for (i = 0; i < numOranges; i++)
+	{
+		oranges[i]->update(currtime - prevtime);
+	}
+
+	
+
+
 	carro->update(currtime - prevtime);
 	prevtime = currtime;
 
+
+
+
+
+	currtime = glutGet(GLUT_ELAPSED_TIME);
+	
+	if (currtime - orange_gen_delta >= orange_timestamp)
+		generateOrange();
+
+	
+	
 	glutPostRedisplay();
 }

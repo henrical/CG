@@ -9,6 +9,8 @@
 class DynamicObject : public GameObject
 {
 	protected:
+		double angle;
+
 		Vector3* _speed;
 		Vector3* acc;
 		Vector3* direction;
@@ -36,6 +38,9 @@ class DynamicObject : public GameObject
 		void setSpeed(Vector3 *vector);
 		void setSpeed(double x, double y, double z);
 		Vector3* getSpeed();
+
+		void setDirection();
+		void setDirection(double x, double y, double z);
 
 };
 

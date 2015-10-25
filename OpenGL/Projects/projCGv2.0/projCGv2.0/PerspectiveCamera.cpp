@@ -31,7 +31,6 @@ void PerspectiveCamera::update(double car_pos_x, double car_pos_y, double car_di
 		double eyex = car_pos_x;
 		double eyey = -1 + car_pos_y;
 
-		/*std::cout << "[" << car_dir_x << ", " << car_dir_y << "]" << std::endl;*/
 		gluLookAt(car_pos_x, -1 + car_pos_y, 1,      car_dir_x + eyex, car_dir_y + eyey, 0,       0, 1, 0);
 
 

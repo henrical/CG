@@ -9,6 +9,21 @@ DynamicObject::DynamicObject()
 	acc = new Vector3();
 }
 
+void DynamicObject::setDirection(){
+	double y;
+	double x;
+	double angulo = angle - (3.14159 / 2);
+
+	y = direction->getY()*sin(angulo/* * 3.14159 / 180*/);
+	x = direction->getY()*cos(angulo/* * 3.14159 / 180*/);
+	//normalizar
+	direction->set(x / sqrt(x*x + y*y), y / sqrt(x*x + y*y), 0);
+}
+
+void DynamicObject::setDirection(double x, double y, double z){
+	this->direction->set(x, y, z);
+}
+
 void DynamicObject::update(double delta_t)
 {
 

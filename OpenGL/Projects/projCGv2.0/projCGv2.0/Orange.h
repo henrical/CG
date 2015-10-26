@@ -26,6 +26,7 @@ class Orange : public Obstacle
 		void draw();
 
 		bool destroyedp();
+		void destroy();
 
 		void update(int dt);
 

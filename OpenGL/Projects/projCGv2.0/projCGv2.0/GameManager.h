@@ -41,7 +41,7 @@
 
 #define MAX_CHEERIOS 200
 #define MAX_BUTTERS 10
-#define MAX_ORANGES 80
+#define MAX_ORANGES 150
 
 #define CAR_ACCELERATION 0.0000005
 
@@ -150,9 +150,9 @@ class GameManager {
 		void specialPress(int key);
 		void specialUp(int key);
 
-		int onTimer(); //TODO
+		int onTimer(); 
 
-		void update(); //TODO
+		void update();
 		
 		
 

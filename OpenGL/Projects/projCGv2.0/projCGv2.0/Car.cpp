@@ -177,4 +177,5 @@ void Car::restartPosition(){
 	_position->set(INIT_POS_X, INIT_POS_Y, INIT_POS_Z);
 	_speed->set(0, 0, 0);
 	acc->set(0, 0, 0);
+	direction->set(0,1,0);
 }

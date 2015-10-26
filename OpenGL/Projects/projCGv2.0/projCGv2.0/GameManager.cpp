@@ -226,6 +226,7 @@ int GameManager::drawGameObjects(){
 	}
 
 	for (i = 0; i < numOranges; i++){
+		
 		if (!oranges[i]->destroyedp())
 			oranges[i]->draw();
 	}
@@ -539,7 +540,9 @@ void GameManager::update(){
 			}
 		}
 
-		
+		if (orange->getPosition()->getX() >= 2.3 || orange->getPosition()->getX() <= -2.3 || orange->getPosition()->getY() >= 2.3 || orange->getPosition()->getY() <= -2.3)
+			orange->destroy();
+
 	}
 
 

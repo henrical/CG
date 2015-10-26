@@ -50,6 +50,10 @@ bool Orange::destroyedp(){
 	return destroyed;
 }
 
+void Orange::destroy(){
+	destroyed = true;
+}
+
 void Orange::update(int dt){
 	_position->set(_position->getX() + getSpeed()->getX() * dt * direction->getX(), _position->getY() + getSpeed()->getY() * dt * direction->getY(), 0);
 }

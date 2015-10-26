@@ -66,7 +66,6 @@ int main(int argc, char** argv)
 
 	GameManager::instance()->init();
 
-
 	glutMainLoop();
 
 	return 0;

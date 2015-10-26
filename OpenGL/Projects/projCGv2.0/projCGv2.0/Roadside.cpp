@@ -16,7 +16,7 @@ Roadside::~Roadside(){
 
 void Roadside::draw(){
 	const float color[] = { 0.6392156863, 0.2980392157, 0 };
-
+	
 	//std::cout << "-----> Drawing road"<< std::endl;
 
 	this->drawRoadsideSegment(color, Vector3( -1.3, -0.9, 0), 16, VERTICAL, INSIDE_CURVE);

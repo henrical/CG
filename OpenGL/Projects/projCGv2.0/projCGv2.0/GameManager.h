@@ -45,7 +45,8 @@
 
 #define CAR_ACCELERATION 0.0000005
 
-#define INITIAL_ORANGE_SPEED 0.0002
+
+#define INITIAL_ORANGE_SPEED 2
 
 //max time between orange spawns
 #define MAX_ORANGE_DELTA 8000

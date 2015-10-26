@@ -73,6 +73,9 @@ void GameManager::generateOrange(){
 	float dir_x;
 	float dir_y;
 
+	float vel_x;
+	float vel_y;
+
 	dir_x = rand() % 2;
 	if (!rand_binary_x)
 		dir_x = dir_x * -1;
@@ -102,7 +105,18 @@ void GameManager::generateOrange(){
 	if (rand_binary_y)
 		init_y = init_y * -1;
 
-	while (dir_x == 0 && dir_y == 0)
+	do {
+		vel_x = rand() % INITIAL_ORANGE_SPEED + 1;
+	} while (vel_x < 1);
+
+	vel_x = vel_x / 10000;
+
+	do {
+		vel_y = rand() % INITIAL_ORANGE_SPEED + 1;
+	} while (vel_y < 1);
+
+	vel_y = vel_y / 10000;
+
 
 	std::cout << "GENERATING ORANGE at " << "[" << init_x << ", " << init_y << "];" << std::endl;
 	
@@ -110,7 +124,7 @@ void GameManager::generateOrange(){
 
 	orange = new Orange(new Vector3(init_x, init_y,0));
 	orange->setDirection(dir_x, dir_y,0);
-	orange->setSpeed(INITIAL_ORANGE_SPEED * game_difficulty, INITIAL_ORANGE_SPEED * game_difficulty, 0);
+	orange->setSpeed(vel_x * game_difficulty,  vel_y * game_difficulty, 0);
 
 	addOrange(orange);
 

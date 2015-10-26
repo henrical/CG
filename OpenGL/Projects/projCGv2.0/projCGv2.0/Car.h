@@ -44,7 +44,7 @@ class Car : public DynamicObject
 		void rodaDireita();
 		void rodaEsquerda();
 		
-
+		void restartPosition();
 		
 		
 

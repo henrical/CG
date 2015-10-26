@@ -48,10 +48,10 @@
 #define INITIAL_ORANGE_SPEED 0.0002
 
 //max time between orange spawns
-#define MAX_ORANGE_DELTA 5000
+#define MAX_ORANGE_DELTA 8000
 
 //min time between orange spawns
-#define MIN_ORANGE_DELTA 1500
+#define MIN_ORANGE_DELTA 3000
 
 
 

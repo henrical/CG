@@ -16,12 +16,16 @@
 class Orange : public Obstacle
 {
 	
+	private:
+		bool destroyed;
 
 	public:
 		Orange(Vector3 *pos);
 		~Orange();
 
 		void draw();
+
+		bool destroyedp();
 
 		void update(int dt);
 

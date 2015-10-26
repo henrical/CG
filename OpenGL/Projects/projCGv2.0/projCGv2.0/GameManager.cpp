@@ -226,8 +226,8 @@ int GameManager::drawGameObjects(){
 	}
 
 	for (i = 0; i < numOranges; i++){
-		oranges[i]->draw();
-		//std::cout << "=== Drawing obstacle " << i << ";" << std::endl;
+		if (!oranges[i]->destroyedp())
+			oranges[i]->draw();
 	}
 	
 
@@ -448,6 +448,7 @@ void GameManager::update(){
 
 	Cheerio* obs;
 	Butter* butter;
+	Orange* orange;
 
 
 	if (seta_cima)
@@ -464,7 +465,7 @@ void GameManager::update(){
 		carro->rodaEsquerda();
 
 	
-	for (i; i < numButters; i++){
+	for (i = 0; i < numButters; i++){
 		butter = butters[i];
 
 		if (carro->getBbox()->getXMax() > butter->getBbox()->getXMin())
@@ -489,7 +490,7 @@ void GameManager::update(){
 		}
 	}
 
-	for (i; i < numObstaculos; i++){
+	for (i = 0; i < numObstaculos; i++){
 		obs = obstacles[i];
 
 		if (carro->getBbox()->getXMax() > obs->getBbox()->getXMin())
@@ -515,6 +516,34 @@ void GameManager::update(){
 	}
 
 	
+
+
+	for (i = 0; i < numOranges; i++){
+		orange = oranges[i];
+
+		if (orange->destroyedp())
+			continue;
+
+		if (carro->getBbox()->getXMax() > orange->getBbox()->getXMin())
+		{
+			if (carro->getBbox()->getXMin() < orange->getBbox()->getXMax())
+			{
+				if (carro->getBbox()->getYMax() > orange->getBbox()->getYMin())
+				{
+					if (carro->getBbox()->getYMin() < orange->getBbox()->getYMax())
+					{
+						carro->restartPosition();
+					}
+
+				}
+			}
+		}
+
+		
+	}
+
+
+
 	
 	currtime = glutGet(GLUT_ELAPSED_TIME);
 

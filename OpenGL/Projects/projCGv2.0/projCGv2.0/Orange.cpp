@@ -13,6 +13,8 @@ Orange::Orange(Vector3 *pos)
 	bbox = CollisionBox(_position->getX() - ORANGE_RADIUS, _position->getY() - ORANGE_RADIUS, _position->getX() + ORANGE_RADIUS, _position->getY() + ORANGE_RADIUS);
 	hasCollision = false;
 
+	destroyed = false;
+
 }
 
 Orange::~Orange()
@@ -42,6 +44,10 @@ void Orange::draw()
 		bbox.draw();
 
 	
+}
+
+bool Orange::destroyedp(){
+	return destroyed;
 }
 
 void Orange::update(int dt){

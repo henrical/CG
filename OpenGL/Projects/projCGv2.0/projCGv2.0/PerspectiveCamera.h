@@ -23,13 +23,16 @@ private:
 	double _fovy;
 	double _aspect;
 	int _camera_num;
+	Vector3* _position;
+	Vector3* _at;
+	Vector3* _up;
 
 
 public:
-	PerspectiveCamera(double fovy, double aspect, double znear, double zfar, int camera_num);
+	PerspectiveCamera(Vector3* VRC, Vector3* VPN, Vector3* VUV, double fovy, double aspect, double znear, double zfar, int camera_num);
 	~PerspectiveCamera();
 
-	void update(double car_pos_x, double car_pos_y, double car_dir_x, double car_dir_y);
+	void update(Vector3* VRC, Vector3* VPN);
 
 	void computeProjectionMatrix();
 	void computeVisualizationMatrix();

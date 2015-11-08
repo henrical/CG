@@ -35,7 +35,7 @@
 * Camara 2 e 3 (perspectiva)
 **/
 #define FOVY 90
-#define ZNEAR 0
+#define ZNEAR 0.4
 #define ZFAR 15
 
 

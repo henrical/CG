@@ -185,8 +185,8 @@ GameObject* GameManager::getObject(int object_index)
 int GameManager::init(){
 
 	OrthogonalCamera *cam1 = new OrthogonalCamera(ASPECT_RATIO*ORTHO_LEFT, ASPECT_RATIO*ORTHO_RIGHT, ORTHO_BOTTOM, ORTHO_TOP, ORTHO_NEAR, ORTHO_FAR);
-	PerspectiveCamera *cam2 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, FIXED_PERSPECTIVE_CAM);
-	PerspectiveCamera *cam3 = new PerspectiveCamera(FOVY, ASPECT_RATIO, ZNEAR, ZFAR, MOBILE_PERSPECTIVE_CAM);
+	PerspectiveCamera *cam2 = new PerspectiveCamera(new Vector3(0, -2, 0.007), new Vector3(0, 0, 0), new Vector3(0, 1, 0), FOVY, ASPECT_RATIO, ZNEAR, ZFAR, FIXED_PERSPECTIVE_CAM);
+	PerspectiveCamera *cam3 = new PerspectiveCamera(new Vector3(0, 0, 0), new Vector3(0, 0, 0), new Vector3(0, 1, 0), FOVY, ASPECT_RATIO, ZNEAR, ZFAR, MOBILE_PERSPECTIVE_CAM);
 
 	cameras[0] = cam1;
 	cameras[1] = cam2;
@@ -264,19 +264,22 @@ void GameManager::display(){
 
 		OrthogonalCamera* camera = (OrthogonalCamera*)getCamera(ORTHOGONAL_CAM);
 
-		camera->update();
+		camera->computeProjectionMatrix();
+		camera->computeVisualizationMatrix();
 	}
 	else if (camera == 2){
 		
 		PerspectiveCamera* camera = (PerspectiveCamera*)getCamera(FIXED_PERSPECTIVE_CAM);
 
-		camera->update(0, 0, 0, 0);
+		camera->computeProjectionMatrix();
+		camera->computeVisualizationMatrix();
 	}
 	else if (camera == 3){
 		
 		PerspectiveCamera* camera = (PerspectiveCamera*)getCamera(MOBILE_PERSPECTIVE_CAM);
 		
-		camera->update(car->getPosition()->getX(), car->getPosition()->getY(), car->getDirection().getX(), car->getDirection().getY());
+		camera->computeProjectionMatrix();
+		camera->computeVisualizationMatrix();
 		
 	}
 
@@ -595,14 +598,16 @@ void GameManager::update(){
 	prevtime = currtime;
 
 
-
-
-
 	currtime = glutGet(GLUT_ELAPSED_TIME);
 	
 	if (currtime - orange_gen_delta >= orange_timestamp)
 		generateOrange();
 
+	Entity* veiculo = getObject(CAR);
+	Car* car = (Car*)getObject(CAR);
+	PerspectiveCamera* cameraMovel = (PerspectiveCamera*)cameras[2];
+	cameraMovel->update(new Vector3(veiculo->getPosition()->getX(), veiculo->getPosition()->getY() - 0.3, veiculo->getPosition()->getZ() + 0.5), new Vector3(veiculo->getPosition()->getX(), veiculo->getPosition()->getY() + 0.5, veiculo->getPosition()->getZ()));
+	cameras[2] = cameraMovel;
 	
 	
 	glutPostRedisplay();

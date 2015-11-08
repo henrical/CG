@@ -21,7 +21,7 @@ class LightSource {
 
 	public:
 		LightSource();
-		LightSource(int mode); //Mode tem de estar no enum "_num", acho
+		LightSource(int mode); 
 		~LightSource(){}
 
 		bool getState();

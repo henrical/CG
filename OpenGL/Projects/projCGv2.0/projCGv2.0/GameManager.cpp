@@ -254,12 +254,35 @@ void GameManager::display(){
 	Car* car;
 	car = (Car*)getObject(CAR);
 
+
 	glClearDepth(1.0);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
-	glViewport(0, 0, VIEWPORT_X, VIEWPORT_Y);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_COLOR_MATERIAL);
 
+	glViewport(0, 0, VIEWPORT_X, VIEWPORT_Y);
+	
+	GLfloat mat_ambient[] = { 0.1, 0.1, 0.1, 1.0 };
+	GLfloat mat_diffuse[] = { 0.1, 0.1, 0.0, 1.0 };
+	GLfloat mat_specular[] = { 0.1, 0.1, 0.1, 1.0 };
+	GLfloat mat_emission[] = { 0.1, 0.1, 0.1, 0.0 };
+	GLfloat mat_shine = 0.0;
+	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+	glMaterialf(GL_FRONT, GL_SHININESS, mat_shine);
+
+	GLfloat amb[] = { 0.1f, 0.2f, 0.4f, 1 };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
+
+
+	GLfloat position[] = { 0.0, 0.0, 1, 1.0 };
+	glLightfv(GL_LIGHT0, GL_POSITION, position);
+	glEnable(GL_LIGHT0);
+	
 	if (camera == 1){
 
 		OrthogonalCamera* camera = (OrthogonalCamera*)getCamera(ORTHOGONAL_CAM);
@@ -283,6 +306,7 @@ void GameManager::display(){
 		
 	}
 
+	
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -290,7 +314,10 @@ void GameManager::display(){
 	//draw initial scene
 	drawGameObjects();
 
-	gameHasStarted = true;
+
+	
+
+	
 
 	glFlush();
 }

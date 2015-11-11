@@ -14,7 +14,7 @@ Car::Car(){
 	_speed->set(0, 0, 0);
 	acc = new Vector3();
 	acc->set(0, 0, 0);
-	angle = -90;
+	angle = 0;
 	direction = new Vector3(0, 1, 0);
 	hasCollision = false;
 
@@ -32,33 +32,141 @@ void Car::draw()
 	glRotatef((angle * 180 / 3.14159) - 90, 0, 0, 1);
 	glScalef(CAR_SIZE, CAR_SIZE, CAR_SIZE);
 
-	//frente
-	glColor3f(0.8, 0.2, 0.2);
+	//cubo da frente
+	GLfloat ambi[] = { 1.0, 0.0, 0.61, 1.f };
+	GLfloat diff[] = { 0.86, 0.0, 0.39, 1.f };
+	GLfloat spec[] = { 0.17, 0.4, 0.4, 1.f };
+	glColor3f(1.0, 0.0, 0.61);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec);
 	glPushMatrix();
+
 	glTranslatef(-0.5, 0, 0.35);
 	glScalef(1.0, 1.0, 0.5);
-	glutSolidCube(1.0);
+	
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, -1);
+	glVertex3f(-0.5, -0.5, -0.5);
+	glVertex3f(-0.5, 0.5, -0.5);
+	glVertex3f(0.5, 0.5, -0.5);
+	glVertex3f(0.5, -0.5, -0.5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, 1);
+	glVertex3f(-0.5, -0.5, 0.5);
+	glVertex3f(-0.5, 0.5, 0.5);
+	glVertex3f(0.5, 0.5, 0.5);
+	glVertex3f(0.5, -0.5, 0.5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glNormal3f(0, -1, 0);
+	glVertex3f(-0.5, -0.5, -0.5);
+	glVertex3f(-0.5, -0.5, 0.5);
+	glVertex3f(0.5, -0.5, 0.5);
+	glVertex3f(0.5, -0.5, -0.5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glNormal3f(0, 1, 0);
+	glVertex3f(-0.5, 0.5, -0.5);
+	glVertex3f(-0.5, 0.5, 0.5);
+	glVertex3f(0.5, 0.5, 0.5);
+	glVertex3f(0.5, 0.5, -0.5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glNormal3f(-1, 0, 0);
+	glVertex3f(-0.5, -0.5, -0.5);
+	glVertex3f(-0.5, -0.5, 0.5);
+	glVertex3f(-0.5, 0.5, 0.5);
+	glVertex3f(-0.5, 0.5, -0.5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glNormal3f(1, 0, 0);
+	glVertex3f(0.5, -0.5, -0.5);
+	glVertex3f(0.5, -0.5, 0.5);
+	glVertex3f(0.5, 0.5, 0.5);
+	glVertex3f(0.5, 0.5, -0.5);
+	glEnd();
+
 	glPopMatrix();
 
-	//traseira
-	glColor3f(1.0, 0.3, 0.35);
+	//cubo traseiro
+	GLfloat ambi2[] = { 1.0, 0.0, 1.0, 1.f };
+	GLfloat diff2[] = { 1.0, 0.0, 0.1, 1.f };
+	GLfloat spec2[] = { 0.77, 0.77, 0.77, 1.f };
+	glColor3f(1.0, 0.0, 1.0);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi2);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff2);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec2);
 	glPushMatrix();
+
 	glTranslatef(0.5, 0, 0.6);
 	glScalef(1.0, 1.0, 1.0);
-	glutSolidCube(1.0);
+	
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, -1);
+	glVertex3f(-0.5, -0.5, -0.5);
+	glVertex3f(-0.5, 0.5, -0.5);
+	glVertex3f(0.5, 0.5, -0.5);
+	glVertex3f(0.5, -0.5, -0.5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, 1);
+	glVertex3f(-0.5, -0.5, 0.5);
+	glVertex3f(-0.5, 0.5, 0.5);
+	glVertex3f(0.5, 0.5, 0.5);
+	glVertex3f(0.5, -0.5, 0.5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glNormal3f(0, -1, 0);
+	glVertex3f(-0.5, -0.5, -0.5);
+	glVertex3f(-0.5, -0.5, 0.5);
+	glVertex3f(0.5, -0.5, 0.5);
+	glVertex3f(0.5, -0.5, -0.5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glNormal3f(0, 1, 0);
+	glVertex3f(-0.5, 0.5, -0.5);
+	glVertex3f(-0.5, 0.5, 0.5);
+	glVertex3f(0.5, 0.5, 0.5);
+	glVertex3f(0.5, 0.5, -0.5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glNormal3f(-1, 0, 0);
+	glVertex3f(-0.5, -0.5, -0.5);
+	glVertex3f(-0.5, -0.5, 0.5);
+	glVertex3f(-0.5, 0.5, 0.5);
+	glVertex3f(-0.5, 0.5, -0.5);
+	glEnd();
+	glBegin(GL_QUADS);
+	glNormal3f(1, 0, 0);
+	glVertex3f(0.5, -0.5, -0.5);
+	glVertex3f(0.5, -0.5, 0.5);
+	glVertex3f(0.5, 0.5, 0.5);
+	glVertex3f(0.5, 0.5, -0.5);
+	glEnd();
+
 	glPopMatrix();
 
 	//roda fronteira esquerda
-	glColor3f(0.1, 0.1, 0.1);
+	GLfloat ambi3[] = { 0.02, 0.02, 0.02, 1.f };
+	GLfloat diff3[] = { 0.01, 0.01, 0.01, 1.f };
+	GLfloat spec3[] = { 0.04, 0.04, 0.04, 1.f };
+	glColor3f(0.3, 0.3, 0.3);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi3);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff3);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec3);
+
 	glPushMatrix();
 	glTranslatef(-0.5, -0.5, 0.3);
 	glRotatef(90, 1, 0, 0);
 	glScalef(0.3, 0.3, 0.3);
+
 	glutSolidTorus(0.5, 0.6, 50, 50);
+
 	glPopMatrix();
 
 	//roda fronteira direita
-	glColor3f(0.1, 0.1, 0.1);
 	glPushMatrix();
 	glTranslatef(-0.5, 0.5, 0.3);
 	glRotatef(90, 1, 0, 0);
@@ -67,7 +175,6 @@ void Car::draw()
 	glPopMatrix();
 
 	//roda dianteira direita
-	glColor3f(0.1, 0.1, 0.1);
 	glPushMatrix();
 	glTranslatef(0.5, 0.5, 0.3);
 	glRotatef(90, 1, 0, 0);
@@ -76,7 +183,6 @@ void Car::draw()
 	glPopMatrix();
 
 	//roda dianteira esquerda
-	glColor3f(0.1, 0.1, 0.1);
 	glPushMatrix();
 	glTranslatef(0.5, -0.5, 0.3);
 	glRotatef(90, 1, 0, 0);
@@ -126,12 +232,13 @@ CollisionBox* Car::getBbox(){
 
 
 void Car::rodaDireita(){
-	angle -= 0.25;
+	angle -= 0.2;
 	setDirection();
 }
 
+
 void Car::rodaEsquerda(){
-	angle +=0.25;
+	angle +=0.2;
 	setDirection();
 }
 
@@ -178,4 +285,5 @@ void Car::restartPosition(){
 	_speed->set(0, 0, 0);
 	acc->set(0, 0, 0);
 	direction->set(0,1,0);
+	this->setAngle(0);
 }

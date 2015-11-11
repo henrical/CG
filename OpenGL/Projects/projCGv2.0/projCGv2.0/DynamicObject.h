@@ -30,6 +30,9 @@ class DynamicObject : public GameObject
 		void update(double delta_t);
 		virtual void draw();
 
+		double getAngle();
+		void setAngle(double);
+
 		Vector3* getAcc();
 		Vector3 getDirection();
 

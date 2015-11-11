@@ -30,6 +30,8 @@ GameManager::GameManager()
 	camera = 1;
 	wireframe = false;
 	seta_baixo = seta_cima = seta_direita = seta_esquerda = false;
+	iluminacao = false;
+	smooth = true;
 
 	game_difficulty = 1;
 
@@ -209,6 +211,8 @@ int GameManager::init(){
 	addObstacle(new Orange(&Vector3(-0.9, -0.5, 0)));
 	addObstacle(new Orange(&Vector3(0.9, -0.9, 0)));*/
 
+	luz_cena = new LightSource(0, 0, 1);
+
 	std::cout << "Number of obstacles:" << numObstaculos << std::endl;
 	std::cout << "Number of game objects:" << numGameObjects << std::endl;
 
@@ -254,35 +258,12 @@ void GameManager::display(){
 	Car* car;
 	car = (Car*)getObject(CAR);
 
-
 	glClearDepth(1.0);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
-	glEnable(GL_LIGHTING);
-	glEnable(GL_COLOR_MATERIAL);
-
 	glViewport(0, 0, VIEWPORT_X, VIEWPORT_Y);
-	
-	GLfloat mat_ambient[] = { 0.1, 0.1, 0.1, 1.0 };
-	GLfloat mat_diffuse[] = { 0.1, 0.1, 0.0, 1.0 };
-	GLfloat mat_specular[] = { 0.1, 0.1, 0.1, 1.0 };
-	GLfloat mat_emission[] = { 0.1, 0.1, 0.1, 0.0 };
-	GLfloat mat_shine = 0.0;
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-	glMaterialf(GL_FRONT, GL_SHININESS, mat_shine);
 
-	GLfloat amb[] = { 0.1f, 0.2f, 0.4f, 1 };
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
-
-
-	GLfloat position[] = { 0.0, 0.0, 1, 1.0 };
-	glLightfv(GL_LIGHT0, GL_POSITION, position);
-	glEnable(GL_LIGHT0);
-	
 	if (camera == 1){
 
 		OrthogonalCamera* camera = (OrthogonalCamera*)getCamera(ORTHOGONAL_CAM);
@@ -306,7 +287,7 @@ void GameManager::display(){
 		
 	}
 
-	
+	luz_cena->draw();
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -314,10 +295,7 @@ void GameManager::display(){
 	//draw initial scene
 	drawGameObjects();
 
-
-	
-
-	
+	gameHasStarted = true;
 
 	glFlush();
 }
@@ -343,6 +321,22 @@ void GameManager::keyPressed(unsigned char key){
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 		break;
+	case 'l':
+		if (!iluminacao)
+			glEnable(GL_LIGHTING);
+		else
+			glDisable(GL_LIGHTING);
+		iluminacao = !iluminacao;
+		break;
+	case 'n':
+		luz_cena->setState(!luz_cena->getState());
+		break;
+	case 'g':
+		if (smooth)
+			glShadeModel(GL_FLAT);
+		else
+			glShadeModel(GL_SMOOTH);
+		smooth = !smooth;
 	}
 }
 
@@ -522,12 +516,12 @@ void GameManager::update(){
 					if (carro->getBbox()->getYMin() < butter->getBbox()->getYMax())
 					{
 
-						butter->triggerCollision();
+						/*butter->triggerCollision();
 
 						butters_hit[number_butters_hit] = butter;
 						number_butters_hit++;
 
-						carro->triggerCollision();
+						carro->triggerCollision();*/
 					}
 
 				}
@@ -547,12 +541,12 @@ void GameManager::update(){
 					if (carro->getBbox()->getYMin() < obs->getBbox()->getYMax())
 					{
 						
-						obs->triggerCollision();
+						/*obs->triggerCollision();
 
 						obstacles_hit[number_obstacles_hit] = obs;
 						number_obstacles_hit++;
 
-						carro->triggerCollision();
+						carro->triggerCollision();*/
 					}
 
 				}	
@@ -636,6 +630,8 @@ void GameManager::update(){
 	cameraMovel->update(new Vector3(veiculo->getPosition()->getX(), veiculo->getPosition()->getY() - 0.3, veiculo->getPosition()->getZ() + 0.5), new Vector3(veiculo->getPosition()->getX(), veiculo->getPosition()->getY() + 0.5, veiculo->getPosition()->getZ()));
 	cameras[2] = cameraMovel;
 	
+	//std::cout << car->getAngle() << std::endl;
+	////std::cout << car->getDirection().getX() << ", " << car->getDirection().getY() << ", "<<  car->getDirection().getZ() <<  std::endl;
 	
 	glutPostRedisplay();
 }

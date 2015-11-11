@@ -15,11 +15,13 @@ void DynamicObject::setDirection(){
 	double angulo = angle - (3.14159 / 2);
 
 	/*std::cout << "Direction before turn: [" << direction->getX() << ", " << direction->getY() << "]" << std::endl;*/
-
+	
 	/*std::cout << "Angle turn: " <<  angulo << std::endl;*/
 
-	y = direction->getY()*sin(angulo/* * 3.14159 / 180*/);
-	x = direction->getY()*cos(angulo/* * 3.14159 / 180*/);
+	y = direction->getY()*sin(angulo /** 3.14159 / 180*/);
+	x = direction->getY()*cos(angulo /** 3.14159 / 180*/);
+
+	std::cout << sin(x) << ", " << sin(y) << std::endl;
 	//normalizar
 	direction->set(x / sqrt(x*x + y*y), y / sqrt(x*x + y*y), 0);
 
@@ -39,6 +41,17 @@ void DynamicObject::update(double delta_t)
 
 void DynamicObject::draw(){
 
+}
+
+
+double DynamicObject::getAngle()
+{	
+	return this->angle;
+}
+
+void DynamicObject::setAngle(double val)
+{
+	this->angle = val;
 }
 
 void DynamicObject::setSpeed(Vector3 *vector)

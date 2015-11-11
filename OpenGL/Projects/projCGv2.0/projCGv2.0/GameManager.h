@@ -84,6 +84,8 @@ class GameManager {
 
 		Camera* cameras[3];
 
+		LightSource* luz_cena;
+
 		int game_difficulty;
 
 		// Spawn time of last orange
@@ -101,6 +103,8 @@ class GameManager {
 		bool gameHasStarted = false;
 		bool wireframe;
 		bool seta_cima, seta_baixo, seta_esquerda, seta_direita;
+		bool iluminacao;
+		bool smooth;
 
 	//Private Methods
 	private:

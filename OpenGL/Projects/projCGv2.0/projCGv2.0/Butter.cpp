@@ -23,7 +23,14 @@ Butter::~Butter()
 void Butter::draw()
 {
 	/*std::cout << this->toString();*/
+	
+	GLfloat ambi[] = { 1.0, 1.0, 0.0, 1.f };
+	GLfloat diff[] = { 0.7, 0.7, 0.0, 1.f };
+	GLfloat spec[] = { 0.5, 0.5, 0.5, 1.f };
 	glColor3f(B_COLOR_R, B_COLOR_G, B_COLOR_B);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec);
 
 	glPushMatrix();
 

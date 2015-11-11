@@ -31,6 +31,7 @@ class Car : public DynamicObject
 		Car();
 		~Car(){}
 
+
 		void draw();
 
 		void setSpeed(double x, double y, double z);

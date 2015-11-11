@@ -17,11 +17,12 @@ class LightSource {
 		GLenum _num;
 		bool _state;
 		Vector3 _direction;
-		Vector3 _position;
+		Vector3 * _position;
+
 
 	public:
 		LightSource();
-		LightSource(int mode); 
+		LightSource(double x, double y, double z); //Mode tem de estar no enum "_num", acho
 		~LightSource(){}
 
 		bool getState();
@@ -34,6 +35,6 @@ class LightSource {
 		void setAmbient(/*const Vector4 &vector*/); //TODO
 		void setDiffuse(/*const Vector4 &vector*/); //TODO
 		void setSpecular(/*const Vector4 &vector*/); //TODO
-		void draw(); //TODO
+		void draw();
 };
 #endif

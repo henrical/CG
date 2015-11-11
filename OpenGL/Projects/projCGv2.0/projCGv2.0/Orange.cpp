@@ -25,7 +25,14 @@ Orange::~Orange()
 void Orange::draw()
 {
 	glPushMatrix();
-	glColor3f(OR_COLOR_R, OR_COLOR_G, OR_COLOR_B);
+	//glColor3f(OR_COLOR_R, OR_COLOR_G, OR_COLOR_B);
+	GLfloat ambi[] = { 1.0, 0.5, 0.0, 1.f };
+	GLfloat diff[] = { 0.7, 0.5, 0.0, 1.f };
+	GLfloat spec[] = { 0.7, 0.5, 0.0, 1.f };
+	glColor3f(1.0, 0.5, 0.0);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec);
 
 	GLUquadric *quad = gluNewQuadric();
 

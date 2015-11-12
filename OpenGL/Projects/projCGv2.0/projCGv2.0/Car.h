@@ -7,12 +7,12 @@
 
 #include "DynamicObject.h"
 
-#define CAR_SIZE 0.07
+#define CAR_SIZE 0.055
 
 //bounding box side length
 #define CAR_BBOX_LENGTH  2*CAR_SIZE 
 
-#define MAXSPEED 0.001
+#define MAXSPEED 0.0006
 
 #define INIT_POS_X -1.1
 #define INIT_POS_Y 0 

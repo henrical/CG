@@ -201,11 +201,11 @@ int GameManager::init(){
 	Roadside *road = (Roadside*)getObject(ROADSIDE);
 	road->draw();
 
-	addButter(new Butter(&Vector3(1.25, 0.3, 0), 0));
-	addButter(new Butter(&Vector3(-0.79, 0.85, 0), 0));
-	addButter(new Butter(&Vector3(0, -1.2, 0), 0));
-	addButter(new Butter(&Vector3(1, 1.2, 0), 0));
-	addButter(new Butter(&Vector3(-1.2, -1, 0), 0));
+	addButter(new Butter(&Vector3(1.33, 0.3, 0), 0));
+	addButter(new Butter(&Vector3(-0.77, 0.85, 0), 0));
+	addButter(new Butter(&Vector3(0, -1.28, 0), 0));
+	addButter(new Butter(&Vector3(1.15, 1.2, 0), 0));
+	addButter(new Butter(&Vector3(-1.3, -1, 0), 0));
 
 	/*addObstacle(new Orange(&Vector3(0, 1.25, 0)));
 	addObstacle(new Orange(&Vector3(-0.9, -0.5, 0)));
@@ -516,12 +516,12 @@ void GameManager::update(){
 					if (carro->getBbox()->getYMin() < butter->getBbox()->getYMax())
 					{
 
-						/*butter->triggerCollision();
+						butter->triggerCollision();
 
 						butters_hit[number_butters_hit] = butter;
 						number_butters_hit++;
 
-						carro->triggerCollision();*/
+						carro->triggerCollision();
 					}
 
 				}
@@ -541,12 +541,12 @@ void GameManager::update(){
 					if (carro->getBbox()->getYMin() < obs->getBbox()->getYMax())
 					{
 						
-						/*obs->triggerCollision();
+						obs->triggerCollision();
 
 						obstacles_hit[number_obstacles_hit] = obs;
 						number_obstacles_hit++;
 
-						carro->triggerCollision();*/
+						carro->triggerCollision();
 					}
 
 				}	

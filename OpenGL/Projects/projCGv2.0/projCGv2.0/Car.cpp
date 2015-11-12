@@ -264,7 +264,10 @@ void Car::update(int dt){
 		return;
 	}
 
-	_speed->set(_speed->getX() + getAcc()->getX() * dt, _speed->getY() + getAcc()->getY() * dt, 0);
+	if (abs(sqrt(_speed->getX() * _speed->getX() + _speed->getY() * _speed->getY())) < MAXSPEED)
+		_speed->set(_speed->getX() + getAcc()->getX() * dt, _speed->getY() + getAcc()->getY() * dt, 0);
+	
+	
 	_position->set(_position->getX() + getSpeed()->getX() * dt * direction->getX(), _position->getY() + getSpeed()->getY() * dt * direction->getY(), _position->getZ());
 
 	glFlush();

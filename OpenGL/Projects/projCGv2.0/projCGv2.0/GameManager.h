@@ -61,6 +61,8 @@
 #define CAR 1 
 #define TABLE 2
 
+
+
 /**
  * Singleton GameManager class.
  * This class has only one instance.
@@ -89,6 +91,7 @@ class GameManager {
 
 		int game_difficulty;
 
+		int candlelight_active;
 		// Spawn time of last orange
 		int orange_timestamp;
 

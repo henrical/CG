@@ -46,10 +46,10 @@ void LightSource::draw(){
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	
-		GLfloat ambient[] = { 0.3, 0.3, 0.3, 1.0 };
-		GLfloat diffuse[] = { 0.5, 0.5, 0.5, 1.0 };
-		GLfloat specular[] = { 0.5, 0.5, 0.5, 1.0 };
-		GLfloat position[] = { _position->getX(), _position->getY(), _position->getZ(), 0.0 };
+		GLfloat ambient[] = { AMB_LIGHT_INTENSITY, AMB_LIGHT_INTENSITY, AMB_LIGHT_INTENSITY, 1.0 };
+		GLfloat diffuse[] = { AMB_LIGHT_INTENSITY, AMB_LIGHT_INTENSITY, AMB_LIGHT_INTENSITY, 1.0 };
+		GLfloat specular[] = { AMB_LIGHT_INTENSITY, AMB_LIGHT_INTENSITY, AMB_LIGHT_INTENSITY, 1.0 };
+		GLfloat position[] = { _position->getX(), _position->getY(), _position->getZ(), 1.0 };
 		GLfloat direction[] = {0.0, 0.0, -1.0};
 	
 		glEnable(GL_LIGHT0);
@@ -58,6 +58,7 @@ void LightSource::draw(){
 		glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
 		glLightfv(GL_LIGHT0, GL_POSITION, position);
 		//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, direction);
+		
 	}
 	else{
 		glDisable(GL_LIGHT0);

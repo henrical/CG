@@ -6,6 +6,8 @@
 #include "GL/glut.h"
 #include "Vector3.h"
 
+#define AMB_LIGHT_INTENSITY 0.09f
+
 class LightSource {
 
 	protected:

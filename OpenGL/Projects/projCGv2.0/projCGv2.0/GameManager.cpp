@@ -28,6 +28,8 @@ GameManager::GameManager()
 	numButters = 0;
 	numOranges = 0;
 
+	candlelight_active = true;
+
 	camera = 1;
 	wireframe = false;
 	seta_baixo = seta_cima = seta_direita = seta_esquerda = false;
@@ -201,12 +203,12 @@ int GameManager::init(){
 	addObject(new Car());
 	addObject(new Table());
 	
-	_lightSources[0] = new Candle(0.9, 0.3, 0);
-	_lightSources[1] = new Candle(-0.8, -0.8, 0);
-	_lightSources[2] = new Candle(-0.4, 1.7, 0);
-	_lightSources[3] = new Candle(1.8, -0.4, 0);
-	_lightSources[4] = new Candle(-1.6, 0.2 , 0);
-	_lightSources[5] = new Candle(0.6, -1.8, 0);
+	_lightSources[0] = new Candle(LIGHT1 ,0.9, 0.3, 0);
+	_lightSources[1] = new Candle(LIGHT2, -0.8, -0.8, 0);
+	_lightSources[2] = new Candle(LIGHT3, -0.4, 1.7, 0);
+	_lightSources[3] = new Candle(LIGHT4, 1.8, -0.4, 0);
+	_lightSources[4] = new Candle(LIGHT5, -1.6, 0.2 , 0);
+	_lightSources[5] = new Candle(LIGHT6, 0.6, -1.8, 0);
 	
 	Roadside *road = (Roadside*)getObject(ROADSIDE);
 	road->draw();
@@ -321,6 +323,8 @@ void GameManager::display(){
 }
 
 void GameManager::keyPressed(unsigned char key){
+	int i;
+	
 	switch (key){
 	case '1':
 		camera = 1;
@@ -357,6 +361,19 @@ void GameManager::keyPressed(unsigned char key){
 		else
 			glShadeModel(GL_SMOOTH);
 		smooth = !smooth;
+	case 'c':
+		
+		i = 0;
+		Candle* candle = (Candle*)_lightSources[i];
+
+		while (candle != 0)
+		{
+			candle->setState(!candle->getState());
+			i++;
+			candle = (Candle*)_lightSources[i];
+		}
+
+		break;
 	}
 }
 

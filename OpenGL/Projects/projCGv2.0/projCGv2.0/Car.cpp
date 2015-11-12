@@ -33,10 +33,10 @@ void Car::draw()
 	glScalef(CAR_SIZE, CAR_SIZE, CAR_SIZE);
 
 	//cubo da frente
-	GLfloat ambi[] = { 1.0, 0.0, 0.61, 1.f };
-	GLfloat diff[] = { 0.86, 0.0, 0.39, 1.f };
-	GLfloat spec[] = { 0.17, 0.4, 0.4, 1.f };
-	glColor3f(1.0, 0.0, 0.61);
+	GLfloat ambi[] = { 1.0, 0, 0.0, 1.f };
+	GLfloat diff[] = { 1, 0.1, 0.0, 1.f };
+	GLfloat spec[] = { 0, 0, 0, 1.f };
+	glColor3f(1.0, 0.2, 0.0);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec);
@@ -91,10 +91,10 @@ void Car::draw()
 	glPopMatrix();
 
 	//cubo traseiro
-	GLfloat ambi2[] = { 1.0, 0.0, 1.0, 1.f };
-	GLfloat diff2[] = { 1.0, 0.0, 0.1, 1.f };
-	GLfloat spec2[] = { 0.77, 0.77, 0.77, 1.f };
-	glColor3f(1.0, 0.0, 1.0);
+	GLfloat ambi2[] = { 1, 0.1, 0.1, 1.f };
+	GLfloat diff2[] = { 1, 0.1, 0.1, 1.f };
+	GLfloat spec2[] = { 0, 0, 0, 1.f };
+	glColor3f(1.0, 0.1, 0.1);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi2);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff2);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec2);

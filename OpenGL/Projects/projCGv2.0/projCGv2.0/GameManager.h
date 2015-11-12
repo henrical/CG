@@ -42,6 +42,7 @@
 #define MAX_CHEERIOS 200
 #define MAX_BUTTERS 10
 #define MAX_ORANGES 150
+#define MAX_LIGHTSOURCES 10
 
 #define CAR_ACCELERATION 0.0000005
 
@@ -75,7 +76,7 @@ class GameManager {
 	private:
 		static GameManager* _instance;
 
-		LightSource _lightSources[10];
+		LightSource* _lightSources[MAX_LIGHTSOURCES];
 		GameObject* _gameObjects[10];
 		
 		Cheerio* obstacles[MAX_CHEERIOS];

@@ -14,6 +14,7 @@
 #include "CollisionBox.h"
 #include "OrthogonalCamera.h"
 #include "PerspectiveCamera.h"
+#include "Candle.h"
 
 
 GameManager* GameManager::_instance = nullptr;
@@ -34,6 +35,8 @@ GameManager::GameManager()
 	smooth = true;
 
 	game_difficulty = 1;
+
+	memset(_lightSources, 0, sizeof(Candle*)*MAX_LIGHTSOURCES);
 
 	srand(time(NULL));
 	
@@ -197,7 +200,14 @@ int GameManager::init(){
 	addObject(new Roadside());
 	addObject(new Car());
 	addObject(new Table());
-
+	
+	_lightSources[0] = new Candle(0.9, 0.3, 0);
+	_lightSources[1] = new Candle(-0.8, -0.8, 0);
+	_lightSources[2] = new Candle(-0.4, 1.7, 0);
+	_lightSources[3] = new Candle(1.8, -0.4, 0);
+	_lightSources[4] = new Candle(-1.6, 0.2 , 0);
+	_lightSources[5] = new Candle(0.6, -1.8, 0);
+	
 	Roadside *road = (Roadside*)getObject(ROADSIDE);
 	road->draw();
 
@@ -219,9 +229,9 @@ int GameManager::init(){
 	return 0;
 }
 
+
 int GameManager::drawGameObjects(){
 	int i;
-	
 	
 
 	//draw game objects
@@ -247,6 +257,16 @@ int GameManager::drawGameObjects(){
 		
 		if (!oranges[i]->destroyedp())
 			oranges[i]->draw();
+	}
+
+	i = 0;
+	Candle* candle = (Candle*)_lightSources[i];
+
+	while (candle != 0)
+	{
+		candle->draw();
+		i++;
+		candle = (Candle*)_lightSources[i];
 	}
 	
 

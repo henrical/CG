@@ -19,10 +19,9 @@ void DynamicObject::setDirection(){
 	double dir = -1 *  sqrt(direction->getX() * direction->getX() + direction->getY() * direction->getY());
 	/*std::cout << "Angle turn: " <<  angulo << std::endl;*/
 
-	y = dir*sin(angulo /** 3.14159 / 180*/);
-	x = dir*cos(angulo /** 3.14159 / 180*/);
+	y = dir*sin(angulo);
+	x = dir*cos(angulo);
 
-	std::cout << sin(x) << ", " << sin(y) << std::endl;
 	//normalizar
 	direction->set(x / sqrt(x*x + y*y), y / sqrt(x*x + y*y), 0);
 

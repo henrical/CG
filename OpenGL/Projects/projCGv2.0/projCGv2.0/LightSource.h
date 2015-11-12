@@ -8,7 +8,7 @@
 
 class LightSource {
 
-	private:
+	protected:
 		double _ambient[4];
 		double _diffuse[4];
 		double _specular[4];
@@ -22,8 +22,7 @@ class LightSource {
 
 	public:
 		LightSource();
-		LightSource(double x, double y, double z); //Mode tem de estar no enum "_num", acho
-		~LightSource(){}
+		LightSource(double x, double y, double z);
 
 		bool getState();
 		bool setState(bool new_state);

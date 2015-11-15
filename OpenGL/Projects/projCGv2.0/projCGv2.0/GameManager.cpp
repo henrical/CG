@@ -15,7 +15,7 @@
 #include "OrthogonalCamera.h"
 #include "PerspectiveCamera.h"
 #include "Candle.h"
-
+#include "SOIL.h"
 
 GameManager* GameManager::_instance = nullptr;
 
@@ -199,17 +199,21 @@ int GameManager::init(){
 	cameras[1] = cam2;
 	cameras[2] = cam3;
 
+	
+
 	addObject(new Roadside());
 	addObject(new Car());
 	addObject(new Table());
-	
-	_lightSources[0] = new Candle(LIGHT1 ,0.9, 0.3, 0);
+
+	_lightSources[0] = new Candle(LIGHT1, 0.9, 0.3, 0);
 	_lightSources[1] = new Candle(LIGHT2, -0.8, -0.8, 0);
 	_lightSources[2] = new Candle(LIGHT3, -0.4, 1.7, 0);
 	_lightSources[3] = new Candle(LIGHT4, 1.8, -0.4, 0);
-	_lightSources[4] = new Candle(LIGHT5, -1.6, 0.2 , 0);
+	_lightSources[4] = new Candle(LIGHT5, -1.6, 0.2, 0);
 	_lightSources[5] = new Candle(LIGHT6, 0.6, -1.8, 0);
+
 	
+
 	Roadside *road = (Roadside*)getObject(ROADSIDE);
 	road->draw();
 
@@ -231,7 +235,34 @@ int GameManager::init(){
 	return 0;
 }
 
+void GameManager::loadBMP(/*char* filename*/){
+	/* load an image file directly as a new OpenGL texture */
+	
 
+	glGenTextures(1, &textures[0]);
+	
+	textures[0] = SOIL_load_OGL_texture
+		(
+		"planks.bmp",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_INVERT_Y
+		);
+
+	if (0 == textures[0])
+	{
+		std::cout << "SOIL loading error: " << SOIL_last_result() << std::endl;
+	}
+
+	glBindTexture(GL_TEXTURE_2D, textures[0]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	
+
+}
 int GameManager::drawGameObjects(){
 	int i;
 	
@@ -283,6 +314,8 @@ void GameManager::display(){
 	glClearDepth(1.0);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
+
+
 
 	glViewport(0, 0, VIEWPORT_X, VIEWPORT_Y);
 

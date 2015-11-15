@@ -13,19 +13,31 @@ void Table::draw(){
 	GLfloat ambi[] = { 0.5, 0.5, 1.0, 1.f };
 	GLfloat diff[] = { 0.0, 0.3, 0.74, 1.f };
 	GLfloat spec[] = { 0.6, 0.8, 0.6, 1.f };
-	glColor3f(0.5, 0.78, 1.0);
+	//glColor3f(0.5, 0.78, 1.0);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec);
 
+	glEnable(GL_TEXTURE_2D);
+
 	glBegin(GL_QUADS);
 	glNormal3f(0.0, 0.0, 1);
+	
+	glTexCoord2f(0, 0);
 	glVertex3f(-1.5, -1.5, 0.0);
+
+	glTexCoord2f(0, 1);
 	glVertex3f(-1.5, 1.5, 0.0);
+
+	glTexCoord2f(1, 1);
 	glVertex3f(1.5, 1.5, 0.0);
+
+	glTexCoord2f(1, 0);
 	glVertex3f(1.5, -1.5, 0.0);
+
 	glEnd();
 
 	glPopMatrix();
 	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
 }

@@ -43,6 +43,7 @@
 #define MAX_BUTTERS 10
 #define MAX_ORANGES 150
 #define MAX_LIGHTSOURCES 10
+#define MAX_TEXTURES 10
 
 #define CAR_ACCELERATION 0.0000005
 
@@ -89,6 +90,8 @@ class GameManager {
 
 		LightSource* luz_cena;
 
+		GLuint textures[MAX_TEXTURES];
+
 		int game_difficulty;
 
 		int candlelight_active;
@@ -116,6 +119,7 @@ class GameManager {
 		~GameManager();
 
 		void drawTable(const float color[]);
+		
 
 	//Public Methods and Functions
 	public:
@@ -133,6 +137,8 @@ class GameManager {
 		}
 
 		void generateOrange();
+
+		void loadBMP();
 
 		void addObject(GameObject *obj);
 		void addObstacle(Cheerio *obs);

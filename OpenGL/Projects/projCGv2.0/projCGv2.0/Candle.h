@@ -15,7 +15,7 @@
 #define LIGHT5 5
 #define LIGHT6 6
 
-#define LIGHT_INTENSITY 0.06f
+#define LIGHT_INTENSITY 0.04f
 
 class Candle : public LightSource
 {

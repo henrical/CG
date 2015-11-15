@@ -34,7 +34,7 @@ void Car::draw()
 
 	//cubo da frente
 	GLfloat ambi[] = { 1.0, 0, 0.0, 1.f };
-	GLfloat diff[] = { 1, 0.1, 0.0, 1.f };
+	GLfloat diff[] = { 1, 0.02, 0.0, 1.f };
 	GLfloat spec[] = { 0, 0, 0, 1.f };
 	glColor3f(1.0, 0.2, 0.0);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi);
@@ -91,7 +91,7 @@ void Car::draw()
 	glPopMatrix();
 
 	//cubo traseiro
-	GLfloat ambi2[] = { 1, 0.1, 0.1, 1.f };
+	GLfloat ambi2[] = { 1, 0.0, 0.0, 1.f };
 	GLfloat diff2[] = { 1, 0.1, 0.1, 1.f };
 	GLfloat spec2[] = { 0, 0, 0, 1.f };
 	glColor3f(1.0, 0.1, 0.1);

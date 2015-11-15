@@ -4,6 +4,7 @@
 
 #include "GL/glut.h"
 #include "generic.h"
+#include "Windows.h"
 
 #include "main.h"
 #include "GameManager.h"
@@ -43,7 +44,10 @@ void mySpecialUp(int key, int x, int y){
 
 int main(int argc, char** argv)
 {
+	//FreeConsole();
+
 	int window;
+
 
 	glutInit(&argc, argv);
 
@@ -55,6 +59,9 @@ int main(int argc, char** argv)
 
 	window = glutCreateWindow("MicroMachines alpha v0.1");
 
+	GameManager::instance()->init();
+	GameManager::instance()->loadBMP();
+
 	glutDisplayFunc(myDisplay);
 	glutReshapeFunc(myReshape);
 	glutKeyboardFunc(myKeyPress);
@@ -64,7 +71,7 @@ int main(int argc, char** argv)
 
 	glutTimerFunc(30, myUpdate, 0);
 
-	GameManager::instance()->init();
+	
 
 	glutMainLoop();
 

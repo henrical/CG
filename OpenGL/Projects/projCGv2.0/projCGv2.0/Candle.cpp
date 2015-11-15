@@ -4,6 +4,7 @@
 Candle::Candle(int light_num, double x, double y, double z)
 	:LightSource(x, y, z), num(light_num) 
 {
+	_state = false;
 }
 
 void Candle::draw(){

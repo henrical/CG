@@ -28,12 +28,13 @@ GameManager::GameManager()
 	numButters = 0;
 	numOranges = 0;
 
-	candlelight_active = true;
-
 	camera = 1;
 	wireframe = false;
 	seta_baixo = seta_cima = seta_direita = seta_esquerda = false;
-	iluminacao = false;
+	
+	iluminacao = true;
+	glEnable(GL_LIGHTING);
+
 	smooth = true;
 
 	game_difficulty = 1;
@@ -236,11 +237,10 @@ int GameManager::init(){
 }
 
 void GameManager::loadBMP(/*char* filename*/){
-	/* load an image file directly as a new OpenGL texture */
 	
-
 	glGenTextures(1, &textures[0]);
-	
+
+	/* load an image file directly as a new OpenGL texture */
 	textures[0] = SOIL_load_OGL_texture
 		(
 		"planks.bmp",
@@ -249,7 +249,7 @@ void GameManager::loadBMP(/*char* filename*/){
 		SOIL_FLAG_INVERT_Y
 		);
 
-	if (0 == textures[0])
+	if (textures[0] == 0)
 	{
 		std::cout << "SOIL loading error: " << SOIL_last_result() << std::endl;
 	}
@@ -350,7 +350,6 @@ void GameManager::display(){
 	//draw initial scene
 	drawGameObjects();
 
-	gameHasStarted = true;
 
 	glFlush();
 }

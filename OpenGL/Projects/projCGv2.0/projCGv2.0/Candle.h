@@ -13,7 +13,6 @@
 #define LIGHT3 3
 #define LIGHT4 4
 #define LIGHT5 5
-#define LIGHT6 6
 
 #define LIGHT_INTENSITY 0.04f
 

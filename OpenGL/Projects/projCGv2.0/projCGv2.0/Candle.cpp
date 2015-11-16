@@ -94,13 +94,6 @@ void Candle::draw(){
 			glLightfv(GL_LIGHT5, GL_SPECULAR, specular);
 			glLightfv(GL_LIGHT5, GL_POSITION, position);
 			break;
-		case LIGHT6:
-			glEnable(GL_LIGHT6);
-			glLightfv(GL_LIGHT6, GL_AMBIENT, ambient);
-			glLightfv(GL_LIGHT6, GL_DIFFUSE, diffuse);
-			glLightfv(GL_LIGHT6, GL_SPECULAR, specular);
-			glLightfv(GL_LIGHT6, GL_POSITION, position);
-			break;
 		}
 	}
 	else{
@@ -109,6 +102,5 @@ void Candle::draw(){
 		glDisable(GL_LIGHT3);
 		glDisable(GL_LIGHT4);
 		glDisable(GL_LIGHT5);
-		glDisable(GL_LIGHT6);
 	}
 }

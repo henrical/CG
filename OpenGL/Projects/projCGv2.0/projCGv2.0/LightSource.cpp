@@ -8,7 +8,7 @@ LightSource::LightSource(){
 }
 
 LightSource::LightSource(double x, double y, double z){
-	_state = true;
+	_state = false;
 	_position = new Vector3(x, y, z);
 }
 

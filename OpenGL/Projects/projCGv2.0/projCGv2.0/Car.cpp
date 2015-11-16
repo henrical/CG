@@ -19,6 +19,9 @@ Car::Car(){
 	hasCollision = false;
 
 	bbox = CollisionBox(INIT_POS_X - 0.06 , INIT_POS_Y - 0.06, INIT_POS_X + 0.45*CAR_BBOX_LENGTH, INIT_POS_Y + 0.45*CAR_BBOX_LENGTH);
+
+	headlights[0] = Headlight(LIGHT6, _position->getX() - HEADLIGHT_DISTANCE, _position->getY() - HEADLIGHT_DISTANCE, _position->getZ());
+	headlights[1] = Headlight(LIGHT7, _position->getX() + HEADLIGHT_DISTANCE, _position->getY() + HEADLIGHT_DISTANCE, _position->getZ());
 }
 
 void Car::draw()
@@ -267,8 +270,13 @@ void Car::update(int dt){
 	if (abs(sqrt(_speed->getX() * _speed->getX() + _speed->getY() * _speed->getY())) < MAXSPEED)
 		_speed->set(_speed->getX() + getAcc()->getX() * dt, _speed->getY() + getAcc()->getY() * dt, 0);
 	
-	
+
 	_position->set(_position->getX() + getSpeed()->getX() * dt * direction->getX(), _position->getY() + getSpeed()->getY() * dt * direction->getY(), _position->getZ());
+
+
+	//altera a posiçao dos farois, de acordo com a posiçao do carro
+	headlights[0].update(_position->getX() - HEADLIGHT_DISTANCE, _position->getX() - HEADLIGHT_DISTANCE, 0);
+	headlights[0].update(_position->getX() + HEADLIGHT_DISTANCE, _position->getX() + HEADLIGHT_DISTANCE, 0);
 
 	glFlush();
 

@@ -209,9 +209,9 @@ int GameManager::init(){
 	_lightSources[0] = new Candle(LIGHT1, 0.9, 0.3, 0);
 	_lightSources[1] = new Candle(LIGHT2, -0.8, -0.8, 0);
 	_lightSources[2] = new Candle(LIGHT3, -0.4, 1.7, 0);
-	_lightSources[3] = new Candle(LIGHT4, 1.8, -0.4, 0);
+	_lightSources[3] = new Candle(LIGHT4, 0.6, -1.8, 0);
 	_lightSources[4] = new Candle(LIGHT5, -1.6, 0.2, 0);
-	_lightSources[5] = new Candle(LIGHT6, 0.6, -1.8, 0);
+	
 
 	
 
@@ -309,7 +309,7 @@ int GameManager::drawGameObjects(){
 
 void GameManager::display(){
 	Car* car;
-	car = (Car*)getObject(CAR);
+	car = (Car*)getObject(CAR);//REMOVE
 
 	glClearDepth(1.0);
 	glEnable(GL_DEPTH_TEST);
@@ -411,7 +411,7 @@ void GameManager::keyPressed(unsigned char key){
 
 void GameManager::specialPress(int key){
 	Car* carro;
-	carro = (Car*)getObject(CAR);
+	carro = (Car*)getObject(CAR); //REMOVE
 
 	switch (key){
 	case GLUT_KEY_UP:
@@ -442,7 +442,7 @@ void GameManager::specialPress(int key){
 }
 void GameManager::specialUp(int key){
 	Car* carro;
-	carro = (Car*)getObject(CAR);
+	carro = (Car*)getObject(CAR);//REMOVE
 
 	switch (key){
 	case GLUT_KEY_UP:

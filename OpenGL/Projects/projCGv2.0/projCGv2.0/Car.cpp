@@ -36,9 +36,9 @@ void Car::draw()
 	glScalef(CAR_SIZE, CAR_SIZE, CAR_SIZE);
 
 	//cubo da frente
-	GLfloat ambi[] = { 1.0, 0, 0.0, 1.f };
-	GLfloat diff[] = { 1, 0.02, 0.0, 1.f };
-	GLfloat spec[] = { 0, 0, 0, 1.f };
+	GLfloat ambi[] = { 1.0, 0, 0.0        , 1.f };
+	GLfloat diff[] = { 0.1, 0.02, 0.0     , 1.f };
+	GLfloat spec[] = { 0, 0, 0            , 1.f };
 	glColor3f(1.0, 0.2, 0.0);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff);
@@ -95,7 +95,7 @@ void Car::draw()
 
 	//cubo traseiro
 	GLfloat ambi2[] = { 1, 0.0, 0.0, 1.f };
-	GLfloat diff2[] = { 1, 0.1, 0.1, 1.f };
+	GLfloat diff2[] = { 0.2, 0.1, 0.1, 1.f };
 	GLfloat spec2[] = { 0, 0, 0, 1.f };
 	glColor3f(1.0, 0.1, 0.1);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi2);
@@ -197,6 +197,9 @@ void Car::draw()
 
 	bbox.setCordinates(xPos - 0.06, yPos - 0.06, xPos + 0.45*CAR_BBOX_LENGTH, yPos + 0.45*CAR_BBOX_LENGTH);
 
+	headlights[0].draw();
+	headlights[1].draw();
+
 	if (GameManager::viewCollisionBoxes() == 1)
 		bbox.draw();
 
@@ -212,17 +215,6 @@ void Car::invertSpeed(){
 	_speed->set(-0.8*_speed->getX(), -0.8*_speed->getY(), 0);
 }
 
-//void Car::slowDownAcceleration(double acceleration){
-//	
-//	if (getSpeed()->getX() > 0 && getSpeed()->getY() > 0)
-//		acc->set(getAcc()->getX() - acceleration, getAcc()->getY() - acceleration, getAcc()->getZ() - acceleration);
-//}
-//
-//void Car::slowDownSpeed(double speed){
-//	
-//	if (getSpeed()->getX() > 0 && getSpeed()->getY() > 0)
-//		this->speed->set(getSpeed()->getX() - speed, getSpeed()->getY() - speed, getSpeed()->getZ() - speed);
-//}
 
 Vector3* Car::getSpeed(){
 	return _speed;
@@ -246,19 +238,7 @@ void Car::rodaEsquerda(){
 }
 
 void Car::update(int dt){
-	// speed = speed + acc*dt
-	//pos = pos + speed*dt
-	/*if (getSpeed()->getX() < MAXSPEED && getSpeed()->getX() >= 0){
-	setSpeed(getSpeed()->getX() + getAcc()->getX()*dt, getSpeed()->getY(), getSpeed()->getZ());
-	}
-	else if (getSpeed()->getX() > -(MAXSPEED) && getSpeed()->getX() <= 0){
-	setSpeed(getSpeed()->getX() + getAcc()->getX()*dt, getSpeed()->getY(), getSpeed()->getZ());
-	}
-	if (getSpeed()->getY() < MAXSPEED && getSpeed()->getY() >= 0){
-	setSpeed(getSpeed()->getX(), getSpeed()->getY() + getAcc()->getY()*dt, getSpeed()->getZ());
-	}
-	else if (getSpeed()->getY() > -(MAXSPEED) && getSpeed()->getY() <= 0)
-	setSpeed(getSpeed()->getX(), getSpeed()->getY() + getAcc()->getY()*dt, getSpeed()->getZ());*/
+	
 	if (hasCollision)
 	{
 
@@ -275,13 +255,11 @@ void Car::update(int dt){
 
 
 	//altera a posiçao dos farois, de acordo com a posiçao do carro
-	headlights[0].update(_position->getX() - HEADLIGHT_DISTANCE, _position->getX() - HEADLIGHT_DISTANCE, 0);
-	headlights[0].update(_position->getX() + HEADLIGHT_DISTANCE, _position->getX() + HEADLIGHT_DISTANCE, 0);
+	headlights[0].update(_position->getX() , _position->getY() , 0);
+	headlights[1].update(_position->getX() , _position->getY() , 0);
 
 	glFlush();
 
-	//std::cout << "----->carro speed x=" << speed->getX() << " y=" << speed->getY() << " dir x=" << direction->getX() << " y="<< direction->getY() << std::endl;
-	/*std::cout << "----->carro angle=" << angle * 180 / 3.14159 << " dir x=" << direction->getX() << " y=" << direction->getY() << std::endl*/
 	hasCollision = false;
 }
 

@@ -8,12 +8,16 @@
 #define LIGHT7 7
 
 
-#define HEADLIGHT_INTENSITY 0.5f
+#define HEADLIGHT_INTENSITY 0.3f
+#define HEADLIGHT_INTENSITY_DIF 0.35f
+#define HEADLIGHT_INTENSITY_SPEC 0.45f
 
 class Headlight : public LightSource
 {
 private:
 	int num;
+	static const GLint spot_cutoff = 8;
+	static const GLint spot_exponent = 0;
 
 public:
 	Headlight();

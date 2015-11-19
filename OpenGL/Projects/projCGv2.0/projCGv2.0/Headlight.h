@@ -9,7 +9,7 @@
 
 
 #define HEADLIGHT_INTENSITY 0.3f
-#define HEADLIGHT_INTENSITY_DIF 0.35f
+#define HEADLIGHT_INTENSITY_DIF 0.4f
 #define HEADLIGHT_INTENSITY_SPEC 0.45f
 
 class Headlight : public LightSource

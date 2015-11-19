@@ -40,11 +40,7 @@ void Headlight::draw(){
 	glPopMatrix();*/
 	
 
-	glPushMatrix();
-	glColor3f(0, 0, 1);
-	glTranslatef(xPos, yPos, 0.01);
-	glutSolidCube(0.1);
-	glPopMatrix();
+
 	
 
 	GLfloat ambient[] = { HEADLIGHT_INTENSITY, HEADLIGHT_INTENSITY, HEADLIGHT_INTENSITY, 1.0 };
@@ -52,8 +48,11 @@ void Headlight::draw(){
 	GLfloat specular[] = { HEADLIGHT_INTENSITY_SPEC, HEADLIGHT_INTENSITY_SPEC, HEADLIGHT_INTENSITY_SPEC, 1.0 };
 	GLfloat position[] = {xPos, yPos, 0.05, 1};
 	GLfloat direction1[] = { -0.06, 1, -0.1 };
-	GLfloat direction2[] = { 0.06, 1, -0.1 };
+	GLfloat direction2[] = { 0.06, 1, -0.1};
 
+	/*GLfloat position[] = { 0, 0, 1, 1 };
+	GLfloat direction1[] = { 0, 0, -1 };
+	GLfloat direction2[] = { 0, 0, -1 };*/
 	
 
 	if (_state){

@@ -3,13 +3,9 @@
 #include "GL/Glut.h"
 
 void Table::draw(){
-	glPushMatrix();
-	//glColor3f(0.81960784, 0.8, 1);
-	glScalef(1.5, 1.5, 1.5);
-	glPushMatrix();
-	//glTranslatef(0.0, 0.0, -1.5);
+	
+	glEnable(GL_TEXTURE_2D);
 
-	//glutSolidCube(3);
 	GLfloat ambi[] = { 0.5, 0.5, 1.0, 1.f };
 	GLfloat diff[] = { 0.0, 0.3, 0.74, 1.f };
 	GLfloat spec[] = { 0.6, 0.8, 0.6, 1.f };
@@ -18,26 +14,57 @@ void Table::draw(){
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec);
 
-	glEnable(GL_TEXTURE_2D);
+	int collumn = 0;
+	int row = 0;
 
-	glBegin(GL_QUADS);
-	glNormal3f(0.0, 0.0, 1);
-	
-	glTexCoord2f(0, 0);
-	glVertex3f(-1.5, -1.5, 0.0);
+	float curr_x, curr_y;
 
-	glTexCoord2f(0, 1);
-	glVertex3f(-1.5, 1.5, 0.0);
+	// The drawing begins at point (root_cordinate, root_cordinate)
+	// in the bottom left corner.
+	float root_cordinate = - 1 * TABLE_SIDE / 2;;
 
-	glTexCoord2f(1, 1);
-	glVertex3f(1.5, 1.5, 0.0);
+	curr_y = curr_x = root_cordinate;
 
-	glTexCoord2f(1, 0);
-	glVertex3f(1.5, -1.5, 0.0);
 
-	glEnd();
+	for (row; row < SUBDIVISIONS; row++)
+	{
+		if (row > 0){
+			curr_y += POLYGON_SIDE - 0.001 ;
+			curr_x = root_cordinate;
+		}
 
-	glPopMatrix();
-	glPopMatrix();
+		collumn = 0;
+
+		for (collumn; collumn < SUBDIVISIONS; collumn++)
+		{
+
+			glBegin(GL_QUADS);
+
+			glNormal3f(0.0, 0.0, 1);
+
+			glTexCoord2f(0, 0);
+			glVertex3f(curr_x, curr_y, 0.0);
+
+			glTexCoord2f(1, 0);
+			glVertex3f(curr_x + POLYGON_SIDE, curr_y, 0.0);
+
+			glTexCoord2f(1, 1);
+			glVertex3f(curr_x + POLYGON_SIDE, curr_y + POLYGON_SIDE, 0.0);
+
+			glTexCoord2f(0, 1);
+			glVertex3f(curr_x, curr_y + POLYGON_SIDE, 0.0);
+
+			glEnd();
+
+			curr_x += POLYGON_SIDE;
+
+
+			/*glPopMatrix();*/
+			//glPopMatrix();
+
+		}
+
+	}
+
 	glDisable(GL_TEXTURE_2D);
 }

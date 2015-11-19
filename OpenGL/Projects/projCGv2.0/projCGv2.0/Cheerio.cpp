@@ -26,9 +26,9 @@ void Cheerio::draw()
 
 	//std::cout << "---> Drawing CHEERIO;" << std::endl;
 
-	GLfloat ambi[] = { 0.19, 0.07, 0.2, 1.f };
-	GLfloat diff[] = { 0.7, 0.38, 0.08, 1.f };
-	GLfloat spec[] = { 0.26, 0.14, 0.09, 1.f };
+	GLfloat ambi[] = { 0.5, 0.40, 0.2, 1.f };
+	GLfloat diff[] = { 0.9, 0.6, 0.2, 1.f };
+	GLfloat spec[] = { 0.65, 0.5, 0.25, 1.f };
 	glColor3d(C_COLOR_R, C_COLOR_G, C_COLOR_B);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff);

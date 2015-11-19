@@ -5,7 +5,7 @@
 #include "CollisionBox.h"
 
 #define C_COLOR_R 0.6392156863
-#define C_COLOR_G 0.2980392157
+#define C_COLOR_G 0.40
 #define C_COLOR_B 0
 
 // Representa o raio interior e exterior do torus.

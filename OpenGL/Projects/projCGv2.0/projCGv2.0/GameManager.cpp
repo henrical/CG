@@ -243,7 +243,7 @@ void GameManager::loadBMP(/*char* filename*/){
 	/* load an image file directly as a new OpenGL texture */
 	textures[0] = SOIL_load_OGL_texture
 		(
-		"planks.bmp",
+		"wood.bmp",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_INVERT_Y
@@ -260,6 +260,8 @@ void GameManager::loadBMP(/*char* filename*/){
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	
 
 }

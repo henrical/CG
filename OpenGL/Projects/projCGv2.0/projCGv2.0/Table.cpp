@@ -7,8 +7,8 @@ void Table::draw(){
 	glEnable(GL_TEXTURE_2D);
 
 	GLfloat ambi[] = { 0.5, 0.5, 1.0, 1.f };
-	GLfloat diff[] = { 0.0, 0.3, 0.74, 1.f };
-	GLfloat spec[] = { 0.6, 0.8, 0.6, 1.f };
+	GLfloat diff[] = { 0.0, 0.1, 0.2, 1.f };
+	GLfloat spec[] = { 0.3, 0.4, 0.2, 1.f };
 	//glColor3f(0.5, 0.78, 1.0);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambi);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff);
@@ -42,21 +42,21 @@ void Table::draw(){
 
 			glNormal3f(0.0, 0.0, 1);
 
-			glTexCoord2f(0, 0);
+			glTexCoord2f(TEXT_INF, TEXT_INF);
 			glVertex3f(curr_x, curr_y, 0.0);
 
-			glTexCoord2f(1, 0);
+			glTexCoord2f(TEXT_INF, TEXT_SUP);
 			glVertex3f(curr_x + POLYGON_SIDE, curr_y, 0.0);
 
-			glTexCoord2f(1, 1);
+			glTexCoord2f(TEXT_SUP, TEXT_SUP);
 			glVertex3f(curr_x + POLYGON_SIDE, curr_y + POLYGON_SIDE, 0.0);
 
-			glTexCoord2f(0, 1);
+			glTexCoord2f(TEXT_SUP, TEXT_INF);
 			glVertex3f(curr_x, curr_y + POLYGON_SIDE, 0.0);
 
 			glEnd();
 
-			curr_x += POLYGON_SIDE;
+			curr_x += POLYGON_SIDE - 0.001;
 
 
 			/*glPopMatrix();*/

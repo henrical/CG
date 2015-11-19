@@ -255,8 +255,8 @@ void Car::update(int dt){
 
 
 	//altera a posiçao dos farois, de acordo com a posiçao do carro
-	headlights[0].update(_position->getX() , _position->getY() , 0);
-	headlights[1].update(_position->getX() , _position->getY() , 0);
+	headlights[0].update(_position->getX(), _position->getY(), 0 , direction->getX(), direction->getY());
+	headlights[1].update(_position->getX(), _position->getY(), 0, direction->getX(), direction->getY());
 
 	glFlush();
 

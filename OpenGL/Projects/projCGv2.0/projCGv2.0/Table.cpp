@@ -2,9 +2,14 @@
 #include "Table.h"
 #include "GL/Glut.h"
 
+Table::Table(GLuint text){
+	texture = text;
+}
+
 void Table::draw(){
 	
 	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texture);
 
 	GLfloat ambi[] = { 0.5, 0.5, 1.0, 1.f };
 	GLfloat diff[] = { 0.0, 0.1, 0.2, 1.f };

@@ -8,6 +8,7 @@
 #include "Cheerio.h"
 #include "Orange.h"
 #include "Butter.h"
+#include "GameMessageUI.h"
 #include "Camera.h"
 
 #define VIEW_COLLISION_BOXES 0		//0 para não ver as boxes, 1 para ver
@@ -90,9 +91,14 @@ class GameManager {
 
 		LightSource* luz_cena;
 
+		GameMessageUI interface_window;
+
 		GLuint textures[MAX_TEXTURES];
 
 		int game_difficulty;
+		
+		bool paused;
+		int pause_timestamp;
 
 		int candlelight_active;
 		// Spawn time of last orange

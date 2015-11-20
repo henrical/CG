@@ -52,7 +52,8 @@ class Car : public DynamicObject
 		
 		void restartPosition();
 		
-		
+		bool getHeadlightStatus();
+		void setHeadlights(bool);
 
 		CollisionBox* getBbox();
 

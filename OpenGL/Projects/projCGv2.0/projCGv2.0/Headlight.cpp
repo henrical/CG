@@ -29,7 +29,7 @@ void Headlight::draw(){
 	float yPos = _position->getY();
 
 	float const_aten = 0;
-	float linear_aten = 0;
+	float linear_aten = 50;
 	float quad_aten = 100;
 
 	GLfloat ambient[] = { HEADLIGHT_INTENSITY, HEADLIGHT_INTENSITY, HEADLIGHT_INTENSITY, 1.0 };
@@ -74,6 +74,7 @@ void Headlight::draw(){
 		}
 	}
 	else {
-		
+		glDisable(GL_LIGHT6);
+		glDisable(GL_LIGHT7);
 	}
 }

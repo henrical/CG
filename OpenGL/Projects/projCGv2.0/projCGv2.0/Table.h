@@ -2,20 +2,24 @@
 #define _TABLE_H_
 
 #include "Obstacle.h"
+#include "GL\glut.h"
 
-/* TABLE_SIDE % POLYGON_COMPONENT_SIDE == 0 is a requirement */
 #define TABLE_SIDE 4.5f
-#define SUBDIVISIONS 250
+#define SUBDIVISIONS 250 //250 por 250 poligonos
 
 #define POLYGON_SIDE TABLE_SIDE / SUBDIVISIONS
-//#define VERTEX_DEVIATION_FROM_AXIS POLY
 
 #define TEXT_INF 0
 #define TEXT_SUP 0.7
+
 class Table : public Obstacle
 {
+private:
+	GLuint texture;
+
 public:
 	Table(){}
+	Table(GLuint texture);
 	~Table();
 
 	void draw();

@@ -59,8 +59,9 @@ int main(int argc, char** argv)
 
 	window = glutCreateWindow("MicroMachines alpha v0.1");
 
-	GameManager::instance()->init();
 	GameManager::instance()->loadBMP();
+	GameManager::instance()->init();
+	
 
 	glutDisplayFunc(myDisplay);
 	glutReshapeFunc(myReshape);

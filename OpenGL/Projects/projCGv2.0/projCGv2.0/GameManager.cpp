@@ -20,6 +20,7 @@
 GameManager* GameManager::_instance = nullptr;
 
 GameManager::GameManager()
+	:interface_window(GameMessageUI(0))
 {
 	currtime = 0;
 	prevtime = 0;
@@ -27,6 +28,8 @@ GameManager::GameManager()
 	numObstaculos = 0;
 	numButters = 0;
 	numOranges = 0;
+
+	paused = false;
 
 	camera = 1;
 	wireframe = false;
@@ -204,7 +207,7 @@ int GameManager::init(){
 
 	addObject(new Roadside());
 	addObject(new Car());
-	addObject(new Table());
+	addObject(new Table(textures[0]));
 
 	_lightSources[0] = new Candle(LIGHT1, 0.9, 0.3, 0);
 	_lightSources[1] = new Candle(LIGHT2, -0.8, -0.8, 0);
@@ -230,9 +233,6 @@ int GameManager::init(){
 
 	luz_cena = new LightSource(0, 0, 1);
 
-	std::cout << "Number of obstacles:" << numObstaculos << std::endl;
-	std::cout << "Number of game objects:" << numGameObjects << std::endl;
-
 	return 0;
 }
 
@@ -249,12 +249,28 @@ void GameManager::loadBMP(/*char* filename*/){
 		SOIL_FLAG_INVERT_Y
 		);
 
+	textures[1] = SOIL_load_OGL_texture
+		(
+		"metal.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_INVERT_Y
+		);
+
 	if (textures[0] == 0)
 	{
-		std::cout << "SOIL loading error: " << SOIL_last_result() << std::endl;
+		std::cout << "SOIL loading error: TEXTURE[0]: " << SOIL_last_result() << std::endl;
+	}
+
+	if (textures[1] == 0)
+	{
+		std::cout << "SOIL loading error: TEXTURE[1]: " << SOIL_last_result() << std::endl;
 	}
 
 	glBindTexture(GL_TEXTURE_2D, textures[0]);
+	
+	interface_window.setTexture(textures[1]);
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -268,6 +284,14 @@ void GameManager::loadBMP(/*char* filename*/){
 int GameManager::drawGameObjects(){
 	int i;
 	
+	if (paused)
+		interface_window.draw();
+
+	/*Car* car = (Car*)getObject(CAR);
+	car->draw();
+
+	Table* table = (Table*)_gameObjects[2];
+	table->draw();*/
 
 	//draw game objects
 	for (i = 1; i < numGameObjects; i++){
@@ -362,12 +386,15 @@ void GameManager::keyPressed(unsigned char key){
 	switch (key){
 	case '1':
 		camera = 1;
+		//glutPostRedisplay();
 		break;
 	case '2':
 		camera = 2;
+		//glutPostRedisplay();
 		break;
 	case '3':
 		camera = 3;
+		//glutPostRedisplay();
 		break;
 	case 'a':
 		if (wireframe) {
@@ -395,8 +422,8 @@ void GameManager::keyPressed(unsigned char key){
 		else
 			glShadeModel(GL_SMOOTH);
 		smooth = !smooth;
-	case 'c':
-		
+		break;
+	case 'c':{
 		i = 0;
 		Candle* candle = (Candle*)_lightSources[i];
 
@@ -406,9 +433,24 @@ void GameManager::keyPressed(unsigned char key){
 			i++;
 			candle = (Candle*)_lightSources[i];
 		}
-
-		break;
 	}
+		break;
+	case 's':
+		if (paused)
+			prevtime = glutGet(GLUT_ELAPSED_TIME);
+
+		paused = !paused;
+		glutPostRedisplay();
+		break;
+	case 'h':
+		Car* carro;
+		carro = (Car*)getObject(CAR);
+
+		carro->setHeadlights(!carro->getHeadlightStatus());
+		break;
+
+	}
+
 }
 
 void GameManager::specialPress(int key){
@@ -527,6 +569,10 @@ void GameManager::reshape(int h, int w){
 }
 
 void GameManager::update(){
+	
+	if (paused)
+		return;
+
 	int i = 0;
 	
 	currtime = glutGet(GLUT_ELAPSED_TIME);

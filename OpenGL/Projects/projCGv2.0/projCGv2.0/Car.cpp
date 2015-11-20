@@ -12,6 +12,7 @@ Car::Car(){
 	_speed = new Vector3();
 	_position->set(INIT_POS_X, INIT_POS_Y, INIT_POS_Z);
 	_speed->set(0, 0, 0);
+	direction->set(0, 1, 0);
 	acc = new Vector3();
 	acc->set(0, 0, 0);
 	angle = 0;
@@ -235,6 +236,15 @@ void Car::rodaDireita(){
 void Car::rodaEsquerda(){
 	angle +=0.2;
 	setDirection();
+}
+
+bool Car::getHeadlightStatus(){
+	return headlights[0].getState();
+}
+
+void Car::setHeadlights(bool state){
+	headlights[0].setState(state);
+	headlights[1].setState(state);
 }
 
 void Car::update(int dt){

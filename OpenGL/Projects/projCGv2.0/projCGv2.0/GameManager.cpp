@@ -251,7 +251,7 @@ void GameManager::loadBMP(/*char* filename*/){
 
 	textures[1] = SOIL_load_OGL_texture
 		(
-		"metal.png",
+		"metal2.png",
 		SOIL_LOAD_AUTO,
 		SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_INVERT_Y

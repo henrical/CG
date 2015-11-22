@@ -13,7 +13,7 @@
 #define TORUS_OUTER_RADIUS 0.02
 
 // Multiplica pela movimentação do cheerio quando recebe colisão.
-#define CHEERIO_IMPACT_MOVEMENT_COEFFICIENT 0.5
+#define CHEERIO_IMPACT_MOVEMENT_COEFFICIENT 0.6
 
 #define CHEERIO_BBOX_LENGTH 1.5*TORUS_OUTER_RADIUS //might not be the best function, is smaller than Cheerio.
 

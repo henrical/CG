@@ -12,7 +12,7 @@
 #define BUTTER_SIZE 0.17
 
 // Multiplica pela movimentação da manteiga quando recebe colisão.
-#define BUTTER_IMPACT_MOVEMENT_COEFFICIENT 0.5
+#define BUTTER_IMPACT_MOVEMENT_COEFFICIENT 0.6
 
 // Representa a divisao entre o comprimento do
 // lado mais comprido e o mais curto.

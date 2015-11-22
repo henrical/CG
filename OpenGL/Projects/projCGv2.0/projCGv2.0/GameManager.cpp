@@ -283,15 +283,38 @@ void GameManager::loadBMP(/*char* filename*/){
 }
 int GameManager::drawGameObjects(){
 	int i;
+	Car* car;
 	
+	//desenha o painel de pausa
 	if (paused)
-		interface_window.draw();
+	{
+		switch(camera){
+		case 1:
 
-	/*Car* car = (Car*)getObject(CAR);
-	car->draw();
+			if (interface_window.getCameraId() != 1)
+				interface_window.setCameraId(1);
+			
+			interface_window.draw();
+			break;
+		case 2:
 
-	Table* table = (Table*)_gameObjects[2];
-	table->draw();*/
+			if (interface_window.getCameraId() != 2)
+				interface_window.setCameraId(2);
+
+			interface_window.draw();
+			break;
+		case 3:
+
+			if (interface_window.getCameraId() != 3)
+				interface_window.setCameraId(3);
+
+			car = (Car*)getObject(CAR);
+
+			interface_window.setPosition(car->getPosition()->getX(), car->getPosition()->getY(), 0);
+			interface_window.draw();
+			break;
+		}
+	}
 
 	//draw game objects
 	for (i = 1; i < numGameObjects; i++){

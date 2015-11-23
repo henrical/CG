@@ -23,6 +23,7 @@ public:
 	~Table();
 
 	void draw();
+	void setTexture(GLuint texture);
 
 };
 

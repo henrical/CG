@@ -48,6 +48,7 @@
 
 #define CAR_ACCELERATION 0.0000005
 
+#define NUMBER_LIVES 1
 
 #define INITIAL_ORANGE_SPEED 2
 
@@ -91,13 +92,18 @@ class GameManager {
 
 		LightSource* luz_cena;
 
+		bool paused;
 		GameMessageUI interface_window;
+		
+		int lives;
+		bool game_over;
+		GameMessageUI endgame_window;
+
 
 		GLuint textures[MAX_TEXTURES];
 
 		int game_difficulty;
 		
-		bool paused;
 		int pause_timestamp;
 
 		int candlelight_active;
@@ -138,9 +144,13 @@ class GameManager {
 			return _instance;
 		}
 
+
 		static int viewCollisionBoxes(){
 			return VIEW_COLLISION_BOXES;
 		}
+
+		void restartGame();
+		void resetGameManager();
 
 		void generateOrange();
 

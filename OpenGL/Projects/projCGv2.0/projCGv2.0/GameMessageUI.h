@@ -25,6 +25,7 @@ class GameMessageUI : public GameObject
 	
 	public:
 		GameMessageUI(GLuint);
+		GameMessageUI();
 		void draw();
 		void setTexture(GLuint);
 		void setCameraId(int);

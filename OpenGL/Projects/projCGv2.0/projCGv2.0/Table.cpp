@@ -6,6 +6,11 @@ Table::Table(GLuint text){
 	texture = text;
 }
 
+void Table::setTexture(GLuint text)
+{
+	this->texture = text;
+}
+
 void Table::draw(){
 	
 	glEnable(GL_TEXTURE_2D);

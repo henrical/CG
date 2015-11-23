@@ -19,8 +19,9 @@
 
 GameManager* GameManager::_instance = nullptr;
 
-GameManager::GameManager()
-	:interface_window(GameMessageUI(0))
+GameManager::GameManager():
+	interface_window(GameMessageUI()),
+	endgame_window(GameMessageUI())
 {
 	currtime = 0;
 	prevtime = 0;
@@ -30,6 +31,9 @@ GameManager::GameManager()
 	numOranges = 0;
 
 	paused = false;
+
+	lives = NUMBER_LIVES;
+	game_over = false;
 
 	camera = 1;
 	wireframe = false;
@@ -53,6 +57,49 @@ GameManager::GameManager()
 	while (orange_gen_delta < 1500){
 		orange_gen_delta += 250;
 	}
+}
+
+void GameManager::resetGameManager(){
+	currtime = 0;
+	prevtime = 0;
+	numGameObjects = 0;
+	numObstaculos = 0;
+	numButters = 0;
+	numOranges = 0;
+
+	paused = false;
+
+	lives = NUMBER_LIVES;
+	game_over = false;
+
+	wireframe = false;
+	seta_baixo = seta_cima = seta_direita = seta_esquerda = false;
+
+	iluminacao = true;
+	glEnable(GL_LIGHTING);
+
+	smooth = true;
+
+	game_difficulty = 1;
+
+	memset(_lightSources, 0, sizeof(Candle*)*MAX_LIGHTSOURCES);
+
+	srand(time(NULL));
+
+	orange_timestamp = glutGet(GLUT_ELAPSED_TIME);
+
+	orange_gen_delta = rand() % 5000 + 1;
+
+	while (orange_gen_delta < 1500){
+		orange_gen_delta += 250;
+	}
+
+	this->init();
+}
+
+void GameManager::restartGame(){
+	game_over = true;
+	paused = true;
 }
 
 void GameManager::addOrange(Orange* orange){
@@ -203,11 +250,11 @@ int GameManager::init(){
 	cameras[1] = cam2;
 	cameras[2] = cam3;
 
-	
 
 	addObject(new Roadside());
 	addObject(new Car());
 	addObject(new Table(textures[0]));
+	
 
 	_lightSources[0] = new Candle(LIGHT1, 0.9, 0.3, 0);
 	_lightSources[1] = new Candle(LIGHT2, -0.8, -0.8, 0);
@@ -240,22 +287,32 @@ void GameManager::loadBMP(/*char* filename*/){
 	
 	glGenTextures(1, &textures[0]);
 
-	/* load an image file directly as a new OpenGL texture */
-	textures[0] = SOIL_load_OGL_texture
-		(
-		"wood.bmp",
-		SOIL_LOAD_AUTO,
-		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_INVERT_Y
-		);
+	// floor textures
+	this->textures[0] = SOIL_load_OGL_texture
+			(
+			"wood.bmp",
+			SOIL_LOAD_AUTO,
+			SOIL_CREATE_NEW_ID,
+			SOIL_FLAG_INVERT_Y
+			);
 
-	textures[1] = SOIL_load_OGL_texture
-		(
-		"metal2.png",
-		SOIL_LOAD_AUTO,
-		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_INVERT_Y
-		);
+	//pause window texture
+	this->textures[1] = SOIL_load_OGL_texture
+			(
+			"metal2.png",
+			SOIL_LOAD_AUTO,
+			SOIL_CREATE_NEW_ID,
+			SOIL_FLAG_INVERT_Y
+			);
+
+	//end game window texture
+	this->textures[2] = SOIL_load_OGL_texture
+			(
+			"stones.bmp",
+			SOIL_LOAD_AUTO,
+			SOIL_CREATE_NEW_ID,
+			SOIL_FLAG_INVERT_Y
+			);
 
 	if (textures[0] == 0)
 	{
@@ -267,9 +324,13 @@ void GameManager::loadBMP(/*char* filename*/){
 		std::cout << "SOIL loading error: TEXTURE[1]: " << SOIL_last_result() << std::endl;
 	}
 
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	
+	if (textures[2] == 0)
+	{
+		std::cout << "SOIL loading error: TEXTURE[2]: " << SOIL_last_result() << std::endl;
+	}
+
 	interface_window.setTexture(textures[1]);
+	endgame_window.setTexture(textures[2]);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -277,16 +338,44 @@ void GameManager::loadBMP(/*char* filename*/){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
-	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	
-
 }
 int GameManager::drawGameObjects(){
 	int i;
 	Car* car;
 	
+	if (game_over)
+	{
+		switch (camera){
+		case 1:
+
+			if (endgame_window.getCameraId() != 1)
+				endgame_window.setCameraId(1);
+
+			endgame_window.draw();
+			break;
+		case 2:
+
+			if (endgame_window.getCameraId() != 2)
+				endgame_window.setCameraId(2);
+
+			endgame_window.draw();
+			break;
+		case 3:
+
+			if (endgame_window.getCameraId() != 3)
+				endgame_window.setCameraId(3);
+
+			car = (Car*)getObject(CAR);
+
+			endgame_window.setPosition(car->getPosition()->getX(), car->getPosition()->getY(), 0);
+			endgame_window.draw();
+			break;
+		}
+
+	}
+
 	//desenha o painel de pausa
-	if (paused)
+	if (paused && !game_over)
 	{
 		switch(camera){
 		case 1:
@@ -459,6 +548,9 @@ void GameManager::keyPressed(unsigned char key){
 	}
 		break;
 	case 's':
+		if (game_over)
+			return;
+
 		if (paused)
 			prevtime = glutGet(GLUT_ELAPSED_TIME);
 
@@ -471,7 +563,11 @@ void GameManager::keyPressed(unsigned char key){
 
 		carro->setHeadlights(!carro->getHeadlightStatus());
 		break;
+	case 'r':
 
+		resetGameManager();
+		
+		break;
 	}
 
 }
@@ -711,19 +807,36 @@ void GameManager::update(){
 				{
 					if (carro->getBbox()->getYMin() < orange->getBbox()->getYMax())
 					{
-						carro->restartPosition();
+						lives--;
+
+						if (lives == 0)
+							restartGame();
+						else
+							carro->restartPosition();
+
 					}
 
 				}
 			}
 		}
 
-		if (orange->getPosition()->getX() >= 2.3 || orange->getPosition()->getX() <= -2.3 || orange->getPosition()->getY() >= 2.3 || orange->getPosition()->getY() <= -2.3)
+		if (orange->getPosition()->getX() >= 2.0 || orange->getPosition()->getX() <= -2.3 || orange->getPosition()->getY() >= 2.0 || orange->getPosition()->getY() <= -2.3)
 			orange->destroy();
 
 	}
 
+	//check if car is off table limits
+	if (carro->getPosition()->getX() >= 2.0  || carro->getPosition()->getX() <= -2.3 ||
+		carro->getPosition()->getY() >= 2.0  || carro->getPosition()->getY() <= -2.3)
+	{
+		lives--;
 
+		if (lives == 0)
+			restartGame();
+		else
+			carro->restartPosition();
+	}
+		
 
 	
 	currtime = glutGet(GLUT_ELAPSED_TIME);

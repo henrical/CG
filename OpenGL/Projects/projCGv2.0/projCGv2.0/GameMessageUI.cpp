@@ -1,6 +1,13 @@
 #include <iostream>
 #include "GameMessageUI.h"
 
+
+GameMessageUI::GameMessageUI()
+{
+	camera_id = 1;
+	_position->set(0, 0, 0);
+}
+
 GameMessageUI::GameMessageUI(GLuint text)
 	:texture(text)
 {

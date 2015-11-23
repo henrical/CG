@@ -125,6 +125,8 @@ class GameManager {
 		bool iluminacao;
 		bool smooth;
 
+		int lastGameResetTimestamp;
+
 	//Private Methods
 	private:
 		GameManager();
@@ -150,7 +152,7 @@ class GameManager {
 		}
 
 		void restartGame();
-		void resetGameManager();
+		void resetGame();
 
 		void generateOrange();
 

@@ -57,9 +57,11 @@ GameManager::GameManager():
 	while (orange_gen_delta < 1500){
 		orange_gen_delta += 250;
 	}
+	
+	lastGameResetTimestamp = glutGet(GLUT_ELAPSED_TIME);
 }
 
-void GameManager::resetGameManager(){
+void GameManager::resetGame(){
 	currtime = 0;
 	prevtime = 0;
 	numGameObjects = 0;
@@ -67,10 +69,8 @@ void GameManager::resetGameManager(){
 	numButters = 0;
 	numOranges = 0;
 
-	paused = false;
-
 	lives = NUMBER_LIVES;
-	game_over = false;
+	
 
 	wireframe = false;
 	seta_baixo = seta_cima = seta_direita = seta_esquerda = false;
@@ -95,6 +95,11 @@ void GameManager::resetGameManager(){
 	}
 
 	this->init();
+
+	lastGameResetTimestamp = glutGet(GLUT_ELAPSED_TIME);
+
+	game_over = false;
+	paused = false;
 }
 
 void GameManager::restartGame(){
@@ -123,8 +128,6 @@ void GameManager::generateOrange(){
 	int rand_binary_y;
 
 	rand_binary_y = rand() % 2;
-
-	/*std::cout << "GENERATING ORANGE! " << "[" << rand_binary_x << ", " << rand_binary_y << "];" << std::endl;*/
 
 	float init_x;
 	float init_y;
@@ -174,9 +177,6 @@ void GameManager::generateOrange(){
 	} while (vel_y < 1);
 
 	vel_y = vel_y / 10000;
-
-
-	std::cout << "GENERATING ORANGE at " << "[" << init_x << ", " << init_y << "];" << std::endl;
 	
 	Orange* orange;
 
@@ -299,7 +299,7 @@ void GameManager::loadBMP(/*char* filename*/){
 	//pause window texture
 	this->textures[1] = SOIL_load_OGL_texture
 			(
-			"metal2.png",
+			"brick.bmp",
 			SOIL_LOAD_AUTO,
 			SOIL_CREATE_NEW_ID,
 			SOIL_FLAG_INVERT_Y
@@ -308,7 +308,7 @@ void GameManager::loadBMP(/*char* filename*/){
 	//end game window texture
 	this->textures[2] = SOIL_load_OGL_texture
 			(
-			"stones.bmp",
+			"planks2.bmp",
 			SOIL_LOAD_AUTO,
 			SOIL_CREATE_NEW_ID,
 			SOIL_FLAG_INVERT_Y
@@ -565,7 +565,8 @@ void GameManager::keyPressed(unsigned char key){
 		break;
 	case 'r':
 
-		resetGameManager();
+		if (game_over)
+			resetGame();
 		
 		break;
 	}
@@ -696,21 +697,21 @@ void GameManager::update(){
 	
 	currtime = glutGet(GLUT_ELAPSED_TIME);
 
-	if (currtime > 15000)
+	if (currtime > 15000 + lastGameResetTimestamp)
 	{
 		game_difficulty = 2;
 
-		if (currtime > 30000)
+		if (currtime > 30000 + lastGameResetTimestamp)
 		{
 			game_difficulty = 3;
 
-			if (currtime > 45000)
+			if (currtime > 45000 + lastGameResetTimestamp)
 			{
 				game_difficulty = 4;
+				
 			}
 		}
 	}
-
 
 	Car* carro;
 	carro = (Car*)getObject(CAR);

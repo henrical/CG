@@ -70,9 +70,6 @@
  * Singleton GameManager class.
  * This class has only one instance.
  * 
- * How to use:
- * 
- * GameManager::instance()->key_pressed();
  *
  **/
 class GameManager {
@@ -105,6 +102,7 @@ class GameManager {
 		int game_difficulty;
 		
 		int pause_timestamp;
+		
 
 		int candlelight_active;
 		// Spawn time of last orange
@@ -119,7 +117,7 @@ class GameManager {
 		int numOranges;
 		int numButters;
 		int numGameObjects, prevtime, currtime;
-		bool gameHasStarted = false;
+
 		bool wireframe;
 		bool seta_cima, seta_baixo, seta_esquerda, seta_direita;
 		bool iluminacao;

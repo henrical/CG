@@ -73,7 +73,7 @@ void GameManager::resetGame(){
 	
 
 	wireframe = false;
-	seta_baixo = seta_cima = seta_direita = seta_esquerda = false;
+	//seta_baixo = seta_cima = seta_direita = seta_esquerda = false;
 
 	iluminacao = true;
 	glEnable(GL_LIGHTING);
@@ -83,6 +83,10 @@ void GameManager::resetGame(){
 	game_difficulty = 1;
 
 	memset(_lightSources, 0, sizeof(Candle*)*MAX_LIGHTSOURCES);
+	memset(oranges, 0, sizeof(Orange*)*MAX_ORANGES);
+	memset(butters, 0, sizeof(Butter*)*MAX_BUTTERS);
+	memset(obstacles, 0, sizeof(Cheerio*)*MAX_CHEERIOS);
+
 
 	srand(time(NULL));
 
@@ -98,13 +102,16 @@ void GameManager::resetGame(){
 
 	lastGameResetTimestamp = glutGet(GLUT_ELAPSED_TIME);
 
-	game_over = false;
+	
 	paused = false;
+	game_over = false;
 }
+
 
 void GameManager::restartGame(){
 	game_over = true;
 	paused = true;
+
 }
 
 void GameManager::addOrange(Orange* orange){
@@ -250,6 +257,7 @@ int GameManager::init(){
 	cameras[1] = cam2;
 	cameras[2] = cam3;
 
+	
 
 	addObject(new Roadside());
 	addObject(new Car());
@@ -494,7 +502,7 @@ void GameManager::display(){
 
 void GameManager::keyPressed(unsigned char key){
 	int i;
-	
+
 	switch (key){
 	case '1':
 		camera = 1;
@@ -554,6 +562,11 @@ void GameManager::keyPressed(unsigned char key){
 		if (paused)
 			prevtime = glutGet(GLUT_ELAPSED_TIME);
 
+		/*seta_baixo = false;
+		seta_cima = false;
+		seta_direita = false;
+		seta_esquerda = false;
+*/
 		paused = !paused;
 		glutPostRedisplay();
 		break;
@@ -574,37 +587,44 @@ void GameManager::keyPressed(unsigned char key){
 }
 
 void GameManager::specialPress(int key){
+
 	Car* carro;
 	carro = (Car*)getObject(CAR); //REMOVE
 
 	switch (key){
 	case GLUT_KEY_UP:
-		if (seta_cima)
+
+		if (seta_cima){
 			seta_cima = false;
+		}
 		else
 			seta_cima = true;
 		break;
 	case GLUT_KEY_DOWN:
-		if (seta_baixo)
+		if (seta_baixo){
 			seta_baixo = false;
+		}
 		else
 			seta_baixo = true;
 		break;
 	case GLUT_KEY_RIGHT:
-		if (seta_direita)
+		if (seta_direita){
 			seta_direita = false;
+		}
 		else
 			seta_direita = true;
 		break;
 	case GLUT_KEY_LEFT:
-		if (seta_esquerda)
+		if (seta_esquerda){
 			seta_esquerda = false;
+		}
 		else
 			seta_esquerda = true;
 		break;
 	}
 }
 void GameManager::specialUp(int key){
+
 	Car* carro;
 	carro = (Car*)getObject(CAR);//REMOVE
 
@@ -694,6 +714,8 @@ void GameManager::update(){
 		return;
 
 	int i = 0;
+
+	std::cout << seta_cima << std::endl;
 	
 	currtime = glutGet(GLUT_ELAPSED_TIME);
 
@@ -715,6 +737,8 @@ void GameManager::update(){
 
 	Car* carro;
 	carro = (Car*)getObject(CAR);
+
+	std::cout << carro->getPosition()->getX() << ", " << carro->getPosition()->getY() << std::endl;
 
 	Cheerio* obstacles_hit[MAX_CHEERIOS];
 	int number_obstacles_hit = 0;
@@ -827,17 +851,22 @@ void GameManager::update(){
 	}
 
 	//check if car is off table limits
-	if (carro->getPosition()->getX() >= 2.0  || carro->getPosition()->getX() <= -2.3 ||
-		carro->getPosition()->getY() >= 2.0  || carro->getPosition()->getY() <= -2.3)
+	if (carro->getPosition()->getX() >= 2.0 || carro->getPosition()->getX() <= -2.3 ||
+		carro->getPosition()->getY() >= 2.0 || carro->getPosition()->getY() <= -2.3)
 	{
-		lives--;
+		if (glutGet(GLUT_ELAPSED_TIME) - lastGameResetTimestamp > 1000){
+			lives--;
 
-		if (lives == 0)
-			restartGame();
+			if (lives == 0)
+				restartGame();
+			else
+				carro->restartPosition();
+
+		}
 		else
 			carro->restartPosition();
+
 	}
-		
 
 	
 	currtime = glutGet(GLUT_ELAPSED_TIME);

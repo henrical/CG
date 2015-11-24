@@ -678,18 +678,23 @@ void GameManager::reshape(int h, int w){
 
 	// Set Viewport: start at (0,0)
 	// and size of the whole window
-	glViewport(0, 0, w, h);
+	glViewport(0, 0, w/2, h/2);
+
+	//Pushes Model-View matrix to top of the stack.
+	//Loads identity matrix.
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
 	//Pushes Projection matrix to top of the stack.
 	//Loads identity matrix.
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	//Pushes Model-View matrix to top of the stack.
-	//Loads identity matrix.
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
+	
+	glOrtho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
+	
+	
+	glViewport(0, 0, w, h);
 	// Define  ortho projection.
 	// Allow window resizing.
 	if (aspect > wh_ratio)

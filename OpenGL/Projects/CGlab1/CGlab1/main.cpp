@@ -118,7 +118,7 @@ void display()
 	//GREEN
 	//glColor3f(0.0f, 1.0f, 0.0f);
 
-
+	glColor3f(1.0, 0.0, 0.0);
 	glBegin(GL_POLYGON);
 	glVertex3f(-2.0f, -2.0f, 0.0f);
 	glVertex3f(0.0f, -2.0f, 0.0f);
@@ -141,7 +141,7 @@ void reshape(int h, int w)
 	float top, right, bottom, left ;
 	float delta;
 
-	left = 2., right = -2., bottom = 2., top = -2.;
+	left = 3., right = -3., bottom = 3., top = -3.;
 
 	// Width Height Ratio
 	float wh_ratio = (right-left) - (top-bottom); // ratio = 0
@@ -153,13 +153,20 @@ void reshape(int h, int w)
 
 	// Set Viewport: start at (0,0)
 	// and size of the whole window
-	glViewport(0, 0, w, h);
+	glViewport(0, 0, w/2, h/2);
 
 	//Pushes Projection matrix to top of the stack.
 	//Loads identity matrix.
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
+	gluOrtho2D(left, right, bottom, top);
+
+	glViewport(w/2, h/2, w , h );
+
+	glPushMatrix();
+	gluOrtho2D(left, right, bottom, top);
+	glPopMatrix();
 	//Pushes Model-View matrix to top of the stack.
 	//Loads identity matrix.
 	glMatrixMode(GL_MODELVIEW);
@@ -167,23 +174,23 @@ void reshape(int h, int w)
 
 	// Define  ortho projection.
 	// Allow window resizing.
-	if (aspect > wh_ratio)
-	{
-		delta = ((top - bottom) * aspect - (right - left)) / 2;
-		printWindowAspect(aspect, delta);
+	//if (aspect > wh_ratio)
+	//{
+	//	delta = ((top - bottom) * aspect - (right - left)) / 2;
+	//	printWindowAspect(aspect, delta);
 
-		gluOrtho2D(left - delta, right + delta, bottom, top);
+	//	gluOrtho2D(left - delta, right + delta, bottom, top);
 
-	} else {
+	//} else {
 
-		delta = ((top - bottom) / aspect - (right - left)) / 2;
-		printWindowAspect(aspect, delta);
+	//	delta = ((top - bottom) / aspect - (right - left)) / 2;
+	//	printWindowAspect(aspect, delta);
 
-		gluOrtho2D(left, right , bottom - delta, top + delta);
-	}
+	//	gluOrtho2D(left, right , bottom - delta, top + delta);
+	//}
 
 
-	gluOrtho2D(left, right, bottom, top);
+	
 
 }
 
